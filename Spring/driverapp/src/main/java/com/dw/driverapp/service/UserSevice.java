@@ -37,8 +37,8 @@ public class UserSevice {
                         userDTO.getBirthdate(),
                         authorityRepository.findById("User")
                                 .orElseThrow(()->new ResourceNotFoundException("NO ROLE")),
-                        userDTO.getPoint(),
-                        LocalDateTime.now())
+
+
         ).toDTO();
 }
 }
