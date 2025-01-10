@@ -14,12 +14,13 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class UserSevice {
+public class UserService {
 
     @Autowired
     UserRepository userRepository;
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
     AuthorityRepository authorityRepository;
 
@@ -27,7 +28,7 @@ public class UserSevice {
         Optional<User> user = userRepository.findById(userDTO.getUserName());
         if (user.isPresent()) {
             throw new InvalidRequestException("입력하신 정보가 이미 존재합니다.");
-    }
+        }
         return userRepository.save(
                 new User(
                         userDTO.getUserName(),
@@ -36,9 +37,9 @@ public class UserSevice {
                         userDTO.getRealName(),
                         userDTO.getBirthdate(),
                         authorityRepository.findById("User")
-                                .orElseThrow(()->new ResourceNotFoundException("NO ROLE")),
-
-
+                                .orElseThrow(() -> new ResourceNotFoundException("NO ROLE")),
+                        LocalDateTime.now(),
+                        userDTO.getPoint())
         ).toDTO();
-}
+    }
 }
