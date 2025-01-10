@@ -41,7 +41,7 @@ public class Subject {
    private List<Video>videoList = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name="user_name")
+    @JoinColumn(name="instructor_name")
     private User user_fk;
 
 }
