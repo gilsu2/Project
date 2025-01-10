@@ -7,6 +7,7 @@ import com.dw.driverapp.model.User;
 import com.dw.driverapp.repository.AuthorityRepository;
 import com.dw.driverapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,7 +20,6 @@ public class UserSevice {
     UserRepository userRepository;
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
-
     @Autowired
     AuthorityRepository authorityRepository;
 
