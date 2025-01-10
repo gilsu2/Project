@@ -17,6 +17,9 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "board_comment")
-    private Board board;
+    @JoinColumn(name="user_name")
+    private User user;
+    @Column(name = "comment", nullable = false, columnDefinition = "TEXT") // 65535 byte
+    private String comment;
+
 }

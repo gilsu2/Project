@@ -3,6 +3,9 @@ package com.dw.driverapp.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -17,4 +20,7 @@ public class Type {
     private Long id;
     @Column(name="name")
     private String name;
+
+    @ManyToMany(mappedBy = "typeList")
+    private List<Subject>subjectList = new ArrayList<>();
 }

@@ -16,6 +16,6 @@ public class Video {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="video_url")
+    @Column(name="video_url",nullable = false)
     private String videoUrl;
 }

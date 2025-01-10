@@ -22,8 +22,11 @@ public class Subject {
     @Column(name="explanation")
     private String explanation;
 
-    @OneToMany
-    @JoinColumn(name="type_name")
+
+    @ManyToMany
+    @JoinTable(name = "subject_type",
+            joinColumns = @JoinColumn(name = "subject_id"),
+            inverseJoinColumns = @JoinColumn(name = "type_id"))
     private List<Type> typeList = new ArrayList<>();
 
     @Column(name="price")
