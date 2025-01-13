@@ -22,7 +22,6 @@ public class Subject {
     @Column(name="explanation")
     private String explanation;
 
-
     @ManyToMany
     @JoinTable(name = "subject_type",
             joinColumns = @JoinColumn(name = "subject_id"),

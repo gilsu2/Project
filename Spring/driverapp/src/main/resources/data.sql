@@ -1,15 +1,47 @@
 -- 권한
-INSERT INTO 권한 (authority_name) VALUES ('ADMIN');
-INSERT INTO 권한 (authority_name) VALUES ('USER');
-INSERT INTO 권한 (authority_name) VALUES ('INSTRUCTOR');
+-- INSERT INTO 권한 (authority_name) VALUES ('ADMIN');
+-- INSERT INTO 권한 (authority_name) VALUES ('USER');
+-- INSERT INTO 권한 (authority_name) VALUES ('INSTRUCTOR');
 
 -- 게시판
 
 -- 공지사항
-INSERT INTO  (title, content, user_name, created_date, modified_date, is_active)
+--INSERT INTO 공지사항 (title, content, created_date)
+--VALUES
+--    ('긴급 휴강 안내', '강사님의 사정으로 인해 2025.01.01은 휴강으로 조정 되었습니다.', NOW()),
+--    ('새해맞이 이벤트 안내', '새해를 맞아 학업에 지친 수강생님들을 위해 조식 떡국 제공 이벤트를 진행 합니다.',NOW());
+
+ --과목
+INSERT INTO 과목 (title, explanation, price, instructor_name)
+VALUES('1종 자동.1종 수동 면허','')
+
+
+-- 사용자
+INSERT INTO 사용자 (user_name, password, email, real_name, user_birthdate, user_authority, createdAt, point)
 VALUES
-    ('중요 공지: 사이트 점검 안내', '다음 주 일요일 오전 2시부터 6시까지 사이트 점검이 진행됩니다. 이용에 불편을 드려 죄송합니다.', 'admin', NOW(), NOW(), true),
-    ('새로운 기능 추가 안내', '회원 정보 수정 기능이 추가되었습니다. 마이페이지에서 이용해주세요.', 'admin', NOW(), NOW(), true),
-    ('이벤트 참여 안내', '새로운 이벤트가 시작되었습니다! 많은 참여 부탁드립니다. 자세한 내용은 이벤트 페이지에서 확인하세요.', 'admin', NOW(), NOW(), true),
-    ('오늘 저녁 뭐 먹지?', '오늘 저녁 메뉴 추천 부탁드려요! 뭘 먹어야 할지 고민이네요.', 'steve12', NOW(), NOW(), true),
-    ('주말에 뭐하고 놀지?', '주말에 뭐하고 놀지 좋은 곳 있으면 추천해주세요.', 'steve12', NOW(), NOW(), true);
+    ('pengsoo', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I3RdLtW0P6/CXdEnCm', 'pengsoo@email.com', '백병열' , '1999-09-09', 'ADMIN', NOW(), '10000');
+    ('totoro', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I3RdLtW0P6/CXdEnCm', 'totoro@email.com', '강준우',  '1999-05-24', 'USER', NOW(), '20000');
+    ('fourbie', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I3RdLtW0P6/CXdEnCm', 'fourbie@email.com', '정길수', '1999-06-06', 'INSTRUCTOR', NOW(), '30000');
+
+---- 자동차종류
+--INSERT INTO 자동차종류 (name)
+--VALUES
+--('승용차'),
+--('1톤화물차'),
+--('대형버스'),
+--('오토바이 125CC 이상고배기량');
+--
+---- 이미지
+--INSERT INTO 이미지 (image_url)
+--VALUES
+--('car photo_url'),
+--('motor cycle photo_url'),
+--('bus photo_url');
+--
+---- 비디오
+--INSERT INTO 비디오 (video_url,subject_video)
+--VALUES
+--('Study video_url(1종보통)'),
+--('Study video_url(2종보통)'),
+--('Study video_url(1종대형)'),
+--('Study video_url(2종소형)');
