@@ -11,13 +11,13 @@ VALUES
 -- 사용자
 INSERT INTO 사용자 (user_name, password, email, real_name, birthdate, user_authority, created_at, point)
 VALUES
-    ('admin', '1234','admin1234@gmail.com','관리자','1999-01-01','ADMIN',NOW(),900000),
+    ('admin', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I3RdLtW0P6/CXdEnCm','admin1234@gmail.com','관리자','1999-01-01','ADMIN',NOW(),900000),
     ('pengsoo', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I3RdLtW0P6/CXdEnCm', 'pengsoo@email.com', '백병열' , '1999-09-09', 'ADMIN', NOW(), 10000),
     ('totoro', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I3RdLtW0P6/CXdEnCm', 'totoro@email.com', '강준우',  '1999-05-24', 'ADMIN', NOW(), 20000),
     ('fourbie', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I3RdLtW0P6/CXdEnCm', 'fourbie@email.com', '정길수', '1999-06-06', 'USER', NOW(), 30000),
-    ('pororo', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUjTTt7nP8I3RdLtW0P6/CXdEnCm', 'pororo@email.com', '김성우', '1999-06-09', 'USER', NOW(), 15000),
-    ('panda', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I36/CXdEnCm', 'panda@email.com', '정강철', '1994-11-11', 'INSTRUCTOR', NOW(), 17000),
-    ('eddie', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUX8I3RdLtW0P6/CXdEnCm', 'eddie@email.com', '남재우', '1995-09-21', 'INSTRUCTOR', NOW(), 19000);
+    ('pororo', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I3RdLtW0P6/CXdEnCm', 'pororo@email.com', '김성우', '1999-06-09', 'USER', NOW(), 15000),
+    ('panda', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I3RdLtW0P6/CXdEnCm', 'panda@email.com', '정강철', '1994-11-11', 'INSTRUCTOR', NOW(), 17000),
+    ('eddie', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I3RdLtW0P6/CXdEnCm', 'eddie@email.com', '남재우', '1995-09-21', 'INSTRUCTOR', NOW(), 19000);
 
 --과목
 INSERT INTO 과목 (title, explanation, price, instructor_name)
@@ -80,7 +80,7 @@ VALUES
 ('Study video_url(2종소형)',4);
 
 
--- 수강신청
+ --수강신청
 INSERT INTO 수강신청 (user_name, subject_id, purchase_time)
 VALUES ('fourbie', 1 ,'2025-01-02 10:00:00'),
        ('pororo', 2 ,'2025-01-02 11:00:00');
