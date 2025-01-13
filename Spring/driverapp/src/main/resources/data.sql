@@ -86,7 +86,7 @@ VALUES ('fourbie', 1 ,'2025-01-02 10:00:00'),
 
 -- 장바구니
 INSERT INTO 장바구니 (subject_id,user_name)
-VALUES (2,'totoro')
+VALUES (2,'totoro');
 
 -- subject_type
 INSERT INTO subject_type (subject_id,type_id)
@@ -119,5 +119,7 @@ VALUES
 (4,22);
 
 
-
+-- 데이터 삭제 후 id를 1부터 다시 삽입하는 법
+--DELETE FROM 자동차종류;
+--ALTER TABLE 자동차종류 AUTO_INCREMENT = 1;
 
