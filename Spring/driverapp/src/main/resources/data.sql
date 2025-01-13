@@ -11,6 +11,7 @@ VALUES
 -- 사용자
 INSERT INTO 사용자 (user_name, password, email, real_name, birthdate, user_authority, created_at, point)
 VALUES
+    ('admin', '1234','admin1234@gmail.com','관리자','1999-01-01','ADMIN',NOW(),900000),
     ('pengsoo', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I3RdLtW0P6/CXdEnCm', 'pengsoo@email.com', '백병열' , '1999-09-09', 'ADMIN', NOW(), 10000),
     ('totoro', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I3RdLtW0P6/CXdEnCm', 'totoro@email.com', '강준우',  '1999-05-24', 'ADMIN', NOW(), 20000),
     ('fourbie', '$2b$12$A0kgVpplgbH3ZZ1E89441eacUXljTTt7nP8I3RdLtW0P6/CXdEnCm', 'fourbie@email.com', '정길수', '1999-06-06', 'USER', NOW(), 30000),
@@ -71,7 +72,7 @@ VALUES
 ('bus photo_url');
 
 -- 비디오
-INSERT INTO 비디오 (video_url,subject_video)
+INSERT INTO 비디오 (video_url,subject_id)
 VALUES
 ('Study video_url(1종보통)',1),
 ('Study video_url(2종보통)',2),
