@@ -6,6 +6,7 @@ import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.exception.UnauthorizedUserException;
 import com.dw.driverapp.model.User;
 import com.dw.driverapp.repository.AuthorityRepository;
+import com.dw.driverapp.repository.SubjectRepository;
 import com.dw.driverapp.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -24,6 +25,8 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    SubjectRepository subjectRepository;
 
     @Autowired
     AuthorityRepository authorityRepository;
@@ -44,6 +47,7 @@ public class UserService {
                                 .orElseThrow(() -> new ResourceNotFoundException("권한 없음")),
                         LocalDateTime.now(),
                         10000)
+
         ).toDTO();// 회원가입
     }
 

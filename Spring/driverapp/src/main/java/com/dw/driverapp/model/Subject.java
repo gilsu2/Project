@@ -26,6 +26,7 @@ public class Subject {
     private List<Image> imageList = new ArrayList<>();
 
 
+
     @ManyToMany
     @JoinTable(name = "subject_type",
             joinColumns = @JoinColumn(name = "subject_id"),

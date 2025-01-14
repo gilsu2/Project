@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,6 +36,8 @@ public class User {
     private LocalDateTime createdAt;
     @Column(name="point")
     private int point;
+
+
 
 
     public UserDTO toDTO(){
