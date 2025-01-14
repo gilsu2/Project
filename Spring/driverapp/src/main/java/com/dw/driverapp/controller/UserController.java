@@ -62,12 +62,8 @@ public class UserController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/currentbyuser")
-    public ResponseEntity<UserDTO> getCurrentByUser(HttpServletRequest request) {
-        User user = userService.getCurrentByUser(request);
-        return new ResponseEntity<>(user.toDTO(), HttpStatus.OK);
 
     }
-}
+
 
 

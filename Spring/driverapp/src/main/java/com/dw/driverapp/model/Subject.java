@@ -21,6 +21,10 @@ public class Subject {
     private String title;
     @Column(name="explanation")
     private String explanation;
+    @OneToMany
+    @JoinColumn(name="image_id")
+    private List<Image> imageList = new ArrayList<>();
+
 
 <<<<<<< HEAD:driverapp/src/main/java/com/dw/driverapp/model/Subject.java
 
@@ -38,8 +42,11 @@ public class Subject {
     
 =======
 
+<<<<<<< HEAD
 >>>>>>> 7ec4261332130e13f83b0eb73886cdfa083bbeb1:Spring/driverapp/src/main/java/com/dw/driverapp/model/Subject.java
 
+=======
+>>>>>>> 63db3f52693baf4e1ff38e8610a66374842400de
     @ManyToOne
     @JoinColumn(name="instructor_name")
     private User user_fk;

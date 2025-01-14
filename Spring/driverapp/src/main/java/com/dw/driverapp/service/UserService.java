@@ -56,15 +56,7 @@ public class UserService {
         return passwordEncoder.matches(password, user.getPassword());
     }
 
-    public User getCurrentByUser(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            throw new UnauthorizedUserException("사용자가 없습니다.");
-        }
-        String userName = (String) session.getAttribute("username");
-        return userRepository.findById(userName)
-                .orElseThrow(()->new InvalidRequestException("No username"));
     }
-}
+
 
 

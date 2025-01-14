@@ -19,6 +19,6 @@ public class Video {
     @Column(name="video_url",nullable = false)
     private String videoUrl;
     @ManyToOne
-    @JoinColumn(name="subject_video")
-    private Subject subject_fk;
+    @JoinColumn(name="subject_id")
+    private Subject subject_fk; // 외래키로 과목의 타이틀을 불러옴
 }
