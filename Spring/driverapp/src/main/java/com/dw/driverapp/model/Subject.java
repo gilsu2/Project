@@ -24,31 +24,14 @@ public class Subject {
     @OneToMany
     @JoinColumn(name="image_id")
     private List<Image> imageList = new ArrayList<>();
-
-
-<<<<<<< HEAD:driverapp/src/main/java/com/dw/driverapp/model/Subject.java
-
-=======
->>>>>>> 7ec4261332130e13f83b0eb73886cdfa083bbeb1:Spring/driverapp/src/main/java/com/dw/driverapp/model/Subject.java
     @ManyToMany
     @JoinTable(name = "subject_type",
             joinColumns = @JoinColumn(name = "subject_id"),
             inverseJoinColumns = @JoinColumn(name = "type_id"))
     private List<Type> typeList = new ArrayList<>();
-
     @Column(name="price")
     private double price;
-<<<<<<< HEAD:driverapp/src/main/java/com/dw/driverapp/model/Subject.java
-    
-=======
-
-<<<<<<< HEAD
->>>>>>> 7ec4261332130e13f83b0eb73886cdfa083bbeb1:Spring/driverapp/src/main/java/com/dw/driverapp/model/Subject.java
-
-=======
->>>>>>> 63db3f52693baf4e1ff38e8610a66374842400de
     @ManyToOne
     @JoinColumn(name="instructor_name")
     private User user_fk;
-
 }
