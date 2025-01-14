@@ -24,6 +24,11 @@ public class Subject {
     @OneToMany
     @JoinColumn(name="image_id")
     private List<Image> imageList = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name="subject_user",
+    joinColumns = @JoinColumn(name = "subject_id"),
+    inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User>userList = new ArrayList<>();
 
 
 

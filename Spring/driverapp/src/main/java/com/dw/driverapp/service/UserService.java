@@ -31,25 +31,7 @@ public class UserService {
     @Autowired
     AuthorityRepository authorityRepository;
 
-    public UserDTO registerUser(UserDTO userDTO) {
-        Optional<User> user = userRepository.findById(userDTO.getUserName());
-        if (user.isPresent()) {
-            throw new InvalidRequestException("입력하신 정보가 이미 존재합니다.");
-        }
-        return userRepository.save(
-                new User(
-                        userDTO.getUserName(),
-                        passwordEncoder.encode(userDTO.getPassword()),
-                        userDTO.getEmail(),
-                        userDTO.getRealName(),
-                        userDTO.getBirthdate(),
-                        authorityRepository.findById("User")
-                                .orElseThrow(() -> new ResourceNotFoundException("권한 없음")),
-                        LocalDateTime.now(),
-                        10000)
 
-        ).toDTO();// 회원가입
-    }
 
     public List<User> getAllUser() {
         return userRepository.findAll(); // 회원정보 조회

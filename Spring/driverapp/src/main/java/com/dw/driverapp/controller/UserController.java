@@ -22,10 +22,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/users/register")
-    public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
-        return new ResponseEntity<>(userService.registerUser(userDTO), HttpStatus.CREATED);
-    }
 
     @GetMapping("/user/me")
     public ResponseEntity<List<User>> getAllUser() {
