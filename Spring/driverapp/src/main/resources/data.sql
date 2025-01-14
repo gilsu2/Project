@@ -36,7 +36,9 @@ VALUES
 
 -- 답글
 INSERT INTO 답글 (user_name, comment,board_id)
-VALUES ('pengsoo','ㅇㅇ',1);
+VALUES
+('pengsoo','ㅇㅇ',1),
+('totoro','ㄴㄴ',1);
 
 -- 자동차종류
 INSERT INTO 자동차종류 (name)
@@ -87,7 +89,9 @@ VALUES ('fourbie', 1 ,'2025-01-02 10:00:00'),
 
 -- 장바구니
 INSERT INTO 장바구니 (subject_id,user_name)
-VALUES (2,'totoro');
+VALUES
+(2,'totoro'),
+(1,'totoro');
 
 -- subject_type
 INSERT INTO subject_type (subject_id,type_id)
