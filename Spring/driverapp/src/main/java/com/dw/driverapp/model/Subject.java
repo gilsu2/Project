@@ -22,7 +22,10 @@ public class Subject {
     @Column(name="explanation")
     private String explanation;
 
+<<<<<<< HEAD:driverapp/src/main/java/com/dw/driverapp/model/Subject.java
 
+=======
+>>>>>>> 7ec4261332130e13f83b0eb73886cdfa083bbeb1:Spring/driverapp/src/main/java/com/dw/driverapp/model/Subject.java
     @ManyToMany
     @JoinTable(name = "subject_type",
             joinColumns = @JoinColumn(name = "subject_id"),
@@ -31,7 +34,11 @@ public class Subject {
 
     @Column(name="price")
     private double price;
+<<<<<<< HEAD:driverapp/src/main/java/com/dw/driverapp/model/Subject.java
     
+=======
+
+>>>>>>> 7ec4261332130e13f83b0eb73886cdfa083bbeb1:Spring/driverapp/src/main/java/com/dw/driverapp/model/Subject.java
 
     @ManyToOne
     @JoinColumn(name="instructor_name")
