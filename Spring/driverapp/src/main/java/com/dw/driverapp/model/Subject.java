@@ -21,6 +21,10 @@ public class Subject {
     private String title;
     @Column(name="explanation")
     private String explanation;
+    @OneToMany
+    @JoinColumn(name="image_id")
+    private List<Image> imageList = new ArrayList<>();
+
 
     @ManyToMany
     @JoinTable(name = "subject_type",
