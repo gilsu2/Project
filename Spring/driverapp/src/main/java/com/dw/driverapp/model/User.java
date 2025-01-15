@@ -36,8 +36,7 @@ public class User {
     private LocalDateTime createdAt;
     @Column(name="point")
     private int point;
-    @ManyToMany(mappedBy = "userList")
-    private List<Subject>subjectList = new ArrayList<>();
+
 
 
 
