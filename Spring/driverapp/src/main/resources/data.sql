@@ -28,18 +28,6 @@ VALUES
     ('2종 소형 면허','2종 소형면허는 4륜 이륜차와 3톤 이하 화물차, 9인 이하 승합차 등을 운전할 수 있는 면허입니다.',10000,'eddie');
 
 
---수강신청
-INSERT INTO 수강신청 (user_name, subject_id, purchase_time)
-VALUES ('fourbie', 1 ,'2025-01-02 10:00:00'),
-       ('pororo', 2 ,'2025-01-02 11:00:00');
-
--- 장바구니
-INSERT INTO 장바구니 (subject_id,user_name)
-VALUES
-(2,'totoro'),
-(1,'totoro');
-
-
 
 -- 게시판
 INSERT INTO 게시판 (title,content,user_name,created_date,modified_date)
@@ -94,6 +82,18 @@ VALUES
 ('Study video_url(1종대형)',3),
 ('Study video_url(2종소형)',4);
 
+--수강신청
+INSERT INTO 수강신청 (user_name, subject_id, purchase_time)
+VALUES ('fourbie', 1 ,'2025-01-02 10:00:00'),
+       ('pororo', 2 ,'2025-01-02 11:00:00'),
+       ('totoro',3,'2025-01-03 11:00:00');
+
+-- 장바구니
+INSERT INTO 장바구니 (subject_id,user_name)
+VALUES
+(2,'totoro'),
+(1,'pengsoo'),
+(3,'pororo');
 
 
 -- subject_type

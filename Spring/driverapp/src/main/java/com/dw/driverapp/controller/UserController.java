@@ -10,10 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,12 +20,19 @@ public class UserController {
     UserService userService;
 
 
-    @GetMapping("/user/me")
+    // 유저 - 회원가입
+    @PostMapping("/users/register")
+    public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
+        return new ResponseEntity<>(userService.registerUser(userDTO), HttpStatus.CREATED);
+    }
+
+    // 관리자 - 모든 회원정보 조회
+    @GetMapping("/user/all")
     public ResponseEntity<List<User>> getAllUser() {
         return new ResponseEntity<>(userService.getAllUser(), HttpStatus.OK);
     }
 
-
+    // 유저- 로그인
     @PostMapping("/users/login")
     public ResponseEntity<String> login(@RequestBody UserDTO userDTO,
                                         HttpServletRequest request) {
@@ -50,12 +54,22 @@ public class UserController {
         }
     }
 
+    // 유저 - 로그아웃
     @PostMapping("/user/logout")
     public ResponseEntity<String> logout(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().invalidate();
         return new ResponseEntity<>(
                 "로그아웃 되었습니다.",
                 HttpStatus.OK);
+    }
+
+    @GetMapping("/user/username/{username}")
+    public ResponseEntity<User> usernameFind(@PathVariable String username){
+        return new ResponseEntity<>(userService.usernameFind(username),HttpStatus.OK);
+    }
+    @GetMapping("/user/email/{email}")
+    public ResponseEntity<User> userEmailFind(@PathVariable String email){
+        return new ResponseEntity<>(userService.userEmailFind(email),HttpStatus.OK);
     }
 
 
