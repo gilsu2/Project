@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,8 +71,20 @@ public class UserService {
     }
 
     public User userEmailFind(String email){
-        return userRepository.findById(email).orElseThrow(()-> new ResourceNotFoundException("입력하신 email을 가진 회원이 존재하지 않습니다."));
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("입력하신 email을 가진 회원이 존재하지 않습니다."));
     }
+
+    public List<User> userBirthdate(LocalDate birthdate) {
+        List<User> user = new ArrayList<>();
+        userRepository.findByBirthdate(birthdate);
+        if (user.isEmpty()) {
+            throw new InvalidRequestException("입력하신 생일의 정보를 가진 회원이 없습니다.");
+        }
+        return userRepository.findByBirthdate(birthdate)
+                .orElseThrow(() -> new ResourceNotFoundException("입력하신 생일의 정보를 가진 회원이 없습니다."));
+    }
+    
     }
 
 
