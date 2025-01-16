@@ -13,4 +13,11 @@ public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByEmail(String email);
     Optional<List<User>> findByBirthdate(LocalDate birthdate);
     Optional<List<User>> findByRealName (String realName);
+    Optional<List<User>> findByAuthority_AuthorityName(String authorityName);
+
+    @Query("select u from User u where u.createdAt > :date")
+    Optional<List<User>> createdAtoverdate(LocalDate date);
+    @Query("select u from User u where u.createdAt < :date")
+    Optional<List<User>> createdAtunderdate(LocalDate date);
+
 }

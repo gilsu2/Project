@@ -78,11 +78,6 @@ public class UserController {
     }
 
 
-    // 유저-birthdate로 정보 조회
-    @GetMapping("/user/birthdate/{birthdate}")
-    public ResponseEntity<List<User>> userBirthdateFind(@PathVariable LocalDate birthdate) {
-        return new ResponseEntity<>(userService.userBirthdateFind(birthdate), HttpStatus.OK);
-    }
 
     // 유저-realname으로 정보 조회
     @GetMapping("/user/realname/{realname}")
@@ -92,5 +87,27 @@ public class UserController {
 
     }
 
+    // 유저-birthdate로 정보 조회
+    @GetMapping("/user/birthdate/{birthdate}")
+    public ResponseEntity<List<User>> userBirthdateFind(@PathVariable LocalDate birthdate) {
+        return new ResponseEntity<>(userService.userBirthdateFind(birthdate), HttpStatus.OK);
+    }
+
+    // 관리자- 권한으로 정보 조회*****
+    @GetMapping("/user/authority/{authority}")
+    public ResponseEntity<List<User>> userauthorityFind(@PathVariable String authority){
+        return new ResponseEntity<>(userService.userauthorityFind(authority),HttpStatus.OK);
+    }
+
+    // 유저- 지정된 날짜 이후 가입자 정보 조회
+    @GetMapping("/user/over/{date}")
+    public ResponseEntity<List<User>> userdateoverFind(@PathVariable LocalDate date){
+        return new ResponseEntity<>(userService.userdateoverFind(date),HttpStatus.OK);
+    }
+    // 유저- 지정된 날짜 이전 가입자 정보 조회
+    @GetMapping("/user/under/{date}")
+    public ResponseEntity<List<User>> userdateunderFind(@PathVariable LocalDate date){
+        return new ResponseEntity<>(userService.userdateunderFind(date),HttpStatus.OK);
+    }
 }
 

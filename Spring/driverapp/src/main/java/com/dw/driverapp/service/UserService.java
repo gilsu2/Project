@@ -49,7 +49,7 @@ public class UserService {
                         userDTO.getBirthdate(),
                         authorityRepository.findById("User")
                                 .orElseThrow(() -> new ResourceNotFoundException("NO ROLE")),
-                        LocalDateTime.now(),
+                        LocalDate.now(),
                         10000)
         ).toDTO();
     }
@@ -66,15 +66,25 @@ public class UserService {
         return passwordEncoder.matches(password, user.getPassword());
     }
 
+    // 유저- username으로 정보 조회
     public User usernameFind(String username) {
         return userRepository.findById(username).orElseThrow(() -> new ResourceNotFoundException("입력하신 회원이 존재하지 않습니다."));
     }
 
+    // 유저- email으로 정보 조회
     public User userEmailFind(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("입력하신 email의 정보를 가진 회원이 존재하지 않습니다."));
     }
 
+    // 유저- realname으로 정보 조회
+    public List<User> realNameFind(String realname) {
+        return userRepository.findByRealName(realname)
+                .filter(users -> !users.isEmpty())
+                .orElseThrow(() -> new ResourceNotFoundException("입력하신 realname의 정보를 가진 회원이 존재하지 않습니다."));
+    }
+
+    // 유저 - 생일로 정보 조회
     public List<User> userBirthdateFind(LocalDate birthdate) {
         return userRepository.findByBirthdate(birthdate)
                 .filter(users -> !users.isEmpty())
@@ -82,9 +92,23 @@ public class UserService {
 
     }
 
-    public List<User>realNameFind(String realname){
-        return userRepository.findByRealName(realname)
+    // 관리자- 권한으로 정보 조회******
+    public List<User> userauthorityFind(String authority) {
+        return userRepository.findByAuthority_AuthorityName(authority)
                 .filter(users -> !users.isEmpty())
-                .orElseThrow(()-> new ResourceNotFoundException("입력하신 이름의 realname의 정보를 가진 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new ResourceNotFoundException("입력하신 권한이 존재하지 않습니다."));
+    }
+
+    // 유저- 지정된 날짜 이후 가입자 정보 조회
+    public List<User> userdateoverFind(LocalDate date) {
+        return userRepository.createdAtoverdate(date)
+                .filter(users -> !users.isEmpty())
+                .orElseThrow(() -> new ResourceNotFoundException("입력하신 날짜 이후에 가입한 회원이 없습니다."));
+    }
+    // 유저- 지정된 날짜 이전 가입자 정보 조회
+    public List<User> userdateunderFind(LocalDate date) {
+        return userRepository.createdAtunderdate(date)
+                .filter(users -> !users.isEmpty())
+                .orElseThrow(() -> new ResourceNotFoundException("입력하신 날짜 이전에 가입한 회원이 없습니다."));
     }
 }

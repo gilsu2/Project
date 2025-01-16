@@ -34,7 +34,7 @@ public class User {
     @JoinColumn(name = "user_authority")
     private Authority authority;
     @Column(name="created_at", updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
     @Column(name="point")
     private int point;
 
