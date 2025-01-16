@@ -105,10 +105,18 @@ public class UserService {
                 .filter(users -> !users.isEmpty())
                 .orElseThrow(() -> new ResourceNotFoundException("입력하신 날짜 이후에 가입한 회원이 없습니다."));
     }
+
     // 유저- 지정된 날짜 이전 가입자 정보 조회
     public List<User> userdateunderFind(LocalDate date) {
         return userRepository.createdAtunderdate(date)
                 .filter(users -> !users.isEmpty())
                 .orElseThrow(() -> new ResourceNotFoundException("입력하신 날짜 이전에 가입한 회원이 없습니다."));
+    }
+
+    // 유저- 지정된 날짜 가입자 정보 조회
+    public List<User> userdateFind(LocalDate date) {
+        return userRepository.findBycreatedAt(date)
+                .filter(users -> !users.isEmpty())
+                .orElseThrow(() -> new ResourceNotFoundException("입력하신 날짜에 가입한 회원이 없습니다."));
     }
 }
