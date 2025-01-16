@@ -110,7 +110,7 @@ public class UserController {
     }
 
     // 유저- 지정된 날짜 가입자 정보 조회
-    @GetMapping("/user/{date}")
+    @GetMapping("/user/date/{date}")
     public ResponseEntity<List<User>> userdateFind(@PathVariable LocalDate date){
         return new ResponseEntity<>(userService.userdateFind(date),HttpStatus.OK);
     }
