@@ -67,24 +67,30 @@ public class UserController {
 
     // 유저- username으로 정보 조회
     @GetMapping("/user/username/{username}")
-    public ResponseEntity<User> usernameFind(@PathVariable String username){
-        return new ResponseEntity<>(userService.usernameFind(username),HttpStatus.OK);
+    public ResponseEntity<User> usernameFind(@PathVariable String username) {
+        return new ResponseEntity<>(userService.usernameFind(username), HttpStatus.OK);
     }
+
     // 유저- email로 정보 조회
     @GetMapping("/user/email/{email}")
-    public ResponseEntity<User> userEmailFind(@PathVariable String email){
+    public ResponseEntity<User> userEmailFind(@PathVariable String email) {
         return new ResponseEntity<>(userService.userEmailFind(email), HttpStatus.OK);
     }
 
 
     // 유저-birthdate로 정보 조회
     @GetMapping("/user/birthdate/{birthdate}")
-    public ResponseEntity<List<User>> userBirthdate(@PathVariable LocalDate birthdate){
-        return new ResponseEntity<>(userService.userBirthdate(birthdate), HttpStatus.OK);
+    public ResponseEntity<List<User>> userBirthdateFind(@PathVariable LocalDate birthdate) {
+        return new ResponseEntity<>(userService.userBirthdateFind(birthdate), HttpStatus.OK);
     }
 
+    // 유저-realname으로 정보 조회
+    @GetMapping("/user/realname/{realname}")
+    public ResponseEntity<List<User>> realNameFind(@PathVariable String realname) {
+        return new ResponseEntity<>(userService.realNameFind(realname), HttpStatus.OK);
+
 
     }
 
-
+}
 

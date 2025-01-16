@@ -66,26 +66,25 @@ public class UserService {
         return passwordEncoder.matches(password, user.getPassword());
     }
 
-    public User usernameFind(String username){
-        return userRepository.findById(username).orElseThrow(()-> new ResourceNotFoundException("입력하신 회원이 존재하지 않습니다."));
+    public User usernameFind(String username) {
+        return userRepository.findById(username).orElseThrow(() -> new ResourceNotFoundException("입력하신 회원이 존재하지 않습니다."));
     }
 
-    public User userEmailFind(String email){
+    public User userEmailFind(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("입력하신 email을 가진 회원이 존재하지 않습니다."));
+                .orElseThrow(() -> new ResourceNotFoundException("입력하신 email의 정보를 가진 회원이 존재하지 않습니다."));
     }
 
-    public List<User> userBirthdate(LocalDate birthdate) {
-        List<User> user = new ArrayList<>();
-        userRepository.findByBirthdate(birthdate);
-        if (user.isEmpty()) {
-            throw new InvalidRequestException("입력하신 생일의 정보를 가진 회원이 없습니다.");
-        }
+    public List<User> userBirthdateFind(LocalDate birthdate) {
         return userRepository.findByBirthdate(birthdate)
-                .orElseThrow(() -> new ResourceNotFoundException("입력하신 생일의 정보를 가진 회원이 없습니다."));
+                .filter(users -> !users.isEmpty())
+                .orElseThrow(() -> new ResourceNotFoundException("입력하신 생일의 정보를 가진 회원이 존재하지 않습니다."));
+
     }
-    
+
+    public List<User>realNameFind(String realname){
+        return userRepository.findByRealName(realname)
+                .filter(users -> !users.isEmpty())
+                .orElseThrow(()-> new ResourceNotFoundException("입력하신 이름의 realname의 정보를 가진 회원이 존재하지 않습니다."));
     }
-
-
-
+}
