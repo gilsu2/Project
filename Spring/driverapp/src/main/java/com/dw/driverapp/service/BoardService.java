@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Arrays.stream;
+import static java.util.Locale.filter;
+
+
 @Service
 public class BoardService {
     @Autowired
@@ -22,10 +26,22 @@ public class BoardService {
     }
 
     // 유저- id로 게시판 조회
-    public BoardDTO boardIdfind(Long id){
-        Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("해당 ID를 가진 Board가 존재하지 않습니다."));
-        return board.toDTO();
+    public BoardDTO boardIdfind(Long id) {
+        return boardRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("해당 ID를 가진 Board가 존재하지 않습니다.")).toDTO();
+    }
+
+    //유저- 게시판의 제목을 검색해서 조회
+    public List<BoardDTO> boardTitleFind(String title) {
+        String title1 = "%" + title + "%";
+        return boardRepository.findByTitleLike(title1)
+                .filter(boards -> ! boards.isEmpty())
+                .orElseThrow(() -> new ResourceNotFoundException("해당 제목의 게시글을 찾을 수 없습니다.")).stream()
+                .map(Board::toDTO)
+                .collect(Collectors.toList());
     }
 
 }
+
+
+

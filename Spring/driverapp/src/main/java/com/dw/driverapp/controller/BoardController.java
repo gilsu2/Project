@@ -30,4 +30,10 @@ public class BoardController {
     public ResponseEntity<BoardDTO> boardIdfind(@PathVariable Long id){
         return new ResponseEntity<>(boardService.boardIdfind(id),HttpStatus.OK);
     }
+
+    //유저- 게시판의 제목을 검색해서 조회
+    @GetMapping("/board/title/search/{title}")
+    ResponseEntity<List<BoardDTO>> boardTitleFind(@PathVariable String title){
+        return new ResponseEntity<>(boardService.boardTitleFind(title),HttpStatus.OK);
+    }
 }
