@@ -23,7 +23,7 @@ public class UserController {
 
 
     // 유저 - 회원가입
-    @PostMapping("/users/register")
+    @PostMapping("/user/register")
     public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
         return new ResponseEntity<>(userService.registerUser(userDTO), HttpStatus.CREATED);
     }
@@ -35,7 +35,7 @@ public class UserController {
     }
 
     // 유저- 로그인
-    @PostMapping("/users/login")
+    @PostMapping("/user/login")
     public ResponseEntity<String> login(@RequestBody UserDTO userDTO,
                                         HttpServletRequest request) {
         String username = userDTO.getUserName();
