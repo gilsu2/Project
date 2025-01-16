@@ -77,8 +77,6 @@ public class UserController {
         return new ResponseEntity<>(userService.userEmailFind(email), HttpStatus.OK);
     }
 
-
-
     // 유저-realname으로 정보 조회
     @GetMapping("/user/realname/{realname}")
     public ResponseEntity<List<User>> realNameFind(@PathVariable String realname) {
@@ -104,15 +102,25 @@ public class UserController {
     public ResponseEntity<List<User>> userdateoverFind(@PathVariable LocalDate date){
         return new ResponseEntity<>(userService.userdateoverFind(date),HttpStatus.OK);
     }
+
     // 유저- 지정된 날짜 이전 가입자 정보 조회
     @GetMapping("/user/under/{date}")
     public ResponseEntity<List<User>> userdateunderFind(@PathVariable LocalDate date){
         return new ResponseEntity<>(userService.userdateunderFind(date),HttpStatus.OK);
     }
+
     // 유저- 지정된 날짜 가입자 정보 조회
     @GetMapping("/user/{date}")
     public ResponseEntity<List<User>> userdateFind(@PathVariable LocalDate date){
         return new ResponseEntity<>(userService.userdateFind(date),HttpStatus.OK);
     }
+
+    //유저- 지정된 날짜 사이에 가입한 정보 조회
+    @GetMapping("/user/{date1}/{date2}")
+    public ResponseEntity<List<User>> userbetweenFind(@PathVariable LocalDate date1,@PathVariable LocalDate date2){
+        return new ResponseEntity<>(userService.userbetweenFind(date1,date2),HttpStatus.OK);
+    }
+
+
 }
 

@@ -20,5 +20,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("select u from User u where u.createdAt < :date")
     Optional<List<User>> createdAtunderdate(LocalDate date);
     Optional<List<User>> findBycreatedAt (LocalDate date);
+    @Query("select u from User u where  u.createdAt BETWEEN :date1 AND :date2")
+    Optional<List<User>> createdAtbetweendate (LocalDate date1, LocalDate date2);
 
 }

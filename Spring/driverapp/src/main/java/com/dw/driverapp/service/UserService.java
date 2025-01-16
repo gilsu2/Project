@@ -119,4 +119,11 @@ public class UserService {
                 .filter(users -> !users.isEmpty())
                 .orElseThrow(() -> new ResourceNotFoundException("입력하신 날짜에 가입한 회원이 없습니다."));
     }
+
+    //유저- 지정된 날짜 사이에 가입한 정보 조회
+    public List<User> userbetweenFind(LocalDate date1, LocalDate date2){
+        return userRepository.createdAtbetweendate(date1,date2)
+                .filter(users -> !users.isEmpty())
+                .orElseThrow(() -> new ResourceNotFoundException("입력하신 날짜에 사이에 가입한 회원이 없습니다."));
+    }
 }
