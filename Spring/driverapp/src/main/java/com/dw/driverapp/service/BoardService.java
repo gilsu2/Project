@@ -35,13 +35,22 @@ public class BoardService {
     public List<BoardDTO> boardTitleFind(String title) {
         String title1 = "%" + title + "%";
         return boardRepository.findByTitleLike(title1)
-                .filter(boards -> ! boards.isEmpty())
+                .filter(boards -> !boards.isEmpty())
                 .orElseThrow(() -> new ResourceNotFoundException("해당 제목의 게시글을 찾을 수 없습니다.")).stream()
                 .map(Board::toDTO)
                 .collect(Collectors.toList());
     }
 
+    public List<BoardDTO> boardUsernameFind(String username) {
+        return boardRepository.findByAuthor_UserName(username)
+                .filter(boards -> !boards.isEmpty())
+                .orElseThrow(() -> new ResourceNotFoundException("입력하신 회원이 존재하지 않습니다."))
+                .stream()
+                .map(Board::toDTO)
+                .collect(Collectors.toList());
+    }
 }
+
 
 
 
