@@ -3,6 +3,7 @@ package com.dw.driverapp.service;
 import com.dw.driverapp.dto.BoardAllDTO;
 import com.dw.driverapp.dto.BoardDTO;
 import com.dw.driverapp.exception.ResourceNotFoundException;
+import com.dw.driverapp.exception.UnauthorizedUserException;
 import com.dw.driverapp.model.Board;
 import com.dw.driverapp.model.User;
 import com.dw.driverapp.repository.BoardRepository;
@@ -55,8 +56,9 @@ public class BoardService {
                 .map(Board::toDTO)
                 .collect(Collectors.toList());
     }
+
     // 유저 - 로그인 중인 회원의 게시글 작성
-    public BoardAllDTO saveBoard(BoardAllDTO boardAllDTO,String username) {
+    public BoardAllDTO saveBoard(BoardAllDTO boardAllDTO, String username) {
         User author = userRepository.findByUserName(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         Board newBoard = new Board();
@@ -68,5 +70,18 @@ public class BoardService {
         Board savedBoard = boardRepository.save(newBoard);
         return savedBoard.TODTO();
     }
-}
 
+    // 유저- 로그인 중인 회원의 게시글 삭제
+    public BoardAllDTO deleteBoard(Long id , String username) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Board not found"));
+        if (!board.getAuthor().getUserName().equals(username)) {
+            throw new UnauthorizedUserException("본인이 작성한 게시글만 삭제할 수 있습니다.");
+        }
+        board.setTitle("삭제된 게시글입니다.");
+        board.setContent("해당 게시글은 사용자가 의해 삭제되었습니다.");
+        board.setModifiedDate(LocalDateTime.now());
+        Board updatedBoard = boardRepository.save(board);
+        return updatedBoard.TODTO();
+    }
+}
