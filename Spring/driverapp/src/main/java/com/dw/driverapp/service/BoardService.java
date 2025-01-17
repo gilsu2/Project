@@ -10,8 +10,10 @@ import com.dw.driverapp.repository.BoardRepository;
 import com.dw.driverapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +49,7 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
-    // 유저- 사용자가 게시한 게시글 조회
+    // 유저- username으로 게시한 게시글 조회
     public List<BoardDTO> boardUsernameFind(String username) {
         return boardRepository.findByAuthor_UserName(username)
                 .filter(boards -> !boards.isEmpty())
@@ -64,7 +66,7 @@ public class BoardService {
         Board newBoard = new Board();
         newBoard.setTitle(boardAllDTO.getTitle());
         newBoard.setContent(boardAllDTO.getContent());
-        newBoard.setAuthor(author); // 로그인된 사용자로 author 설정
+        newBoard.setAuthor(author);
         newBoard.setCreatedDate(LocalDateTime.now());
         newBoard.setModifiedDate(LocalDateTime.now());
         Board savedBoard = boardRepository.save(newBoard);
@@ -72,7 +74,7 @@ public class BoardService {
     }
 
     // 유저- 로그인 중인 회원의 게시글 삭제
-    public BoardAllDTO deleteBoard(Long id , String username) {
+    public BoardDTO deleteBoard(Long id , String username) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Board not found"));
         if (!board.getAuthor().getUserName().equals(username)) {
@@ -82,6 +84,30 @@ public class BoardService {
         board.setContent("해당 게시글은 사용자가 의해 삭제되었습니다.");
         board.setModifiedDate(LocalDateTime.now());
         Board updatedBoard = boardRepository.save(board);
-        return updatedBoard.TODTO();
+        return updatedBoard.toDTO();
+    }
+    // 유저- 로그인 중인 회원의 게시글 수정
+    public BoardDTO updateBoard(Long id, BoardDTO boardDTO, String username){
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Board not found"));
+        if (!board.getAuthor().getUserName().equals(username)) {
+            throw new UnauthorizedUserException("본인이 작성한 게시글만 수정할 수 있습니다.");
+        }
+        board.setTitle(boardDTO.getTitle());
+        board.setContent(boardDTO.getContent());
+        board.setModifiedDate(LocalDateTime.now());
+        Board updatedBoard = boardRepository.save(board);
+        return updatedBoard.toDTO();
+    }
+
+    // 유저- 로그인한 사용자가 올린 게시글만 조회
+    public List<BoardAllDTO> loginBoardAll (String username) {
+        List<Board> boards = boardRepository.findByAuthor_UserName(username)
+                .orElseThrow(() -> new ResourceNotFoundException("해당 사용자의 게시글이 없습니다."));
+        List<BoardAllDTO> boardAllDTOList = new ArrayList<>();
+        for (Board board : boards) {
+            boardAllDTOList.add(board.TODTO());
+        }
+        return boardAllDTOList;
     }
 }

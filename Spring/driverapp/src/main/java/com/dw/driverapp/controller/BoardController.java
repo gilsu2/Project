@@ -39,7 +39,7 @@ public class BoardController {
         return new ResponseEntity<>(boardService.boardTitleFind(title), HttpStatus.OK);
     }
 
-    // 유저- 사용자가 게시한 게시글 조회
+    // 유저-username으로 게시한 게시글 조회
     @GetMapping("/boardusername/{username}")
     public ResponseEntity<List<BoardDTO>> boardUsernameFind(@PathVariable String username) {
         return new ResponseEntity<>(boardService.boardUsernameFind(username), HttpStatus.OK);
@@ -58,15 +58,37 @@ public class BoardController {
     }
 
     // 유저- 로그인 중인 회원의 게시글 삭제
-    @DeleteMapping ("/board/delete/{id}")
-    public ResponseEntity<BoardAllDTO> deleteBoard(@PathVariable Long id,
+    @DeleteMapping("/board/delete/{id}")
+    public ResponseEntity<BoardDTO> deleteBoard(@PathVariable Long id,
                                                 HttpServletRequest request) {
-            HttpSession session = request.getSession(false);
-            if (session == null || session.getAttribute("username") == null) {
-                throw new UnauthorizedUserException("로그인한 사용자만 삭제가 가능합니다.");
-            }
-            String username = (String) session.getAttribute("username");
-            return new ResponseEntity<>(boardService.deleteBoard(id, username), HttpStatus.OK);
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new UnauthorizedUserException("로그인한 사용자만 삭제가 가능합니다.");
         }
-}
+        String username = (String) session.getAttribute("username");
+        return new ResponseEntity<>(boardService.deleteBoard(id, username), HttpStatus.OK);
+    }
 
+    // 유저- 로그인 중인 회원의 게시글 수정
+    @PutMapping("/board/update/{id}")
+    public ResponseEntity<BoardDTO> updateBoard(@PathVariable Long id, @RequestBody BoardDTO boardDTO, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new UnauthorizedUserException("로그인한 사용자만 수정이 가능합니다.");
+        }
+        String username = (String) session.getAttribute("username");
+        return new ResponseEntity<>(boardService.updateBoard(id, boardDTO, username), HttpStatus.OK);
+    }
+
+    // 유저- 로그인한 사용자가 올린 게시글만 조회
+    @GetMapping("/board/login/all")
+    public ResponseEntity<List<BoardAllDTO>> loginBoardAll (HttpServletRequest request){
+    HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+        throw new UnauthorizedUserException("로그인한 사용자의 글이 아닙니다.");
+    }
+    String username = (String) session.getAttribute("username");
+    return new ResponseEntity<>(boardService.loginBoardAll(username),HttpStatus.OK);
+
+    }
+}
