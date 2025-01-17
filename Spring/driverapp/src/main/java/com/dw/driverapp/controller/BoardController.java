@@ -89,6 +89,6 @@ public class BoardController {
     }
     String username = (String) session.getAttribute("username");
     return new ResponseEntity<>(boardService.loginBoardAll(username),HttpStatus.OK);
-
     }
+
 }

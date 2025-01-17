@@ -26,7 +26,7 @@ public class Comment {
     @JoinColumn(name="board_id")
     private Board board;
 
-    public CommentDTO commentDTO(){
+    public CommentDTO toDTO(){
         CommentDTO commentDTO = new CommentDTO();
         commentDTO.setId(this.id);
         commentDTO.setUser(this.user.getUserName());

@@ -74,7 +74,7 @@ public class BoardService {
     }
 
     // 유저- 로그인 중인 회원의 게시글 삭제
-    public BoardDTO deleteBoard(Long id , String username) {
+    public BoardDTO deleteBoard(Long id, String username) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Board not found"));
         if (!board.getAuthor().getUserName().equals(username)) {
@@ -86,8 +86,11 @@ public class BoardService {
         Board updatedBoard = boardRepository.save(board);
         return updatedBoard.toDTO();
     }
+
+
+
     // 유저- 로그인 중인 회원의 게시글 수정
-    public BoardDTO updateBoard(Long id, BoardDTO boardDTO, String username){
+    public BoardDTO updateBoard(Long id, BoardDTO boardDTO, String username) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Board not found"));
         if (!board.getAuthor().getUserName().equals(username)) {
@@ -101,7 +104,7 @@ public class BoardService {
     }
 
     // 유저- 로그인한 사용자가 올린 게시글만 조회
-    public List<BoardAllDTO> loginBoardAll (String username) {
+    public List<BoardAllDTO> loginBoardAll(String username) {
         List<Board> boards = boardRepository.findByAuthor_UserName(username)
                 .orElseThrow(() -> new ResourceNotFoundException("해당 사용자의 게시글이 없습니다."));
         List<BoardAllDTO> boardAllDTOList = new ArrayList<>();
@@ -110,4 +113,6 @@ public class BoardService {
         }
         return boardAllDTOList;
     }
+
+
 }
