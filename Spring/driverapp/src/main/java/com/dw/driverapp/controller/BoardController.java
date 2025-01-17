@@ -7,9 +7,7 @@ import com.dw.driverapp.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,6 +38,11 @@ public class BoardController {
     @GetMapping("/boardusername/{username}")
     public ResponseEntity<List<BoardDTO>> boardUsernameFind (@PathVariable String username){
         return new ResponseEntity<>(boardService.boardUsernameFind(username),HttpStatus.OK);
+    }
+
+    @PostMapping("/board/add")
+    public ResponseEntity<BoardAllDTO> saveBoard(@RequestBody BoardAllDTO boardAllDTO){
+        return new ResponseEntity<>(boardService.saveBoard(boardAllDTO),HttpStatus.CREATED);
     }
 
 }

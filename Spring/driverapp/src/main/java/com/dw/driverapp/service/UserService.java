@@ -126,4 +126,18 @@ public class UserService {
                 .filter(users -> !users.isEmpty())
                 .orElseThrow(() -> new ResourceNotFoundException("입력하신 날짜에 사이에 가입한 회원이 없습니다."));
     }
+    public User userUpdatePassWord(User user){
+        User user1 = userRepository.findById(user.getUserName()).orElseThrow(()->new ResourceNotFoundException("없음"));
+        user1.setPassword(user.getPassword());
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        return userRepository.save(user1);
+    }
+
+    public void deleteUser(String username) {
+        User user = userRepository.findById(username)
+                .orElseThrow(() -> new ResourceNotFoundException("해당 유저를 찾을 수 없습니다."));
+
+        userRepository.delete(user);
+    }
 }
+

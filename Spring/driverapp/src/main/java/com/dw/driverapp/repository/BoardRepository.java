@@ -12,4 +12,5 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
     Optional<List<Board>> findByTitleLike(String title);
     Optional<List<Board>> findByAuthor_UserName(String username);
 
+
 }

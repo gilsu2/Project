@@ -35,6 +35,7 @@ public class Board {
     @OneToMany(mappedBy = "board")
     private List<Comment> commentList = new ArrayList<>();
 
+
     public BoardDTO toDTO() {
         BoardDTO boardDTO = new BoardDTO();
         boardDTO.setId(this.id);

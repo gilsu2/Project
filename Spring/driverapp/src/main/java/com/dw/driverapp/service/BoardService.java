@@ -4,10 +4,13 @@ import com.dw.driverapp.dto.BoardAllDTO;
 import com.dw.driverapp.dto.BoardDTO;
 import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.model.Board;
+import com.dw.driverapp.model.User;
 import com.dw.driverapp.repository.BoardRepository;
+import com.dw.driverapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +22,8 @@ import static java.util.Locale.filter;
 public class BoardService {
     @Autowired
     BoardRepository boardRepository;
+    @Autowired
+    UserRepository userRepository;
 
     // 유저- 게시판의 모든 글 조회
     public List<BoardAllDTO> getAllBoard() {
@@ -49,8 +54,22 @@ public class BoardService {
                 .map(Board::toDTO)
                 .collect(Collectors.toList());
     }
-}
 
+    public BoardAllDTO saveBoard(BoardAllDTO boardAllDTO) {
+
+        Board board = new Board(
+                null,
+                boardAllDTO.getTitle(),
+                boardAllDTO.getContent(),
+                boardAllDTO.getAuthor(),
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+
+
+        return boardRepository.save(board).TODTO();
+    }
+}
 
 
 
