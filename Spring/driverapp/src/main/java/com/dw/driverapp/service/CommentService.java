@@ -65,21 +65,23 @@ public class CommentService {
         Comment savedComment = commentRepository.save(comment);
         return savedComment.toDTO();
     }
+
     // 유저- 로그인한 사용자의 답글을 삭제
-    public CommentDTO deleteComment(Long id, String username) {
+    public String deleteComment(Long id, String username) {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Comment not found"));
         if (!comment.getUser().getUserName().equals(username)) {
             throw new UnauthorizedUserException("사용자의 답글이 아닙니다.");
         }
         commentRepository.delete(comment);
-        return comment.toDTO();
+        return "댓글 삭제가 완료되었습니다.";
     }
+
     // 유저- 로그인한 사용자의 답글을 수정
-    public CommentDTO updateComment(Long id, CommentDTO commentDTO, String usernamre){
+    public CommentDTO updateComment(Long id, CommentDTO commentDTO, String username){
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Comment not found"));
-        if(!comment.getUser().getUserName().equals(usernamre)){
+        if(!comment.getUser().getUserName().equals(username)){
             throw new UnauthorizedUserException("사용자의 답글이 아닙니다.");
         }
         comment.setComment(commentDTO.getComment());

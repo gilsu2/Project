@@ -57,19 +57,19 @@ public class CommentController {
 
     // 유저- 로그인한 사용자가 게시판을 등록
     @PostMapping("/comment/add")
-    public ResponseEntity<CommentDTO> commentAdd(@RequestBody CommentDTO commentDTO,HttpServletRequest request){
+    public ResponseEntity<CommentDTO> commentAdd(@RequestBody CommentDTO commentDTO, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 삭제가 가능합니다.");
         }
         String username = (String) session.getAttribute("username");
-        return new ResponseEntity<>(commentService.commentAdd(commentDTO,username),HttpStatus.OK);
+        return new ResponseEntity<>(commentService.commentAdd(commentDTO, username), HttpStatus.OK);
     }
 
 
     // 유저- 로그인한 사용자의 답글을 삭제
     @DeleteMapping("/comment/delete/{id}")
-    public ResponseEntity<CommentDTO> deleteComment(@PathVariable Long id,
+    public ResponseEntity<String> deleteComment(@PathVariable Long id,
                                                     HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
@@ -78,6 +78,7 @@ public class CommentController {
         String username = (String) session.getAttribute("username");
         return new ResponseEntity<>(commentService.deleteComment(id, username), HttpStatus.OK);
     }
+
     // 유저- 로그인한 사용자의 답글을 수정
     @PutMapping("/comment/update/{id}")
     public ResponseEntity<CommentDTO> updateComment(@PathVariable Long id,
