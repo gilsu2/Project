@@ -135,7 +135,6 @@ public class UserController {
     // 유저 - 회원탈퇴
     @DeleteMapping("/user/delete")
     public ResponseEntity<String> deleteUser(HttpServletRequest request) {
-        // 로그인한 사람만 탈퇴 가능 코드
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 회원 탈퇴가 가능합니다.");

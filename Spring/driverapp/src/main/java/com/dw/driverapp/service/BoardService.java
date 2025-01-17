@@ -46,6 +46,7 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
+    // 유저- 사용자가 게시한 게시글 조회
     public List<BoardDTO> boardUsernameFind(String username) {
         return boardRepository.findByAuthor_UserName(username)
                 .filter(boards -> !boards.isEmpty())
@@ -54,22 +55,18 @@ public class BoardService {
                 .map(Board::toDTO)
                 .collect(Collectors.toList());
     }
-
-    public BoardAllDTO saveBoard(BoardAllDTO boardAllDTO) {
-
-        Board board = new Board(
-                null,
-                boardAllDTO.getTitle(),
-                boardAllDTO.getContent(),
-                boardAllDTO.getAuthor(),
-                LocalDateTime.now(),
-                LocalDateTime.now()
-        );
-
-
-        return boardRepository.save(board).TODTO();
+    // 유저 - 로그인 중인 회원의 게시글 작성
+    public BoardAllDTO saveBoard(BoardAllDTO boardAllDTO,String username) {
+        User author = userRepository.findByUserName(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        Board newBoard = new Board();
+        newBoard.setTitle(boardAllDTO.getTitle());
+        newBoard.setContent(boardAllDTO.getContent());
+        newBoard.setAuthor(author); // 로그인된 사용자로 author 설정
+        newBoard.setCreatedDate(LocalDateTime.now());
+        newBoard.setModifiedDate(LocalDateTime.now());
+        Board savedBoard = boardRepository.save(newBoard);
+        return savedBoard.TODTO();
     }
 }
-
-
 
