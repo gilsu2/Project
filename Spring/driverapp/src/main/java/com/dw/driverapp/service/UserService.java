@@ -147,14 +147,26 @@ public class UserService {
     public List<User> firstUser() {
         return userRepository.findFirstCreatedAt()
                 .filter(users -> !users.isEmpty())
-                .orElseThrow(() -> new ResourceNotFoundException("입력하신 정보가 없습니다."));
+                .orElseThrow(() -> new ResourceNotFoundException("정보를 찾을 수 없습니다."));
     }
 
     // 유저- 가장 최근 가입한 유저 조회
     public List<User> lastUser() {
         return userRepository.findLastCreatedAt()
                 .filter(users -> !users.isEmpty())
-                .orElseThrow(() -> new ResourceNotFoundException("입력하신 정보가 없습니다."));
+                .orElseThrow(() -> new ResourceNotFoundException("정보를 찾을 수 없습니다."));
+    }
+    // 관리자- 포인트가 가장 많은 회원 조회
+    public List<User> userPointMost(){
+        return userRepository.MostPointUser()
+                .filter(users -> !users.isEmpty())
+                .orElseThrow(()-> new ResourceNotFoundException("정보를 찾을 수 없습니다."));
     }
 
+    //관리자- 포인트가 가장 적은 회원 조회
+    public List<User> userPointLeast(){
+        return userRepository.leastPointUser()
+                .filter(users -> !users.isEmpty())
+                .orElseThrow(()-> new ResourceNotFoundException("정보를 찾을 수 없습니다."));
+    }
 }

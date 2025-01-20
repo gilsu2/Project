@@ -202,7 +202,16 @@ public class UserController {
     public ResponseEntity<List<User>> lastUser(){
         return new ResponseEntity<>(userService.lastUser(),HttpStatus.OK);
     }
+    // 관리자- 포인트가 가장 많은 회원 조회
+    @GetMapping("/admin/user/most")
+    public ResponseEntity<List<User>> userPointMost(){
+        return new ResponseEntity<>(userService.userPointMost(),HttpStatus.OK);
+    }
 
-    // 유저- 생일인 사람
+    // 관리자- 포인트가 가장 적은 회원 조회
+    @GetMapping("/admin/user/least")
+    public ResponseEntity<List<User>> userPointLeast(){
+        return new ResponseEntity<>(userService.userPointLeast(),HttpStatus.OK);
+    }
 
 }

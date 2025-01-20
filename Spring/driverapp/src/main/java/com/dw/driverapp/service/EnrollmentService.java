@@ -8,9 +8,12 @@ import com.dw.driverapp.model.User;
 import com.dw.driverapp.repository.EnrollmentRepository;
 import com.dw.driverapp.repository.SubjectRepository;
 import com.dw.driverapp.repository.UserRepository;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +28,7 @@ public class EnrollmentService {
 
 
     // 유저 -> 모든 수강신청 내역 조회
+
     public List<EnrollmentDTO> getAllEnrollment(){
         return enrollmentRepository.findAll().stream().map(Enrollment::TOdto).toList();
     }

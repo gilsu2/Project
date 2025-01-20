@@ -23,7 +23,7 @@ public class EnrollmentController {
     EnrollmentService enrollmentService;
 
 
-    // 유저 -> 모든 수강신청 내역 조회
+    // 관리자 -> 모든 수강신청 내역 조회
     @GetMapping("/enrollment/all")
     private ResponseEntity<List<EnrollmentDTO>> getAllEnrollment(){
         return new ResponseEntity<>(enrollmentService.getAllEnrollment(), HttpStatus.OK);

@@ -28,4 +28,8 @@ public interface UserRepository extends JpaRepository<User, String> {
     Optional<List<User>> findFirstCreatedAt();
     @Query("select u from User u where u.createdAt = (select max(u.createdAt) from User u)")
     Optional<List<User>> findLastCreatedAt();
+    @Query("select u from User u where u.point = (select min(u.point)from User u)")
+    Optional<List<User>> leastPointUser();
+    @Query("select u from User u where u.point = (select max(u.point)from User u)")
+    Optional<List<User>> MostPointUser();
 }

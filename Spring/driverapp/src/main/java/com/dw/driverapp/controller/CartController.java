@@ -20,7 +20,7 @@ public class CartController {
     CartService cartService;
 
 
-    // 유저 -> 모든 장바구니 목록 조회
+    // 유저 -> 로그인한 회원 장바구니 목록 조회
     @GetMapping("/cart/all")
     public ResponseEntity<List<CartDTO>> getAllCart(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -30,7 +30,7 @@ public class CartController {
         return new ResponseEntity<>(cartService.getAllCart(), HttpStatus.OK);
     }
 
-    // 유저 -> 특정 유저 장바구니 조회
+    // 유저 -> 로그인한 회원이 특정 유저 장바구니 조회
     @GetMapping("/cart/user/{username}")
     private ResponseEntity<List<CartDTO>> findUserName(@PathVariable String username, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -50,7 +50,7 @@ public class CartController {
         return new ResponseEntity<>(cartDTO, HttpStatus.CREATED);
     }
 
-    // 유저 -> 과목 id로 장바구니 삭제
+    // 유저 -> 로그인한 회원이 과목 id로 장바구니 삭제
     @DeleteMapping("/user/delete/subject/{subjectId}")
     public ResponseEntity<String> deleteCart(@PathVariable Long subjectId, HttpServletRequest request) {
         HttpSession session = request.getSession(false);

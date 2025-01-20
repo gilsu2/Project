@@ -26,7 +26,7 @@ public class CommentController {
     @Autowired
     BoardService boardService;
 
-    // 유저 -> 게시판에 달린 모든 유저 답글 조회
+    // 유저 -> 로그인한 회원이 게시판에 달린 모든 유저 답글 조회
     @GetMapping("/comment/all")
     public ResponseEntity<List<CommentDTO>> getAllComment(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -36,7 +36,7 @@ public class CommentController {
         return new ResponseEntity<>(commentService.getAllComment(), HttpStatus.OK);
     }
 
-    // 유저 -> 게시판에 달린 특정 유저 답글 조회
+    // 유저 -> 로그인한 회원이 게시판에 달린 특정 유저 답글 조회
     @GetMapping("/comment/username/{username}")
     public ResponseEntity<List<CommentDTO>> usernameFind(@PathVariable String username, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -46,7 +46,7 @@ public class CommentController {
         return new ResponseEntity<>(commentService.usernameFind(username), HttpStatus.OK);
     }
 
-    // 유저 -> 게시판에 달린 답글 board id로 조회
+    // 유저 -> 로그인한 회원이 게시판에 달린 답글 board id로 조회
     @GetMapping("/comment/board/{id}")
     public ResponseEntity<List<CommentDTO>> boardIdFind(@PathVariable Long id, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
