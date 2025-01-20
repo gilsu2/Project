@@ -197,4 +197,12 @@ public class UserController {
         return new ResponseEntity<>(userService.firstUser(),HttpStatus.OK);
     }
 
+    // 유저- 가장 최근 가입한 유저 조회
+    @GetMapping("/admin/user/last")
+    public ResponseEntity<List<User>> lastUser(){
+        return new ResponseEntity<>(userService.lastUser(),HttpStatus.OK);
+    }
+
+    // 유저- 생일인 사람
+
 }

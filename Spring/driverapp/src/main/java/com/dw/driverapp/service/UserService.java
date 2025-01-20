@@ -121,18 +121,20 @@ public class UserService {
     }
 
     //유저- 지정된 날짜 사이에 가입한 정보 조회
-    public List<User> userbetweenFind(LocalDate date1, LocalDate date2){
-        return userRepository.createdAtbetweendate(date1,date2)
+    public List<User> userbetweenFind(LocalDate date1, LocalDate date2) {
+        return userRepository.createdAtbetweendate(date1, date2)
                 .filter(users -> !users.isEmpty())
                 .orElseThrow(() -> new ResourceNotFoundException("입력하신 날짜에 사이에 가입한 회원이 없습니다."));
     }
+
     // 유저 - 비밀번호 변경
-    public User userUpdatePassWord(User user){
-        User user1 = userRepository.findById(user.getUserName()).orElseThrow(()->new ResourceNotFoundException("없음"));
+    public User userUpdatePassWord(User user) {
+        User user1 = userRepository.findById(user.getUserName()).orElseThrow(() -> new ResourceNotFoundException("없음"));
         user1.setPassword(user.getPassword());
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         return userRepository.save(user1);
     }
+
     // 유저 - 회원탈퇴
     public void deleteUser(String username) {
         User user = userRepository.findById(username)
@@ -142,10 +144,17 @@ public class UserService {
     }
 
     // 유저- 가장 먼저 가입한 유저 조회
-    public List<User> firstUser(){
+    public List<User> firstUser() {
         return userRepository.findFirstCreatedAt()
                 .filter(users -> !users.isEmpty())
-                .orElseThrow(()-> new ResourceNotFoundException("입력하신 정보가 없습니다."));
+                .orElseThrow(() -> new ResourceNotFoundException("입력하신 정보가 없습니다."));
     }
-}
 
+    // 유저- 가장 최근 가입한 유저 조회
+    public List<User> lastUser() {
+        return userRepository.findLastCreatedAt()
+                .filter(users -> !users.isEmpty())
+                .orElseThrow(() -> new ResourceNotFoundException("입력하신 정보가 없습니다."));
+    }
+
+}

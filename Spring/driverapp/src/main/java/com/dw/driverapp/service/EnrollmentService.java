@@ -31,7 +31,9 @@ public class EnrollmentService {
 
     // 유저 -> 과목 ID로 수강신청 내역 조회
     public  List<EnrollmentDTO> getSubjectId(Long id){
-        return enrollmentRepository.findBySubjectId(id).orElseThrow(()-> new ResourceNotFoundException("존재하지 않는 과목입니다."))
+        return enrollmentRepository.findBySubjectId(id)
+                .filter(enrollments -> !enrollments.isEmpty())
+                .orElseThrow(()-> new ResourceNotFoundException("존재하지 않는 과목입니다."))
                 .stream()
                 .map(Enrollment::TOdto)
                 .toList();
