@@ -169,4 +169,9 @@ public class UserService {
                 .filter(users -> !users.isEmpty())
                 .orElseThrow(()-> new ResourceNotFoundException("정보를 찾을 수 없습니다."));
     }
+    // 관리자- 회원들이 평균 포인트 조회
+    public Double userPointAverage(){
+        return userRepository.findAveragePoint()
+                .orElseThrow(()-> new ResourceNotFoundException("정보를 불러올 수 없습니다."));
+    }
 }

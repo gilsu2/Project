@@ -32,4 +32,6 @@ public interface UserRepository extends JpaRepository<User, String> {
     Optional<List<User>> leastPointUser();
     @Query("select u from User u where u.point = (select max(u.point)from User u)")
     Optional<List<User>> MostPointUser();
+    @Query("select avg(u.point) from User u")
+    Optional<Double> findAveragePoint();
 }

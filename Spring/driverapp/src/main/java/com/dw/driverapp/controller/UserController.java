@@ -214,4 +214,11 @@ public class UserController {
         return new ResponseEntity<>(userService.userPointLeast(),HttpStatus.OK);
     }
 
+    // 관리자- 회원들의 평균 포인트 조회
+    @GetMapping("/admin/user/average")
+    public ResponseEntity<Double> userPointAverage(){
+        Double averagePoint = userService.userPointAverage();
+        return ResponseEntity.ok( averagePoint);
+    }
+
 }
