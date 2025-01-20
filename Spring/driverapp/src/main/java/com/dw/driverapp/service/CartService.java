@@ -8,10 +8,12 @@ import com.dw.driverapp.model.User;
 import com.dw.driverapp.repository.CartRepository;
 import com.dw.driverapp.repository.SubjectRepository;
 import com.dw.driverapp.repository.UserRepository;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CartService {
@@ -24,27 +26,19 @@ public class CartService {
 
 
     // 유저 -> 모든 장바구니 목록 조회
-    public List<CartDTO> getAllCart(){
+    public List<CartDTO> getAllCart() {
         return cartRepository.findAll().stream().map(Cart::ToDto).toList();
     }
+
     // 유저 -> 특정 유저 장부구니 조회
-    public List<CartDTO> findUserName(String username){
+    public List<CartDTO> findUserName(String username) {
         return cartRepository.findByUserUserName(username)
-                .orElseThrow(()->new ResourceNotFoundException("없음"))
+                .orElseThrow(() -> new ResourceNotFoundException("없음"))
                 .stream()
                 .map(Cart::ToDto)
                 .toList();
     }
 
-    public CartDTO cartAdd(CartDTO cartDTO, String username) {
-        User user = userRepository.findByUserName(username)
-                .orElseThrow(() -> new ResourceNotFoundException("사용자가 존재하지 않습니다."));
-        Subject subject = subjectRepository.findById(cartDTO.getSubjectId())
-                .orElseThrow(() -> new ResourceNotFoundException("해당 과목을 찾을 수 없습니다."));
-        Cart cart = new Cart();
-        cart.setUser(user);
-        cart.setSubject(subject);
-        Cart savedCart = cartRepository.save(cart);
-        return savedCart.ToDto();
-    }
+
+
 }

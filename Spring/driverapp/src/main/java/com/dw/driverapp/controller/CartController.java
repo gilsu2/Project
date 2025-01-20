@@ -22,32 +22,24 @@ public class CartController {
 
     // 유저 -> 모든 장바구니 목록 조회
     @GetMapping("/cart/all")
-    public ResponseEntity<List<CartDTO>> getAllCart(HttpServletRequest request){
+    public ResponseEntity<List<CartDTO>> getAllCart(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new ResourceNotFoundException("로그인한 사용자만 장바구니 조회가 가능합니다.");
         }
         return new ResponseEntity<>(cartService.getAllCart(), HttpStatus.OK);
     }
-    // 유저 -> 특정 유저 장부구니 조회
+
+    // 유저 -> 특정 유저 장바구니 조회
     @GetMapping("/cart/user/{username}")
-    private ResponseEntity<List<CartDTO>> findUserName(@PathVariable String username, HttpServletRequest request){
+    private ResponseEntity<List<CartDTO>> findUserName(@PathVariable String username, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new ResourceNotFoundException("로그인한 사용자만 장바구니 조회가 가능합니다.");
         }
-        return new ResponseEntity<>(cartService.findUserName(username),HttpStatus.OK);
+        return new ResponseEntity<>(cartService.findUserName(username), HttpStatus.OK);
     }
 
     // 유저 - 로그인 중인 사용자의 이름으로 장바구니 추가
-    @PostMapping("/cart/add")
-    public ResponseEntity<CartDTO> cartAdd(@RequestBody CartDTO CartDTO, HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("username") == null) {
-            throw new UnauthorizedUserException("로그인한 사용자만 추가가 가능합니다.");
-        }
-        String username = (String) session.getAttribute("username");
-        return new ResponseEntity<>(cartService.cartAdd(CartDTO,username), HttpStatus.OK);
 
     }
-}

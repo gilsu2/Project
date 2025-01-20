@@ -7,10 +7,8 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class CartDTO {
-    private Long id;
+public class EnrollmentDTO {
+    private String username;
     private String subjectName;
     private double price;
-
-
 }
