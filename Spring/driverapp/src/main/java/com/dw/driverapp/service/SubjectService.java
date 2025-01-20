@@ -53,6 +53,21 @@ public class SubjectService {
         }
         subjectRepository.delete(subject);
     }
+
+    // 수정하려는 강의를 찾기
+    public SubjectDTO updateSubject(Long id, String username, SubjectDTO subjectDTO) {
+    Subject subject = subjectRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 강의입니다."));
+        if (!subject.getUser_fk().getUserName().equals(username)) {
+        throw new UnauthorizedActionException("본인이 생성한 강의만 수정할 수 있습니다.");
+    }
+        subject.setTitle(subjectDTO.getTitle());
+        subject.setExplanation(subjectDTO.getExplanation());
+        subject.setPrice(subjectDTO.getPrice());
+        subjectRepository.save(subject);
+        return subject.toDTO();
 }
+}
+
 
 

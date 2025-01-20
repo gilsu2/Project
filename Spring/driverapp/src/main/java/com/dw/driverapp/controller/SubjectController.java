@@ -55,4 +55,18 @@ public class SubjectController {
         subjectService.deleteSubject(subjectId, instructorUsername);
         return new ResponseEntity<>("강의가 성공적으로 삭제되었습니다.", HttpStatus.OK);
     }
+
+    //강사- 강의 수정
+    @PutMapping("/subject/update/{id}")
+    public ResponseEntity<SubjectDTO> updateSubject(@PathVariable Long id,
+                                                    @RequestBody SubjectDTO subjectDTO,
+                                                    HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new UnauthorizedUserException("로그인한 사용자만 강의를 수정할 수 있습니다.");
+        }
+        String instructorUsername = (String) session.getAttribute("username");
+        return new ResponseEntity<>(subjectService.updateSubject(id, instructorUsername, subjectDTO), HttpStatus.OK);
+    }
 }
+
