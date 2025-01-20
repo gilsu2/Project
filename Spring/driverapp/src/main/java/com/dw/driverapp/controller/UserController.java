@@ -198,27 +198,29 @@ public class UserController {
     }
 
     // 유저- 가장 최근 가입한 유저 조회
-    @GetMapping("/admin/user/last")
+    @GetMapping("/admin/user/point/last")
     public ResponseEntity<List<User>> lastUser(){
         return new ResponseEntity<>(userService.lastUser(),HttpStatus.OK);
     }
     // 관리자- 포인트가 가장 많은 회원 조회
-    @GetMapping("/admin/user/most")
+    @GetMapping("/admin/user/point/most")
     public ResponseEntity<List<User>> userPointMost(){
         return new ResponseEntity<>(userService.userPointMost(),HttpStatus.OK);
     }
 
     // 관리자- 포인트가 가장 적은 회원 조회
-    @GetMapping("/admin/user/least")
+    @GetMapping("/admin/user/point/least")
     public ResponseEntity<List<User>> userPointLeast(){
         return new ResponseEntity<>(userService.userPointLeast(),HttpStatus.OK);
     }
 
     // 관리자- 회원들의 평균 포인트 조회
-    @GetMapping("/admin/user/average")
+    @GetMapping("/admin/user/point/average")
     public ResponseEntity<Double> userPointAverage(){
         Double averagePoint = userService.userPointAverage();
         return ResponseEntity.ok( averagePoint);
     }
+    // 관리자- 모든 회원들의 포인트 조회
+    @GetMapping("admin/user/all")
 
 }
