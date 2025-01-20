@@ -33,7 +33,7 @@ public class UserController {
         return new ResponseEntity<>(userService.registerUser(userDTO), HttpStatus.CREATED);
     }
     // 관리자 - 모든 회원정보 조회
-    @GetMapping("/user/all")
+    @GetMapping("admin/user/all")
     public ResponseEntity<List<User>> getAllUser(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
@@ -190,4 +190,11 @@ public class UserController {
         session.invalidate();
         return new ResponseEntity<>("회원 탈퇴가 완료되었습니다.", HttpStatus.OK);
     }
+
+    // 유저- 가장 먼저 가입한 유저 조회
+    @GetMapping("/admin/user/first")
+    public ResponseEntity<List<User>> firstUser(){
+        return new ResponseEntity<>(userService.firstUser(),HttpStatus.OK);
+    }
+
 }

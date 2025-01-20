@@ -140,5 +140,12 @@ public class UserService {
 
         userRepository.delete(user);
     }
+
+    // 유저- 가장 먼저 가입한 유저 조회
+    public List<User> firstUser(){
+        return userRepository.findFirstCreatedAt()
+                .filter(users -> !users.isEmpty())
+                .orElseThrow(()-> new ResourceNotFoundException("입력하신 정보가 없습니다."));
+    }
 }
 

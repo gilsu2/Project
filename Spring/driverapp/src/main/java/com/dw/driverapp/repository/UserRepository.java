@@ -24,5 +24,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("select u from User u where  u.createdAt BETWEEN :date1 AND :date2")
     Optional<List<User>> createdAtbetweendate (LocalDate date1, LocalDate date2);
 
+    @Query("select u from User u ORDER BY u.createdAt desc limit 1")
+    Optional<List<User>> findFirstCreatedAt();
 
 }
