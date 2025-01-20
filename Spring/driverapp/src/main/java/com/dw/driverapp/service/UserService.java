@@ -1,6 +1,7 @@
 package com.dw.driverapp.service;
 
 import com.dw.driverapp.dto.UserDTO;
+import com.dw.driverapp.dto.UserPointDTO;
 import com.dw.driverapp.exception.InvalidRequestException;
 import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.exception.UnauthorizedUserException;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -173,5 +175,12 @@ public class UserService {
     public Double userPointAverage(){
         return userRepository.findAveragePoint()
                 .orElseThrow(()-> new ResourceNotFoundException("정보를 불러올 수 없습니다."));
+    }
+
+    // 관리자- 모든 회원들의 포인트 조회
+    public List<UserPointDTO> userAllPoint(){
+        return userRepository.findAll().stream()
+                .map(User::todto)
+                .collect(Collectors.toList());
     }
 }

@@ -1,6 +1,7 @@
 package com.dw.driverapp.controller;
 
 import com.dw.driverapp.dto.UserDTO;
+import com.dw.driverapp.dto.UserPointDTO;
 import com.dw.driverapp.exception.UnauthorizedUserException;
 import com.dw.driverapp.model.User;
 import com.dw.driverapp.service.UserService;
@@ -221,6 +222,9 @@ public class UserController {
         return ResponseEntity.ok( averagePoint);
     }
     // 관리자- 모든 회원들의 포인트 조회
-    @GetMapping("admin/user/all")
+    @GetMapping("admin/user/point/all")
+    public ResponseEntity<List<UserPointDTO>> userAllPoint (){
+        return new ResponseEntity<>(userService.userAllPoint(),HttpStatus.OK);
+    }
 
 }

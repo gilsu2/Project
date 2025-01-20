@@ -1,6 +1,7 @@
 package com.dw.driverapp.model;
 
 import com.dw.driverapp.dto.UserDTO;
+import com.dw.driverapp.dto.UserPointDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -37,9 +39,6 @@ public class User {
     private int point;
 
 
-
-
-
     public UserDTO toDTO(){
         return new UserDTO(
                 this.userName,
@@ -53,5 +52,10 @@ public class User {
         );
 
     }
-
+    public UserPointDTO todto(){
+        return new UserPointDTO(
+                this.userName,
+                this.point
+        );
+    }
 }
