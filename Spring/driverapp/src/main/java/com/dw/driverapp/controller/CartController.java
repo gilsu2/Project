@@ -39,6 +39,15 @@ public class CartController {
         }
         return new ResponseEntity<>(cartService.findUserName(username), HttpStatus.OK);
     }
+    @PostMapping("/user/add")
+    public ResponseEntity<CartDTO> addSubjectToCart(@RequestParam String username, @RequestParam Long subjectId, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new ResourceNotFoundException("로그인한 사용자만 장바구니에 과목을 추가할 수 있습니다.");
+        }
+        CartDTO cartDTO = cartService.addSubjectToCart(username, subjectId);
+        return new ResponseEntity<>(cartDTO, HttpStatus.CREATED);
+    }
 
     // 유저 - 로그인 중인 사용자의 이름으로 장바구니 추가
 

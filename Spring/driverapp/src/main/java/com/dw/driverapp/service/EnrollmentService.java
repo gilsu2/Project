@@ -3,8 +3,10 @@ package com.dw.driverapp.service;
 import com.dw.driverapp.dto.EnrollmentDTO;
 import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.model.Enrollment;
+import com.dw.driverapp.model.Subject;
 import com.dw.driverapp.model.User;
 import com.dw.driverapp.repository.EnrollmentRepository;
+import com.dw.driverapp.repository.SubjectRepository;
 import com.dw.driverapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,23 @@ public class EnrollmentService {
     EnrollmentRepository enrollmentRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    SubjectRepository subjectRepository;
 
     // 유저- 유저네임으로 수강 신청을 조회
-    public List<EnrollmentDTO> enrollmentFindUsername(String username){
+    public List<EnrollmentDTO> enrollmentFindUsername(String username) {
+        User user = userRepository.findByUserName(username)
+                .orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 유저네임입니다."));
+        List<Enrollment> enrollments = enrollmentRepository.findByUser_UserName(username);
+        if (enrollments.isEmpty()) {
+            throw new ResourceNotFoundException("해당 유저는 수강신청을 하지 않았습니다.");
+        }
+        return enrollments.stream()
+                .map(Enrollment::TOdto)
+                .collect(Collectors.toList());
+    }
+    //유저- 로그인한 회원의 수강신청을 조회
+    public List<EnrollmentDTO> enrollmentFindLoginUsername(String username) {
         User user = userRepository.findByUserName(username)
                 .orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 유저네임입니다."));
         List<Enrollment> enrollments = enrollmentRepository.findByUser_UserName(username);
@@ -32,16 +48,5 @@ public class EnrollmentService {
                 .collect(Collectors.toList());
     }
 
-    public List<EnrollmentDTO> enrollmentFindLoginUsername(String username){
-    User user = userRepository.findByUserName(username)
-            .orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 유저네임입니다."));
-    List<Enrollment> enrollments = enrollmentRepository.findByUser_UserName(username);
-        if (enrollments.isEmpty()) {
-        throw new ResourceNotFoundException("해당 유저는 수강신청을 하지 않았습니다.");
-    }
-        return enrollments.stream()
-                .map(Enrollment::TOdto)
-                .collect(Collectors.toList());
-}
 }
 

@@ -17,11 +17,11 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_name")
     private User user;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
@@ -31,6 +31,7 @@ public class Cart {
         CartDTO cartDTO = new CartDTO();
         cartDTO.setId(this.id);
         cartDTO.setSubjectName(this.subject.getTitle());
+        cartDTO.setUsername(this.user.getUserName());
         cartDTO.setPrice(this.subject.getPrice());
         return cartDTO;
     }

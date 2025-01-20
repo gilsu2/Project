@@ -22,12 +22,13 @@ public class EnrollmentController {
 
     // 관리자- 유저네임으로 수강 신청을 조회
     @GetMapping("/enrollment/{username}")
-    public ResponseEntity<List<EnrollmentDTO>> enrollmentFindUsername(@PathVariable String username){
-        return new  ResponseEntity<>(enrollmentService.enrollmentFindUsername(username), HttpStatus.OK);
+    public ResponseEntity<List<EnrollmentDTO>> enrollmentFindUsername(@PathVariable String username) {
+        return new ResponseEntity<>(enrollmentService.enrollmentFindUsername(username), HttpStatus.OK);
     }
+
     //유저- 로그인한 회원의 수강신청을 조회
     @GetMapping("/enrollment/login")
-    public ResponseEntity<List<EnrollmentDTO>> enrollmentFindLoginUsername(HttpServletRequest request){
+    public ResponseEntity<List<EnrollmentDTO>> enrollmentFindLoginUsername(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new ResourceNotFoundException("로그인한 사용자만 조회가 가능합니다.");
@@ -35,5 +36,6 @@ public class EnrollmentController {
         String username = (String) session.getAttribute("username");
         return new ResponseEntity<>(enrollmentService.enrollmentFindLoginUsername(username), HttpStatus.OK);
     }
-    
+
+
 }

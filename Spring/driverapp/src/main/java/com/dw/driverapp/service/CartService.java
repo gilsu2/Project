@@ -38,6 +38,15 @@ public class CartService {
                 .map(Cart::ToDto)
                 .toList();
     }
+    public CartDTO addSubjectToCart(String username, Long subjectId) {
+        User user = userRepository.findById(username).orElseThrow(() -> new ResourceNotFoundException("해당 유저가 존재하지 않습니다."));
+        Subject subject = subjectRepository.findById(subjectId).orElseThrow(() -> new ResourceNotFoundException("해당 과목이 존재하지 않습니다."));
+        Cart cart = new Cart();
+        cart.setUser(user);
+        cart.setSubject(subject);
+        Cart savedCart = cartRepository.save(cart);
+        return savedCart.ToDto();
+    }
 
 
 
