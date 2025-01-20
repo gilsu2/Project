@@ -23,7 +23,7 @@ public class SubjectController {
 
     // 유저- 과목 전체를 조회
     @GetMapping("/subject/all")
-    public ResponseEntity<List<SubjectDTO>>getAllSubject(){
+    public ResponseEntity<List<SubjectDTO>> getAllSubject() {
         return new ResponseEntity<>(subjectService.getAllSubject(), HttpStatus.OK);
     }
 
@@ -34,17 +34,25 @@ public class SubjectController {
     }
 
     //강사- 강의 생성
-    public  ResponseEntity<SubjectDTO> (@RequestBody SubjectDTO subjectDTO, HttpServletRequest request) {
+    @PostMapping("/subject/add")
+    public ResponseEntity<SubjectDTO> subjectAdd(@RequestBody SubjectDTO subjectDTO, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 강의를 생성할 수 있습니다.");
         }
         String instructorUsername = (String) session.getAttribute("username");
-
-        // 서비스 호출하여 강의 생성
-        SubjectDTO createdSubject = subjectService.createSubject(subjectDTO, instructorUsername);
-
-        return new ResponseEntity<>(createdSubject, HttpStatus.CREATED);
+        return new ResponseEntity<>(subjectService.subjectAdd(subjectDTO, instructorUsername), HttpStatus.CREATED);
+    }
+    // 강사- 강의 삭제
+    @DeleteMapping("/subject/delete/{subjectId}")
+    public ResponseEntity<String> deleteSubject(@PathVariable Long subjectId, HttpServletRequest request) {
+        // 로그인한 사용자 확인
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new UnauthorizedUserException("로그인한 사용자만 강의를 삭제할 수 있습니다.");
+        }
+        String instructorUsername = (String) session.getAttribute("username");
+        subjectService.deleteSubject(subjectId, instructorUsername);
+        return new ResponseEntity<>("강의가 성공적으로 삭제되었습니다.", HttpStatus.OK);
     }
 }
-

@@ -2,6 +2,7 @@ package com.dw.driverapp.service;
 
 import com.dw.driverapp.dto.CartDTO;
 import com.dw.driverapp.exception.ResourceNotFoundException;
+import com.dw.driverapp.exception.UnauthorizedUserException;
 import com.dw.driverapp.model.Cart;
 import com.dw.driverapp.model.Subject;
 import com.dw.driverapp.model.User;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CartService {
@@ -48,6 +50,25 @@ public class CartService {
         return savedCart.ToDto();
     }
 
+    // 유저 -> 과목 id로 장바구니 삭제
+    public List<CartDTO> deleteCart(Long subjectId, String username) {
+        Subject subject = subjectRepository.findById(subjectId)
+                .orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 과목입니다."));
 
+        Cart cart = cartRepository.findByUserUserNameAndSubjectId(username, subjectId)
+                .orElseThrow(() -> new ResourceNotFoundException("해당 과목을 장바구니에 추가한 사용자가 아닙니다."));
+
+        if (!cart.getUser().getUserName().equals(username)) {
+            throw new UnauthorizedUserException("사용자가 아니므로 해당 항목을 삭제할 수 없습니다.");
+        }
+
+        cartRepository.delete(cart);
+        return cartRepository.findByUserUserName(username)
+                .orElseThrow(() -> new ResourceNotFoundException("사용자의 장바구니가 없습니다."))
+                .stream()
+                .map(Cart::ToDto)
+                .collect(Collectors.toList());
+
+    }
 
 }
