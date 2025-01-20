@@ -19,6 +19,7 @@ public class EnrollmentService {
     @Autowired
     UserRepository userRepository;
 
+    // 유저- 유저네임으로 수강 신청을 조회
     public List<EnrollmentDTO> enrollmentFindUsername(String username){
         User user = userRepository.findByUserName(username)
                 .orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 유저네임입니다."));
@@ -30,4 +31,17 @@ public class EnrollmentService {
                 .map(Enrollment::TOdto)
                 .collect(Collectors.toList());
     }
+
+    public List<EnrollmentDTO> enrollmentFindLoginUsername(String username){
+    User user = userRepository.findByUserName(username)
+            .orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 유저네임입니다."));
+    List<Enrollment> enrollments = enrollmentRepository.findByUser_UserName(username);
+        if (enrollments.isEmpty()) {
+        throw new ResourceNotFoundException("해당 유저는 수강신청을 하지 않았습니다.");
+    }
+        return enrollments.stream()
+                .map(Enrollment::TOdto)
+                .collect(Collectors.toList());
 }
+}
+
