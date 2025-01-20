@@ -20,6 +20,18 @@ public class EnrollmentController {
     @Autowired
     EnrollmentService enrollmentService;
 
+
+    // 유저 -> 모든 수강신청 내역 조회
+    @GetMapping("/enrollment/all")
+    private ResponseEntity<List<EnrollmentDTO>> getAllEnrollment(){
+        return new ResponseEntity<>(enrollmentService.getAllEnrollment(), HttpStatus.OK);
+    }
+    // 유저 -> 과목 ID로 수강신청 내역 조회
+    @GetMapping("/enrollment/subject/{id}")
+    private ResponseEntity<List<EnrollmentDTO>> getSubjectId(@PathVariable Long id){
+        return new ResponseEntity<>(enrollmentService.getSubjectId(id),HttpStatus.OK);
+    }
+
     // 관리자- 유저네임으로 수강 신청을 조회
     @GetMapping("/enrollment/{username}")
     public ResponseEntity<List<EnrollmentDTO>> enrollmentFindUsername(@PathVariable String username) {

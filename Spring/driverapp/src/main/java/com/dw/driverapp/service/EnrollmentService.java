@@ -23,6 +23,20 @@ public class EnrollmentService {
     @Autowired
     SubjectRepository subjectRepository;
 
+
+    // 유저 -> 모든 수강신청 내역 조회
+    public List<EnrollmentDTO> getAllEnrollment(){
+        return enrollmentRepository.findAll().stream().map(Enrollment::TOdto).toList();
+    }
+
+    // 유저 -> 과목 ID로 수강신청 내역 조회
+    public  List<EnrollmentDTO> getSubjectId(Long id){
+        return enrollmentRepository.findBySubjectId(id).orElseThrow(()-> new ResourceNotFoundException("존재하지 않는 과목입니다."))
+                .stream()
+                .map(Enrollment::TOdto)
+                .toList();
+    }
+
     // 유저- 유저네임으로 수강 신청을 조회
     public List<EnrollmentDTO> enrollmentFindUsername(String username) {
         User user = userRepository.findByUserName(username)
@@ -35,6 +49,7 @@ public class EnrollmentService {
                 .map(Enrollment::TOdto)
                 .collect(Collectors.toList());
     }
+
     //유저- 로그인한 회원의 수강신청을 조회
     public List<EnrollmentDTO> enrollmentFindLoginUsername(String username) {
         User user = userRepository.findByUserName(username)
