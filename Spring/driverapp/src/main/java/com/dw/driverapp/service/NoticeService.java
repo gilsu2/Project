@@ -1,6 +1,9 @@
 package com.dw.driverapp.service;
 
+import com.dw.driverapp.dto.BoardDTO;
 import com.dw.driverapp.exception.ResourceNotFoundException;
+import com.dw.driverapp.exception.UnauthorizedUserException;
+import com.dw.driverapp.model.Board;
 import com.dw.driverapp.model.Notice;
 import com.dw.driverapp.model.User;
 import com.dw.driverapp.repository.NoticeRepository;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NoticeService {
@@ -47,8 +51,20 @@ public class NoticeService {
         notice1.setContent(notice.getContent());
         notice1.setCreatedDate(LocalDateTime.now());
         return noticeRepository.save(notice1);
-
     }
+    //관리자- 로그인 중 공지사항 삭제
+    public Notice noticeDelete(Long id, String username) {
+        User user = userRepository.findByUserName(username)
+                .orElseThrow(() -> new ResourceNotFoundException("사용자를 찾을 수 없습니다."));
+        Optional<Notice> noticeOpt = noticeRepository.findById(id);
+        if (noticeOpt.isEmpty()) {
+            throw new ResourceNotFoundException("공지사항을 찾을 수 없습니다.");
+        }
+        Notice notice = noticeOpt.get();
+        noticeRepository.delete(notice);
+        return notice;
+    }
+
 }
 
 
