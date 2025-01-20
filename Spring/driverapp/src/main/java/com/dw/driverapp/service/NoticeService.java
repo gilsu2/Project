@@ -4,15 +4,20 @@ import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.model.Notice;
 import com.dw.driverapp.model.User;
 import com.dw.driverapp.repository.NoticeRepository;
+import com.dw.driverapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class NoticeService {
     @Autowired
     NoticeRepository noticeRepository;
+    @Autowired
+    UserRepository userRepository;
 
 
     // 유저- 공지사항 전체를 조회
@@ -32,6 +37,16 @@ public class NoticeService {
         return noticeRepository.findByTitleLike(title1)
                 .filter(notices -> ! notices.isEmpty())
                 .orElseThrow(()-> new ResourceNotFoundException("입력하신 공지사항이 없습니다."));
+    }
+    // 관리자- 로그인 중 공지사항 추가
+    public Notice noticeAdd(Notice notice, String username){
+        User user = userRepository.findByUserName(username)
+                .orElseThrow(()-> new ResourceNotFoundException("회원이 올바르지 않습니다"));
+        Notice notice1 = new Notice();
+        notice1.setTitle(notice.getTitle());
+        notice1.setContent(notice.getContent());
+        notice1.setCreatedDate(LocalDateTime.now());
+        return noticeRepository.save(notice1);
 
     }
 }
