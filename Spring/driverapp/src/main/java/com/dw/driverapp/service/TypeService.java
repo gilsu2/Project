@@ -1,5 +1,6 @@
 package com.dw.driverapp.service;
 
+import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.model.Type;
 import com.dw.driverapp.repository.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,5 +18,12 @@ public class TypeService {
         Type savedType = typeRepository.save(newType);
         return savedType;
     }
+
+    public Type typeUpdate(Long id,Type type){
+    Type type1 = typeRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("해당 ID를 가진 타입을 찾을 수 없습니다."));
+    type1.setName(type.getName());
+    return typeRepository.save(type1);
+}
 }
 
