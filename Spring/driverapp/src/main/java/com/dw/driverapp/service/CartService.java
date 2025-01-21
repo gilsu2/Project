@@ -4,15 +4,18 @@ import com.dw.driverapp.dto.CartDTO;
 import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.exception.UnauthorizedUserException;
 import com.dw.driverapp.model.Cart;
+import com.dw.driverapp.model.Enrollment;
 import com.dw.driverapp.model.Subject;
 import com.dw.driverapp.model.User;
 import com.dw.driverapp.repository.CartRepository;
+import com.dw.driverapp.repository.EnrollmentRepository;
 import com.dw.driverapp.repository.SubjectRepository;
 import com.dw.driverapp.repository.UserRepository;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,6 +28,8 @@ public class CartService {
     UserRepository userRepository;
     @Autowired
     SubjectRepository subjectRepository;
+    @Autowired
+    EnrollmentRepository enrollmentRepository;
 
 
     // 유저 -> 모든 장바구니 목록 조회
@@ -40,6 +45,7 @@ public class CartService {
                 .map(Cart::ToDto)
                 .toList();
     }
+
     public CartDTO addSubjectToCart(String username, Long subjectId) {
         User user = userRepository.findById(username).orElseThrow(() -> new ResourceNotFoundException("해당 유저가 존재하지 않습니다."));
         Subject subject = subjectRepository.findById(subjectId).orElseThrow(() -> new ResourceNotFoundException("해당 과목이 존재하지 않습니다."));
@@ -71,4 +77,23 @@ public class CartService {
 
     }
 
+    public void cartEnrollment(String username) {
+        List<Cart> cartItems = cartRepository.findByUser_UserName(username);
+        if (cartItems.isEmpty()) {
+            throw new ResourceNotFoundException("장바구니에 항목이 없습니다.");
+        }
+        for (Cart cart : cartItems) {
+            Enrollment enrollment = new Enrollment();
+            enrollment.setUser(cart.getUser());
+            enrollment.setSubject(cart.getSubject());
+            enrollment.setPurchaseTime(LocalDateTime.now());
+            enrollmentRepository.save(enrollment);
+            cartRepository.delete(cart);
+
+        }
+    }
 }
+
+
+
+

@@ -64,4 +64,15 @@ public class CartController {
 
     }
 
+    // 유저- 로그인한 유저의 장바구니를 구매하여 장바구니에 옮김
+    @PostMapping("/cart/enrollment")
+    public ResponseEntity<String> cartEnrollment(HttpServletRequest request) {
+        String loggedInUsername = (String) request.getSession().getAttribute("username");
+        if (loggedInUsername == null) {
+            throw new UnauthorizedUserException("로그인한 사용자만 장바구니를 구매할 수 있습니다.");
+        }
+        cartService.cartEnrollment(loggedInUsername);
+        return new ResponseEntity<>("장바구니 구매가 완료되었습니다.", HttpStatus.OK);
     }
+}
+
