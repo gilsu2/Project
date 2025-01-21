@@ -43,7 +43,7 @@ public class UserController {
     public ResponseEntity<List<User>> getAllUser(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
-            throw new UnauthorizedUserException("로그인한 사용자만 게시글 조회가 가능합니다.");
+            throw new UnauthorizedUserException("잘못된 ");
         }
         return new ResponseEntity<>(userService.getAllUser(), HttpStatus.OK);
     }
@@ -136,24 +136,39 @@ public class UserController {
         return new ResponseEntity<>(userService.realNameFind(realname), HttpStatus.OK);
     }
 
-    // 유저-birthdate로 정보 조회
+    // 유저-로그인한 회원이 관리자나 강사일 경우나 본인일 경우 birthdate로 정보 조회
     @GetMapping("/user/birthdate/{birthdate}")
     public ResponseEntity<List<User>> userBirthdateFind(@PathVariable LocalDate birthdate,HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 게시글 조회가 가능합니다.");
         }
-        return new ResponseEntity<>(userService.userBirthdateFind(birthdate), HttpStatus.OK);
+        String loggedInUsername = (String) session.getAttribute("username");
+        String role = (String) session.getAttribute("role");
+        if ("ADMIN".equals(role) || "INSTRUCTOR".equals(role)) {
+            return new ResponseEntity<>(userService.userBirthdateFind(birthdate), HttpStatus.OK);
+        }
+        User loggedInUser = userRepository.findByUserName(loggedInUsername)
+                .orElseThrow(() -> new ResourceNotFoundException("로그인한 사용자 정보가 존재하지 않습니다."));
+        if (!loggedInUser.getBirthdate().equals(birthdate)) {
+            throw new UnauthorizedUserException("본인만 자신의 생일을 조회할 수 있습니다.");
+        }
+         return new ResponseEntity<>(userService.userBirthdateFind(birthdate), HttpStatus.OK);
     }
 
-    // 관리자- 권한으로 정보 조회*****
+    // 관리자- 로그인한 회원이 관리자일 경우에만 권한으로 정보 조회
     @GetMapping("/user/authority/{authority}")
     public ResponseEntity<List<User>> userauthorityFind(@PathVariable String authority,HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 게시글 조회가 가능합니다.");
         }
-        return new ResponseEntity<>(userService.userauthorityFind(authority),HttpStatus.OK);
+        String loggedInUsername = (String) session.getAttribute("username");
+        String role = (String) session.getAttribute("role");
+        if ("ADMIN".equals(role)) {
+            return new ResponseEntity<>(userService.userauthorityFind(authority), HttpStatus.OK);
+        }
+        throw new UnauthorizedUserException("관리자만 권한을 조회할 수 있습니다.");
     }
 
     // 유저- 지정된 날짜 이후 가입자 정보 조회
