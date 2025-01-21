@@ -59,8 +59,7 @@ public class UserService {
     }
 
 
-
-        // 관리자 - 모든 회원정보 조회
+    // 관리자 - 모든 회원정보 조회
     public List<User> getAllUser() {
         return userRepository.findAll(); // 회원정보 조회
     }
@@ -157,27 +156,29 @@ public class UserService {
                 .filter(users -> !users.isEmpty())
                 .orElseThrow(() -> new ResourceNotFoundException("정보를 찾을 수 없습니다."));
     }
+
     // 관리자- 포인트가 가장 많은 회원 조회
-    public List<User> userPointMost(){
+    public List<User> userPointMost() {
         return userRepository.MostPointUser()
                 .filter(users -> !users.isEmpty())
-                .orElseThrow(()-> new ResourceNotFoundException("정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new ResourceNotFoundException("정보를 찾을 수 없습니다."));
     }
 
     //관리자- 포인트가 가장 적은 회원 조회
-    public List<User> userPointLeast(){
+    public List<User> userPointLeast() {
         return userRepository.leastPointUser()
                 .filter(users -> !users.isEmpty())
-                .orElseThrow(()-> new ResourceNotFoundException("정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new ResourceNotFoundException("정보를 찾을 수 없습니다."));
     }
+
     // 관리자- 회원들이 평균 포인트 조회
-    public Double userPointAverage(){
+    public Double userPointAverage() {
         return userRepository.findAveragePoint()
-                .orElseThrow(()-> new ResourceNotFoundException("정보를 불러올 수 없습니다."));
+                .orElseThrow(() -> new ResourceNotFoundException("정보를 불러올 수 없습니다."));
     }
 
     // 관리자- 모든 회원들의 포인트 조회
-    public List<UserPointDTO> userAllPoint(){
+    public List<UserPointDTO> userAllPoint() {
         return userRepository.findAll().stream()
                 .map(User::todto)
                 .collect(Collectors.toList());
@@ -194,5 +195,6 @@ public class UserService {
         return userRepository.findByUserName(username)
                 .orElseThrow(() -> new ResourceNotFoundException("사용자 정보를 찾을 수 없습니다."));
     }
+
 }
 

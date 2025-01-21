@@ -38,6 +38,7 @@ public class UserController {
     public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
         return new ResponseEntity<>(userService.registerUser(userDTO), HttpStatus.CREATED);
     }
+
     // 관리자 - 모든 회원정보 조회
     @GetMapping("admin/user/all")
     public ResponseEntity<List<User>> getAllUser(HttpServletRequest request) {
@@ -90,7 +91,7 @@ public class UserController {
 
     // 관리자- 로그인한 회원이 관리자나 강사일 경우나 본인일 경우 username으로 정보 조회
     @GetMapping("/user/username/{username}")
-    public ResponseEntity<User> usernameFind(@PathVariable String username,HttpServletRequest request) {
+    public ResponseEntity<User> usernameFind(@PathVariable String username, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 게시글 조회가 가능합니다.");
@@ -108,7 +109,7 @@ public class UserController {
 
     // 유저-로그인한 회원이 관리자나 강사일 경우나 본인일 경우 realname으로 정보 조회
     @GetMapping("/user/realname/{realname}")
-    public ResponseEntity<List<User>> realNameFind(@PathVariable String realname,HttpServletRequest request) {
+    public ResponseEntity<List<User>> realNameFind(@PathVariable String realname, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인 한 사용자만 가능합니다.");
@@ -128,7 +129,7 @@ public class UserController {
 
     // 유저-로그인한 회원이 관리자나 강사일 경우나 본인일 경우 birthdate로 정보 조회
     @GetMapping("/user/birthdate/{birthdate}")
-    public ResponseEntity<List<User>> userBirthdateFind(@PathVariable LocalDate birthdate,HttpServletRequest request) {
+    public ResponseEntity<List<User>> userBirthdateFind(@PathVariable LocalDate birthdate, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인 한 사용자만 가능합니다.");
@@ -143,12 +144,12 @@ public class UserController {
         if (!loggedInUser.getBirthdate().equals(birthdate)) {
             throw new UnauthorizedUserException("본인만 자신의 생일을 조회할 수 있습니다.");
         }
-         return new ResponseEntity<>(userService.userBirthdateFind(birthdate), HttpStatus.OK);
+        return new ResponseEntity<>(userService.userBirthdateFind(birthdate), HttpStatus.OK);
     }
 
     // 관리자- 로그인한 회원이 관리자일 경우에만 권한으로 정보 조회
     @GetMapping("/user/authority/{authority}")
-    public ResponseEntity<List<User>> userauthorityFind(@PathVariable String authority,HttpServletRequest request){
+    public ResponseEntity<List<User>> userauthorityFind(@PathVariable String authority, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인 한 사용자만 가능합니다.");
@@ -163,53 +164,54 @@ public class UserController {
 
     // 유저- 지정된 날짜 이후 가입자 정보 조회
     @GetMapping("/user/over/{date}")
-    public ResponseEntity<List<User>> userdateoverFind(@PathVariable LocalDate date,HttpServletRequest request){
+    public ResponseEntity<List<User>> userdateoverFind(@PathVariable LocalDate date, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인 한 사용자만 가능합니다.");
         }
-        return new ResponseEntity<>(userService.userdateoverFind(date),HttpStatus.OK);
+        return new ResponseEntity<>(userService.userdateoverFind(date), HttpStatus.OK);
     }
 
     // 유저- 지정된 날짜 이전 가입자 정보 조회
     @GetMapping("/user/under/{date}")
-    public ResponseEntity<List<User>> userdateunderFind(@PathVariable LocalDate date,HttpServletRequest request){
+    public ResponseEntity<List<User>> userdateunderFind(@PathVariable LocalDate date, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인 한 사용자만 가능합니다.");
         }
-        return new ResponseEntity<>(userService.userdateunderFind(date),HttpStatus.OK);
+        return new ResponseEntity<>(userService.userdateunderFind(date), HttpStatus.OK);
     }
 
     // 유저- 지정된 날짜 가입자 정보 조회
     @GetMapping("/user/date/{date}")
-    public ResponseEntity<List<User>> userdateFind(@PathVariable LocalDate date,HttpServletRequest request){
+    public ResponseEntity<List<User>> userdateFind(@PathVariable LocalDate date, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인 한 사용자만 가능합니다.");
         }
-        return new ResponseEntity<>(userService.userdateFind(date),HttpStatus.OK);
+        return new ResponseEntity<>(userService.userdateFind(date), HttpStatus.OK);
     }
+
     //유저- 지정된 날짜 사이에 가입한 정보 조회
     @GetMapping("/user/{date1}/{date2}")
-    public ResponseEntity<List<User>> userbetweenFind(@PathVariable LocalDate date1,@PathVariable LocalDate date2,HttpServletRequest request){
+    public ResponseEntity<List<User>> userbetweenFind(@PathVariable LocalDate date1, @PathVariable LocalDate date2, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인 한 사용자만 가능합니다.");
         }
-        return new ResponseEntity<>(userService.userbetweenFind(date1,date2),HttpStatus.OK);
+        return new ResponseEntity<>(userService.userbetweenFind(date1, date2), HttpStatus.OK);
     }
 
     // 유저 - 비밀번호 변경
     @PutMapping("/user/update/password")
-    public ResponseEntity<User> userUpdatePassWord(@RequestBody User user,HttpServletRequest request) {
+    public ResponseEntity<User> userUpdatePassWord(@RequestBody User user, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 변경이 가능합니다.");
         }
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        return new ResponseEntity<>(userService.userUpdatePassWord(user),HttpStatus.OK);
+        return new ResponseEntity<>(userService.userUpdatePassWord(user), HttpStatus.OK);
     }
 
     // 유저 - 회원탈퇴
@@ -227,76 +229,77 @@ public class UserController {
 
     // 유저- 가장 먼저 가입한 유저 조회
     @GetMapping("/admin/user/first")
-    public ResponseEntity<List<User>> firstUser(){
-        return new ResponseEntity<>(userService.firstUser(),HttpStatus.OK);
+    public ResponseEntity<List<User>> firstUser() {
+        return new ResponseEntity<>(userService.firstUser(), HttpStatus.OK);
     }
 
     // 유저- 가장 최근 가입한 유저 조회
     @GetMapping("/admin/user/point/last")
-    public ResponseEntity<List<User>> lastUser(){
-        return new ResponseEntity<>(userService.lastUser(),HttpStatus.OK);
+    public ResponseEntity<List<User>> lastUser() {
+        return new ResponseEntity<>(userService.lastUser(), HttpStatus.OK);
     }
 
     // 관리자- 포인트가 가장 많은 회원 조회
     @GetMapping("/admin/user/point/most")
-    public ResponseEntity<List<User>> userPointMost(HttpServletRequest request){
+    public ResponseEntity<List<User>> userPointMost(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인 후 이용가능합니다");
         }
         String role = (String) session.getAttribute("role");
-        if (!"ADMIN".equals(role) ) {
+        if (!"ADMIN".equals(role)) {
             throw new UnauthorizedUserException("관리자만 포인트 조회가 가능합니다.");
         }
-        return new ResponseEntity<>(userService.userPointMost(),HttpStatus.OK);
+        return new ResponseEntity<>(userService.userPointMost(), HttpStatus.OK);
     }
 
     // 관리자- 포인트가 가장 적은 회원 조회
     @GetMapping("/admin/user/point/least")
-    public ResponseEntity<List<User>> userPointLeast(HttpServletRequest request){
+    public ResponseEntity<List<User>> userPointLeast(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인 후 이용가능합니다");
         }
         String role = (String) session.getAttribute("role");
-        if (!"ADMIN".equals(role) ) {
+        if (!"ADMIN".equals(role)) {
             throw new UnauthorizedUserException("관리자만 포인트 조회가 가능합니다.");
         }
-        return new ResponseEntity<>(userService.userPointLeast(),HttpStatus.OK);
+        return new ResponseEntity<>(userService.userPointLeast(), HttpStatus.OK);
     }
 
     // 관리자- 회원들의 평균 포인트 조회
     @GetMapping("/admin/user/point/average")
-    public ResponseEntity<Double> userPointAverage(HttpServletRequest request){
+    public ResponseEntity<Double> userPointAverage(HttpServletRequest request) {
         Double averagePoint = userService.userPointAverage();
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인 후 이용가능합니다");
         }
         String role = (String) session.getAttribute("role");
-        if (!"ADMIN".equals(role) ) {
+        if (!"ADMIN".equals(role)) {
             throw new UnauthorizedUserException("관리자만 포인트 조회가 가능합니다.");
         }
 
         return ResponseEntity.ok(averagePoint);
     }
+
     // 관리자- 모든 회원들의 포인트 조회
     @GetMapping("admin/user/point/all")
-    public ResponseEntity<List<UserPointDTO>> userAllPoint (HttpServletRequest request){
+    public ResponseEntity<List<UserPointDTO>> userAllPoint(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 게시글 조회가 가능합니다.");
         }
         String role = (String) session.getAttribute("role");
-        if (!"ADMIN".equals(role) ) {
+        if (!"ADMIN".equals(role)) {
             throw new UnauthorizedUserException("관리자만 포인트 조회가 가능합니다.");
         }
-        return new ResponseEntity<>(userService.userAllPoint(),HttpStatus.OK);
+        return new ResponseEntity<>(userService.userAllPoint(), HttpStatus.OK);
     }
 
     // 유저 - 포인트 내역 조회
     @GetMapping("/user/point/{username}")
-    public ResponseEntity<User> userPoint(@PathVariable String username,HttpServletRequest request) {
+    public ResponseEntity<User> userPoint(@PathVariable String username, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 포인트 조회가 가능합니다.");
@@ -319,5 +322,4 @@ public class UserController {
         User user = userService.userMe(loggedInUsername);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-
 }
