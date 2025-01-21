@@ -293,4 +293,20 @@ public class UserController {
         }
         return new ResponseEntity<>(userService.userAllPoint(),HttpStatus.OK);
     }
+
+    // 유저 - 포인트 내역 조회
+    @GetMapping("/user/point/{username}")
+    public ResponseEntity<User> userPoint(@PathVariable String username,HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new UnauthorizedUserException("로그인한 사용자만 포인트 조회가 가능합니다.");
+        }
+        if (!username.equals(session.getAttribute("username"))) {
+            throw new UnauthorizedUserException("본인의 정보만 조회할 수 있습니다.");
+        }
+        return new ResponseEntity<>(userService.userPoint(username), HttpStatus.OK);
+    }
+
+
+    
 }

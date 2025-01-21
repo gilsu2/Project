@@ -26,7 +26,6 @@ public class EnrollmentController {
     // 관리자 -> 로그인 한 사람이 관리자일 경우 모든 수강신청 내역 조회
     @GetMapping("/enrollment/all")
     private ResponseEntity<List<EnrollmentDTO>> getAllEnrollment(HttpServletRequest request){
-        // 세션에서 로그인한 사용자 정보 가져오기
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 수강 신청 조회가 가능합니다.");

@@ -182,4 +182,10 @@ public class UserService {
                 .map(User::todto)
                 .collect(Collectors.toList());
     }
+
+    // 유저 - 포인트 내역 조회
+    public User userPoint(String username) {
+        return userRepository.findByUserName(username)
+                .orElseThrow(() -> new ResourceNotFoundException("회원이 존재하지 않습니다."));
+    }
 }
