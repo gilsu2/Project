@@ -49,9 +49,5 @@ public class CustomExceptionHandler {
                 HttpStatus.FORBIDDEN);
     }
 
-    @ExceptionHandler(UnauthorizedActionException.class)
-    public ResponseEntity<String> handleUnauthorizedActionException(UnauthorizedActionException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
-    }
 
 }

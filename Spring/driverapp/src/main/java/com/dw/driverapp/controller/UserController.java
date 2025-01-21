@@ -2,8 +2,10 @@ package com.dw.driverapp.controller;
 
 import com.dw.driverapp.dto.UserDTO;
 import com.dw.driverapp.dto.UserPointDTO;
+import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.exception.UnauthorizedUserException;
 import com.dw.driverapp.model.User;
+import com.dw.driverapp.repository.UserRepository;
 import com.dw.driverapp.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,6 +29,9 @@ public class UserController {
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    UserRepository userRepository;
+
 
     // 유저 - 회원가입
     @PostMapping("/user/register")
@@ -49,13 +54,13 @@ public class UserController {
                                         HttpServletRequest request) {
         String username = userDTO.getUserName();
         String password = userDTO.getPassword();
-
         if (userService.validateUser(username, password)) {
+            User user= userRepository.findById(username)
+                    .orElseThrow(()-> new ResourceNotFoundException("사용자가 존재하지 않습니다."));
 
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
-
-            request.getSession().setAttribute("username", username);
+            session.setAttribute("role",user.getAuthority().getAuthorityName());
 
             return new ResponseEntity<>(
                     "로그인이 완료되었습니다.",

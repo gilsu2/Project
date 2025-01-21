@@ -50,7 +50,6 @@ public class User {
                 this.point
 
         );
-
     }
     public UserPointDTO todto(){
         return new UserPointDTO(
