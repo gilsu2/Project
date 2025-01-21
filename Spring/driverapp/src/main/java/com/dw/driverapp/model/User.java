@@ -14,6 +14,7 @@ import java.util.Locale;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @ToString
 @Entity
 @Table(name="사용자")
@@ -22,7 +23,6 @@ public class User {
     @Column(name="user_name")
     private String userName;
     @Column(name="password", nullable = false)
-    @Setter
     private String password;
     @Column(name="email", nullable = false, unique = true)
     private String email;
@@ -37,6 +37,8 @@ public class User {
     private LocalDate createdAt;
     @Column(name="point")
     private int point;
+    @Column(name="last_login_date")
+    private LocalDate lastLoginDate;
 
 
     public UserDTO toDTO(){
@@ -47,7 +49,8 @@ public class User {
                 this.realName,
                 this.birthdate,
                 authority.getAuthorityName(),
-                this.point
+                this.point,
+                this.lastLoginDate
 
         );
     }

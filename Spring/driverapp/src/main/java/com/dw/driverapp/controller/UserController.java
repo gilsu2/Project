@@ -50,21 +50,26 @@ public class UserController {
 
     // 유저- 로그인
     @PostMapping("/user/login")
-    public ResponseEntity<String> login(@RequestBody UserDTO userDTO,
-                                        HttpServletRequest request) {
+    public ResponseEntity<String> login(@RequestBody UserDTO userDTO, HttpServletRequest request) {
         String username = userDTO.getUserName();
         String password = userDTO.getPassword();
-        if (userService.validateUser(username, password)) {
-            User user= userRepository.findById(username)
-                    .orElseThrow(()-> new ResourceNotFoundException("사용자가 존재하지 않습니다."));
 
+        if (userService.validateUser(username, password)) {
+            User user = userRepository.findById(username)
+                    .orElseThrow(() -> new ResourceNotFoundException("사용자가 존재하지 않습니다."));
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
-            session.setAttribute("role",user.getAuthority().getAuthorityName());
-
-            return new ResponseEntity<>(
-                    "로그인이 완료되었습니다.",
-                    HttpStatus.OK);
+            session.setAttribute("role", user.getAuthority().getAuthorityName()); // 권한도 함께 저장
+            LocalDate currentDate = LocalDate.now();
+            String message = "로그인이 완료되었습니다.";
+            if (user.getLastLoginDate() == null || !user.getLastLoginDate().equals(currentDate)) {
+                // 하루에 한 번만 포인트를 지급
+                user.setPoint(user.getPoint() + 1000);
+                user.setLastLoginDate(currentDate);
+                userRepository.save(user);
+                message = "로그인 완료! 1000 포인트가 지급되었습니다.";
+            }
+            return new ResponseEntity<>(message, HttpStatus.OK);
         } else {
             throw new UnauthorizedUserException("입력하신 정보가 올바르지 않습니다.");
         }

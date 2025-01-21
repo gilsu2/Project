@@ -42,21 +42,25 @@ public class UserService {
         if (user.isPresent()) {
             throw new InvalidRequestException("입력하신 정보가 이미 존재합니다.");
         }
-        return userRepository.save(
-                new User(
-                        userDTO.getUserName(),
-                        passwordEncoder.encode(userDTO.getPassword()),
-                        userDTO.getEmail(),
-                        userDTO.getRealName(),
-                        userDTO.getBirthdate(),
-                        authorityRepository.findById("User")
-                                .orElseThrow(() -> new ResourceNotFoundException("NO ROLE")),
-                        LocalDate.now(),
-                        10000)
-        ).toDTO();
+        User newUser = new User(
+                userDTO.getUserName(),
+                passwordEncoder.encode(userDTO.getPassword()),
+                userDTO.getEmail(),
+                userDTO.getRealName(),
+                userDTO.getBirthdate(),
+                authorityRepository.findById("User")
+                        .orElseThrow(() -> new ResourceNotFoundException("NO ROLE")),
+                LocalDate.now(),
+                10000,
+                LocalDate.now()
+        );
+
+        return userRepository.save(newUser).toDTO();
     }
 
-    // 관리자 - 모든 회원정보 조회
+
+
+        // 관리자 - 모든 회원정보 조회
     public List<User> getAllUser() {
         return userRepository.findAll(); // 회원정보 조회
     }

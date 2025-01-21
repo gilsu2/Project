@@ -44,6 +44,7 @@ public class NoticeService {
 
     }
 
+    // 관리자- 공지사항 추가
     public Notice noticeAdd(Notice notice, String username) {
         User user = userRepository.findByUserName(username)
                 .orElseThrow(() -> new ResourceNotFoundException("회원이 올바르지 않습니다"));
