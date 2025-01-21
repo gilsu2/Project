@@ -61,7 +61,7 @@ public class CommentController {
     public ResponseEntity<CommentDTO> commentAdd(@RequestBody CommentDTO commentDTO, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
-            throw new UnauthorizedUserException("로그인한 사용자만 삭제가 가능합니다.");
+            throw new UnauthorizedUserException("로그인한 사용자만 등록이 가능합니다.");
         }
         String username = (String) session.getAttribute("username");
         return new ResponseEntity<>(commentService.commentAdd(commentDTO, username), HttpStatus.OK);

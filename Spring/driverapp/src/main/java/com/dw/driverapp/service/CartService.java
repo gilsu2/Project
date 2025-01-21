@@ -77,22 +77,24 @@ public class CartService {
 
     }
 
-    public void cartEnrollment(String username) {
-        List<Cart> cartItems = cartRepository.findByUser_UserName(username);
-        if (cartItems.isEmpty()) {
-            throw new ResourceNotFoundException("장바구니에 항목이 없습니다.");
+    public void cartEnrollment(String username, Long id) {
+
+        List<Cart> cartList = cartRepository.findByUser_UserNameAndSubject_Id(username, id);
+        if (cartList.isEmpty()) {
+            throw new ResourceNotFoundException("해당 과목이 장바구니에 없습니다.");
         }
-        for (Cart cart : cartItems) {
+        for (Cart cart : cartList) {
             Enrollment enrollment = new Enrollment();
             enrollment.setUser(cart.getUser());
             enrollment.setSubject(cart.getSubject());
             enrollment.setPurchaseTime(LocalDateTime.now());
             enrollmentRepository.save(enrollment);
             cartRepository.delete(cart);
-
         }
     }
 }
+
+
 
 
 

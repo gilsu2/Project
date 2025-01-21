@@ -39,6 +39,7 @@ public class CartController {
         }
         return new ResponseEntity<>(cartService.findUserName(username), HttpStatus.OK);
     }
+
     // 유저 - 로그인 중인 사용자의 이름으로 장바구니 추가
     @PostMapping("/user/add")
     public ResponseEntity<CartDTO> addSubjectToCart(@RequestParam String username, @RequestParam Long subjectId, HttpServletRequest request) {
@@ -64,15 +65,14 @@ public class CartController {
 
     }
 
-    // 유저- 로그인한 유저의 장바구니를 구매하여 장바구니에 옮김
-    @PostMapping("/cart/enrollment")
-    public ResponseEntity<String> cartEnrollment(HttpServletRequest request) {
+    // 유저- 로그인한 회원의 장바구니에서 과목아이디로 구매
+    @PostMapping("/cart/enrollment/{id}")
+    public ResponseEntity<String> cartEnrollment(@PathVariable Long id, HttpServletRequest request) {
         String loggedInUsername = (String) request.getSession().getAttribute("username");
         if (loggedInUsername == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 장바구니를 구매할 수 있습니다.");
         }
-        cartService.cartEnrollment(loggedInUsername);
+        cartService.cartEnrollment(loggedInUsername, id);
         return new ResponseEntity<>("장바구니 구매가 완료되었습니다.", HttpStatus.OK);
     }
 }
-

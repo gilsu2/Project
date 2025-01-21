@@ -106,6 +106,7 @@ public class BoardService {
     // 유저- 로그인한 사용자가 올린 게시글만 조회
     public List<BoardAllDTO> loginBoardAll(String username) {
         List<Board> boards = boardRepository.findByAuthor_UserName(username)
+                .filter(boards1 -> !boards1.isEmpty())
                 .orElseThrow(() -> new ResourceNotFoundException("해당 사용자의 게시글이 없습니다."));
         List<BoardAllDTO> boardAllDTOList = new ArrayList<>();
         for (Board board : boards) {
