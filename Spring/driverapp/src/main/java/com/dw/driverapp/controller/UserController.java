@@ -43,7 +43,11 @@ public class UserController {
     public ResponseEntity<List<User>> getAllUser(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
-            throw new UnauthorizedUserException("잘못된 ");
+            throw new UnauthorizedUserException("로그인한 사용자만 회원을 조회할 수 있습니다.");
+        }
+        String role = (String) session.getAttribute("role");
+        if (!"ADMIN".equals(role)) {
+            throw new UnauthorizedUserException("관리자만 모든 회원을 조회할 수 있습니다.");
         }
         return new ResponseEntity<>(userService.getAllUser(), HttpStatus.OK);
     }
@@ -101,25 +105,6 @@ public class UserController {
         }
         return new ResponseEntity<>(userService.usernameFind(username), HttpStatus.OK);
     }
-
-    // 유저- 로그인한 회원이 관리자나 강사일 경우나 본인일 경우 email로 정보 조회
-    @GetMapping("/user/email/{email}")
-    public ResponseEntity<User> userEmailFind(@PathVariable String email,HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("username") == null) {
-            throw new UnauthorizedUserException("로그인한 사용자만 게시글 조회가 가능합니다.");
-        }
-        String loggedInUsername = (String) session.getAttribute("username");
-        String role = (String) session.getAttribute("role");
-        if ("ADMIN".equals(role) || "INSTRUCTOR".equals(role)) {
-            return new ResponseEntity<>(userService.userEmailFind(email), HttpStatus.OK);
-        }
-        if (!loggedInUsername.equals(email)) {
-            throw new UnauthorizedUserException("본인만 자신의 이메일을 조회할 수 있습니다.");
-        }
-        return new ResponseEntity<>(userService.userEmailFind(email), HttpStatus.OK);
-    }
-
 
     // 유저-로그인한 회원이 관리자나 강사일 경우나 본인일 경우 realname으로 정보 조회
     @GetMapping("/user/realname/{realname}")

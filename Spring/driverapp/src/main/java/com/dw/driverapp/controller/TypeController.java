@@ -38,5 +38,5 @@ public class TypeController {
         typeService.typeAdd(newType);
         return new ResponseEntity<>("타입 추가가 완료되었습니다.", HttpStatus.CREATED);
     }
-    
+
 }

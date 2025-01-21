@@ -77,11 +77,6 @@ public class UserService {
         return userRepository.findById(username).orElseThrow(() -> new ResourceNotFoundException("입력하신 회원이 존재하지 않습니다."));
     }
 
-    // 유저- email으로 정보 조회
-    public User userEmailFind(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("입력하신 email의 정보를 가진 회원이 존재하지 않습니다."));
-    }
 
     // 유저- realname으로 정보 조회
     public List<User> realNameFind(String realname) {
