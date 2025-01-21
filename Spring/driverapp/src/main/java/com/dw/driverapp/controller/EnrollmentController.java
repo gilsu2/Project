@@ -74,6 +74,4 @@ public class EnrollmentController {
         String username = (String) session.getAttribute("username");
         return new ResponseEntity<>(enrollmentService.enrollmentFindLoginUsername(username), HttpStatus.OK);
     }
-
-
 }
