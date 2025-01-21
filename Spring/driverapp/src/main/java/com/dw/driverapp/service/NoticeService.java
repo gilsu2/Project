@@ -41,9 +41,9 @@ public class NoticeService {
         return noticeRepository.findByTitleLike(title1)
                 .filter(notices -> !notices.isEmpty())
                 .orElseThrow(() -> new ResourceNotFoundException("입력하신 공지사항이 없습니다."));
+
     }
 
-    // 관리자- 로그인 중 공지사항 추가
     public Notice noticeAdd(Notice notice, String username) {
         User user = userRepository.findByUserName(username)
                 .orElseThrow(() -> new ResourceNotFoundException("회원이 올바르지 않습니다"));
@@ -53,7 +53,6 @@ public class NoticeService {
         notice1.setCreatedDate(LocalDateTime.now());
         return noticeRepository.save(notice1);
     }
-
     //관리자- 로그인 중 공지사항 삭제
     public Notice noticeDelete(Long id, String username) {
         User user = userRepository.findByUserName(username)
@@ -78,5 +77,3 @@ public class NoticeService {
         return noticeRepository.save(notice1);
     }
 }
-
-

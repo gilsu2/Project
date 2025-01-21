@@ -23,20 +23,44 @@ public class EnrollmentController {
     EnrollmentService enrollmentService;
 
 
-    // 관리자 -> 모든 수강신청 내역 조회
+    // 관리자 -> 로그인 한 사람이 관리자일 경우 모든 수강신청 내역 조회
     @GetMapping("/enrollment/all")
-    private ResponseEntity<List<EnrollmentDTO>> getAllEnrollment(){
-        return new ResponseEntity<>(enrollmentService.getAllEnrollment(), HttpStatus.OK);
+    private ResponseEntity<List<EnrollmentDTO>> getAllEnrollment(HttpServletRequest request){
+        // 세션에서 로그인한 사용자 정보 가져오기
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new UnauthorizedUserException("로그인한 사용자만 수강 신청 조회가 가능합니다.");
+        }
+        String role = (String) session.getAttribute("role");
+        if (!"ADMIN".equals(role)) {
+            throw new UnauthorizedUserException("관리자만 모든 수강 신청을 조회할 수 있습니다.");
+        }
+        List<EnrollmentDTO> enrollmentList = enrollmentService.getAllEnrollment();
+        return new ResponseEntity<>(enrollmentList, HttpStatus.OK);
     }
-    // 유저 -> 과목 ID로 수강신청 내역 조회
+
+    // 유저 -> 로그인한 본인이 맞을 경우 과목 ID로 수강신청 내역 조회
     @GetMapping("/enrollment/subject/{id}")
-    private ResponseEntity<List<EnrollmentDTO>> getSubjectId(@PathVariable Long id){
-        return new ResponseEntity<>(enrollmentService.getSubjectId(id),HttpStatus.OK);
+    public ResponseEntity<List<EnrollmentDTO>> getSubjectId(@PathVariable Long id, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new UnauthorizedUserException("로그인한 사용자만 수강 신청 내역을 조회할 수 있습니다.");
+        }
+        String username = (String) session.getAttribute("username");
+        return new ResponseEntity<>(enrollmentService.getSubjectId(id, username), HttpStatus.OK);
     }
 
     // 관리자- 유저네임으로 수강 신청을 조회
     @GetMapping("/enrollment/{username}")
-    public ResponseEntity<List<EnrollmentDTO>> enrollmentFindUsername(@PathVariable String username) {
+    public ResponseEntity<List<EnrollmentDTO>> enrollmentFindUsername(@PathVariable String username, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null || session.getAttribute("role") == null) {
+            throw new UnauthorizedUserException("로그인한 사용자만 수강 신청 내역을 조회할 수 있습니다.");
+        }
+        String role = (String) session.getAttribute("role");
+        if (!"ADMIN".equals(role)) {
+            throw new UnauthorizedUserException("관리자만 다른 사용자의 수강 신청 내역을 조회할 수 있습니다.");
+        }
         return new ResponseEntity<>(enrollmentService.enrollmentFindUsername(username), HttpStatus.OK);
     }
 
