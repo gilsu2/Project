@@ -1,5 +1,6 @@
 package com.dw.driverapp.controller;
 
+import com.dw.driverapp.dto.BoardDTO;
 import com.dw.driverapp.exception.UnauthorizedUserException;
 import com.dw.driverapp.model.Notice;
 import com.dw.driverapp.model.User;
@@ -52,13 +53,24 @@ public class NoticeController {
 
     //관리자- 로그인 중 공지사항 삭제
     @DeleteMapping("/admin/notice/delete/{id}")
-    public ResponseEntity<Notice> noticeDelete(@PathVariable Long id, HttpServletRequest request) {
+    public ResponseEntity<String> noticeDelete(@PathVariable Long id, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 삭제가 가능합니다.");
         }
         String username = (String) session.getAttribute("username");
-        return new ResponseEntity<>(noticeService.noticeDelete(id, username), HttpStatus.OK);
+        noticeService.noticeDelete(id, username);
+        return new ResponseEntity<>("삭제가 완료되었습니다.", HttpStatus.OK);
+    }
+    // 관리자- 로그인 중 공지사항 수정
+    @PutMapping("/admin/notice/update/{id}")
+    public ResponseEntity<Notice> noticeUpdate(@PathVariable Long id, @RequestBody Notice notice, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new UnauthorizedUserException("로그인한 사용자만 수정이 가능합니다.");
+        }
+        String username = (String) session.getAttribute("username");
+        return new ResponseEntity<>(noticeService.noticeUpdate(id, notice, username), HttpStatus.OK);
     }
 
 }
