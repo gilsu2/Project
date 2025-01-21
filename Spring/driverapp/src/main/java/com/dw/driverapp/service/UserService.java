@@ -188,4 +188,11 @@ public class UserService {
         return userRepository.findByUserName(username)
                 .orElseThrow(() -> new ResourceNotFoundException("회원이 존재하지 않습니다."));
     }
+
+    // 유저- 현재 로그인중인 본인의 정보 조회
+    public User userMe(String username) {
+        return userRepository.findByUserName(username)
+                .orElseThrow(() -> new ResourceNotFoundException("사용자 정보를 찾을 수 없습니다."));
+    }
 }
+

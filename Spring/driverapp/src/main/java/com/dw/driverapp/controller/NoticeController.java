@@ -66,7 +66,7 @@ public class NoticeController {
         String role = (String) session.getAttribute("role");
 
         if (!"ADMIN".equals(role)) {
-            throw new UnauthorizedUserException("관리자만 공지사항을 추가할 수 있습니다.");
+            throw new UnauthorizedUserException("관리자만 공지사항을 삭제할 수 있습니다.");
         }
         noticeService.noticeDelete(id, username);
         return new ResponseEntity<>("삭제가 완료되었습니다.", HttpStatus.OK);

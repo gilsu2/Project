@@ -307,6 +307,17 @@ public class UserController {
         return new ResponseEntity<>(userService.userPoint(username), HttpStatus.OK);
     }
 
+    // 유저- 현재 로그인중인 본인의 정보 조회
+    @GetMapping("/user/me")
+    public ResponseEntity<User> userMe(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new UnauthorizedUserException("로그인한 사용자만 정보를 조회할 수 있습니다.");
+        }
+        String loggedInUsername = (String) session.getAttribute("username");
 
-    
+        User user = userService.userMe(loggedInUsername);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
 }
