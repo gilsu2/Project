@@ -19,6 +19,7 @@ public class TypeController {
     @Autowired
     TypeService typeService;
 
+    // 관리자,강사 - 로그인 중인 회원이 관리자,강사일 경우 추가
     @PostMapping("/admin/add/car/type")
     public ResponseEntity<String> typeAdd(@RequestBody Type newType, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -36,8 +37,9 @@ public class TypeController {
         return new ResponseEntity<>("타입 추가가 완료되었습니다.", HttpStatus.CREATED);
     }
 
+    // 관리자,강사- 로그인 중인 회원이 관리자,강사일 경우 수정
     @PutMapping("/admin/update/car/type/{id}")
-    public ResponseEntity<String> typeUpdate(@PathVariable Long id,@RequestBody Type type, HttpServletRequest request){
+    public ResponseEntity<String> typeUpdate(@PathVariable Long id, @RequestBody Type type, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 수정이 가능합니다.");
@@ -46,8 +48,24 @@ public class TypeController {
         if (!"ADMIN".equalsIgnoreCase(role) && !"INSTRUCTOR".equalsIgnoreCase(role)) {
             throw new UnauthorizedUserException("관리자 또는 강사만 수정이 가능합니다.");
         }
-        typeService.typeUpdate(id,type);
+        typeService.typeUpdate(id, type);
         return new ResponseEntity<>("타입 수정이 완료되었습니다.", HttpStatus.OK);
     }
 
+    // 관리자,강사- 로그인 중인 회원이 관리자,강사일 경우 삭제
+    @DeleteMapping("admin/delete/car/types/{id}")
+    public ResponseEntity<String> typeDelete(@PathVariable Long id, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new UnauthorizedUserException("로그인한 사용자만 삭제가 가능합니다.");
+        }
+        String role = (String) session.getAttribute("role");
+
+        // 관리자 또는 강사만 삭제 가능
+        if (!"ADMIN".equalsIgnoreCase(role) && !"INSTRUCTOR".equalsIgnoreCase(role)) {
+            throw new UnauthorizedUserException("관리자 또는 강사만 삭제가 가능합니다.");
+        }
+        typeService.typeDelete(id);
+        return new ResponseEntity<>("삭제가 완료되었습니다.", HttpStatus.OK);
+    }
 }
