@@ -23,20 +23,20 @@ public class NoticeController {
 
     // 유저- 공지사항 전체를 조회
     @GetMapping("/notice/all")
-    public ResponseEntity<List<Notice>> getAllNotice(){
-        return new ResponseEntity<>(noticeService.getAllNotice(),HttpStatus.OK);
+    public ResponseEntity<List<Notice>> getAllNotice() {
+        return new ResponseEntity<>(noticeService.getAllNotice(), HttpStatus.OK);
     }
 
     // 유저- 공지사항을 id로 조회
     @GetMapping("/notice/{id}")
-    public ResponseEntity<Notice> noticeIdFind(@PathVariable Long id){
-        return new ResponseEntity<>(noticeService.noticeIdFind(id),HttpStatus.OK);
+    public ResponseEntity<Notice> noticeIdFind(@PathVariable Long id) {
+        return new ResponseEntity<>(noticeService.noticeIdFind(id), HttpStatus.OK);
     }
 
     // 유저- 공지사항(제목) 검색 조회
     @GetMapping("/notice/title/search/{title}")
-    public ResponseEntity<List<Notice>> noticeTitleFind(@PathVariable String title){
-        return new ResponseEntity<>(noticeService.noticeTitleFind(title),HttpStatus.OK);
+    public ResponseEntity<List<Notice>> noticeTitleFind(@PathVariable String title) {
+        return new ResponseEntity<>(noticeService.noticeTitleFind(title), HttpStatus.OK);
     }
 
     // 관리자- 로그인 중 공지사항 추가
@@ -80,8 +80,10 @@ public class NoticeController {
             throw new UnauthorizedUserException("로그인한 사용자만 수정이 가능합니다.");
         }
         String username = (String) session.getAttribute("username");
-
-
+        String role = (String) session.getAttribute("role");
+        if (!"ADMIN".equals(role)) {
+            throw new UnauthorizedUserException("관리자만 공지사항을 수정할 수 있습니다.");
+        }
         return new ResponseEntity<>(noticeService.noticeUpdate(id, notice, username), HttpStatus.OK);
     }
 }
