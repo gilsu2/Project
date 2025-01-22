@@ -323,7 +323,7 @@ public class UserController {
     }
 
     // 유저- 로그인한 회원의 본인 회원정보를 수정
-    @PutMapping("/admin/user/update")
+    @PutMapping("/user/update")
     public ResponseEntity<User> updateUser(@RequestBody User user, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
