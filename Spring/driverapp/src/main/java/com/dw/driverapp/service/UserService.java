@@ -196,5 +196,27 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("사용자 정보를 찾을 수 없습니다."));
     }
 
+    // 유저- 로그인한 회원의 본인 회원정보를 수정
+    public User updateUser(String username, User updatedUser) {
+        User user = userRepository.findByUserName(username)
+                .orElseThrow(() -> new ResourceNotFoundException("회원이 존재하지 않습니다."));
+        if (user != null) {
+            user.setRealName(updatedUser.getRealName());
+            user.setEmail(updatedUser.getEmail());
+            return userRepository.save(user);
+        } else {
+            return null;
+        }
+    }
+
+    public void adminDeleteUser(String username) {
+        Optional<User> user = userRepository.findByUserName(username);
+        if (user.isEmpty()) {
+            throw new IllegalArgumentException("사용자를 찾을 수 없습니다: " + username);
+        }
+        userRepository.delete(user.get());
+    }
+
 }
+
 

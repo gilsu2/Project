@@ -214,7 +214,7 @@ public class UserController {
         return new ResponseEntity<>(userService.userUpdatePassWord(user), HttpStatus.OK);
     }
 
-    // 유저 - 회원탈퇴
+    // 유저 - 로그인한 회원탈퇴
     @DeleteMapping("/user/delete")
     public ResponseEntity<String> deleteUser(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -319,7 +319,38 @@ public class UserController {
         }
         String loggedInUsername = (String) session.getAttribute("username");
 
-        User user = userService.userMe(loggedInUsername);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(userService.userMe(loggedInUsername), HttpStatus.OK);
+    }
+
+    // 유저- 로그인한 회원의 본인 회원정보를 수정
+    @PutMapping("/admin/user/update")
+    public ResponseEntity<User> updateUser(@RequestBody User user, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new UnauthorizedUserException("로그인한 사용자만 수정이 가능합니다.");
+        }
+        String loggedInUsername = (String) session.getAttribute("username");
+        return new ResponseEntity<>(userService.updateUser(loggedInUsername, user), HttpStatus.OK);
+    }
+
+    // 관리자- 로그인한 회원이 관리자일 경우 유저네임으로 정보를 삭제
+    @DeleteMapping("/admin/user/delete/{username}")
+    public ResponseEntity<String> adminDeleteUser(@PathVariable String username, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new UnauthorizedUserException("로그인한 사용자만 회원 탈퇴가 가능합니다.");
+        }
+        String loggedInUsername = (String) session.getAttribute("username");
+        String role = (String) session.getAttribute("role");
+        if ("ADMIN".equals(role)) {
+            userService.deleteUser(username);
+            return new ResponseEntity<>("사용자가 삭제되었습니다.", HttpStatus.OK);
+        }
+        throw new UnauthorizedUserException("관리자만 다른 사용자를 삭제할 수 있습니다.");
     }
 }
+
+
+
+
+

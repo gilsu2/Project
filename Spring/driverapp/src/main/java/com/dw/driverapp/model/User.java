@@ -28,7 +28,7 @@ public class User {
     private String email;
     @Column(name = "real_name", nullable = false)
     private String realName;
-    @Column(name="birthdate",nullable = false, unique = true)
+    @Column(name="birthdate",nullable = false)
     private LocalDate birthdate;
     @ManyToOne
     @JoinColumn(name = "user_authority")
