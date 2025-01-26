@@ -1,6 +1,8 @@
 package com.dw.driverapp.controller;
 
 import com.dw.driverapp.dto.EnrollmentDTO;
+import com.dw.driverapp.dto.SubjectDTO;
+import com.dw.driverapp.dto.SubjectEnrollmentDTO;
 import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.exception.UnauthorizedUserException;
 import com.dw.driverapp.service.EnrollmentService;
@@ -87,5 +89,32 @@ public class EnrollmentController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+    // 유저- 로그인한 회원의 과목의 수강완료 여부를 조회하는 기능(관리자나 강사 일 경우 모든 회원의 정보를 조회)
+    @GetMapping("/enrollment/subject/completed")
+    public ResponseEntity<List<SubjectEnrollmentDTO>> enrollmentCompleted (HttpServletRequest request){
+
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new ResourceNotFoundException("로그인한 사용자만 조회가 가능합니다.");
+        }
+        String username = (String) session.getAttribute("username");
+        String role = (String) session.getAttribute("role");
+        List<SubjectEnrollmentDTO> enrollmentDTOs;
+        if ("ADMIN".equals(role) || "INSTRUCTOR".equals(role)) {
+
+            enrollmentDTOs = enrollmentService.getAllEnrollments();
+        } else {
+            enrollmentDTOs = enrollmentService.enrollmentCompleted(username);
+        }
+        return new ResponseEntity<>(enrollmentDTOs, HttpStatus.OK);
+    }
 }
+
+
+
+
+
+
+
+
 

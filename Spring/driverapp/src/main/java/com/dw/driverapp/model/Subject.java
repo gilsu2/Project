@@ -1,6 +1,7 @@
 package com.dw.driverapp.model;
 
 import com.dw.driverapp.dto.SubjectDTO;
+import com.dw.driverapp.dto.SubjectEnrollmentDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -48,4 +49,5 @@ public class Subject {
         subjectDTO.setInstructorName(this.user_fk.getRealName());
         return subjectDTO;
     }
+
 }

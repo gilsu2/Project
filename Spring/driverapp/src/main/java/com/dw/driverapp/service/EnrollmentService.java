@@ -1,6 +1,8 @@
 package com.dw.driverapp.service;
 
 import com.dw.driverapp.dto.EnrollmentDTO;
+import com.dw.driverapp.dto.SubjectDTO;
+import com.dw.driverapp.dto.SubjectEnrollmentDTO;
 import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.exception.UnauthorizedUserException;
 import com.dw.driverapp.model.Enrollment;
@@ -9,9 +11,13 @@ import com.dw.driverapp.model.User;
 import com.dw.driverapp.repository.EnrollmentRepository;
 import com.dw.driverapp.repository.SubjectRepository;
 import com.dw.driverapp.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.awt.*;
 import java.nio.file.AccessDeniedException;
@@ -94,6 +100,35 @@ public class EnrollmentService {
         enrollment.completeEnrollment();
         enrollmentRepository.save(enrollment);
     }
+
+    // 유저- 로그인한 회원의 과목의 수강완료 여부를 조회하는 기능
+    public List<SubjectEnrollmentDTO> enrollmentCompleted(String username) {
+        List<Enrollment> enrollments= enrollmentRepository.findByUser_UserName(username);
+        if (enrollments.isEmpty()) {
+            throw new ResourceNotFoundException("해당 유저는 수강신청을 하지 않았습니다.");
+        }
+        return enrollments.stream()
+                .map(Enrollment::toDto)
+                .collect(Collectors.toList());
+    }
+
+    // 관리자나 강사일 경우에는 모든 회원의 수강 완료 여부 조회
+    public List<SubjectEnrollmentDTO> getAllEnrollments() {
+        List<Enrollment> enrollments = enrollmentRepository.findAll();
+        if (enrollments.isEmpty()) {
+            throw new ResourceNotFoundException("해당 유저는 수강신청을 하지 않았습니다.");
+        }
+        return enrollments.stream()
+                .map(Enrollment::toDto)
+                .collect(Collectors.toList());
+    }
 }
+
+
+
+
+
+
+
 
 

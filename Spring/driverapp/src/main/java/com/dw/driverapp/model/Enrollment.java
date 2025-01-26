@@ -1,6 +1,7 @@
 package com.dw.driverapp.model;
 
 import com.dw.driverapp.dto.EnrollmentDTO;
+import com.dw.driverapp.dto.SubjectEnrollmentDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -39,4 +40,13 @@ public class Enrollment {
         enrollmentDTO.setPrice(this.subject.getPrice());
         return enrollmentDTO;
     }
+    public SubjectEnrollmentDTO toDto(){
+        SubjectEnrollmentDTO subjectEnrollmentDTO = new SubjectEnrollmentDTO();
+        subjectEnrollmentDTO.setId(this.subject.getId());
+        subjectEnrollmentDTO.setUsername(this.user.getUserName());
+        subjectEnrollmentDTO.setTitle(this.subject.getTitle());
+        subjectEnrollmentDTO.setCompletionStatus(this.completed ? "완료" : "미완료");
+        return subjectEnrollmentDTO;
+    }
 }
+
