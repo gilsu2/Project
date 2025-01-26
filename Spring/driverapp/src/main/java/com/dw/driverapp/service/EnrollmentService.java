@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.nio.file.AccessDeniedException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,5 +76,24 @@ public class EnrollmentService {
                 .collect(Collectors.toList());
     }
 
+
+    // 유저- 로그인한 회원의 수강완료를 저장하는 기능
+    public void completeSubject(String username, Long subjectId) {
+        User user = userRepository.findByUserName(username)
+                .orElseThrow(() -> new ResourceNotFoundException("사용자를 찾을 수 없습니다."));
+        Subject subject = subjectRepository.findById(subjectId)
+                .orElseThrow(() -> new ResourceNotFoundException("과목을 찾을 수 없습니다."));
+        Enrollment enrollment = enrollmentRepository.findByUserAndSubject(user, subject);
+
+        if (enrollment == null) {
+            throw new IllegalStateException("해당 과목을 수강 신청하지 않은 사용자입니다.");
+        }
+        if (enrollment.isCompleted()) {
+            throw new IllegalStateException("이미 수강 완료된 과목입니다.");
+        }
+        enrollment.completeEnrollment();
+        enrollmentRepository.save(enrollment);
+    }
 }
+
 

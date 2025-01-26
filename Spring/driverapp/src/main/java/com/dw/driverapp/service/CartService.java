@@ -1,6 +1,7 @@
 package com.dw.driverapp.service;
 
 import com.dw.driverapp.dto.CartDTO;
+import com.dw.driverapp.exception.InsufficientFundsException;
 import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.exception.UnauthorizedUserException;
 import com.dw.driverapp.model.Cart;
@@ -77,12 +78,24 @@ public class CartService {
 
     }
 
-    public void cartEnrollment(String username, Long id) {
 
+    // 유저- 로그인한 회원의 장바구니에서 과목아이디로 구매(자동으로 유저의 포인트에서 과목의 가격을 계산)
+    public void cartEnrollment(String username, Long id) {
         List<Cart> cartList = cartRepository.findByUser_UserNameAndSubject_Id(username, id);
         if (cartList.isEmpty()) {
             throw new ResourceNotFoundException("해당 과목이 장바구니에 없습니다.");
         }
+        User user = userRepository.findByUserName(username)
+                .orElseThrow(() -> new ResourceNotFoundException("사용자를 찾을 수 없습니다."));
+        int userPoint = user.getPoint();
+        Subject subject = cartList.get(0).getSubject();
+        int subjectPrice = (int)subject.getPrice();
+
+        if (userPoint < subjectPrice) {
+            throw new InsufficientFundsException("포인트가 부족하여 결제할 수 없습니다.");
+        }
+        user.setPoint(userPoint - subjectPrice);
+        userRepository.save(user);
         for (Cart cart : cartList) {
             Enrollment enrollment = new Enrollment();
             enrollment.setUser(cart.getUser());
@@ -93,6 +106,7 @@ public class CartService {
         }
     }
 }
+
 
 
 

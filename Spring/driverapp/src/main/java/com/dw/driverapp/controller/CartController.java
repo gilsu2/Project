@@ -65,7 +65,7 @@ public class CartController {
 
     }
 
-    // 유저- 로그인한 회원의 장바구니에서 과목아이디로 구매
+    // 유저- 로그인한 회원의 장바구니에서 과목아이디로 구매(자동으로 유저의 포인트에서 과목의 가격을 계산)
     @PostMapping("/cart/enrollment/{id}")
     public ResponseEntity<String> cartEnrollment(@PathVariable Long id, HttpServletRequest request) {
         String loggedInUsername = (String) request.getSession().getAttribute("username");

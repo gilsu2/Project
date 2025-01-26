@@ -25,6 +25,12 @@ public class Enrollment {
     private Subject subject;
     @Column(name="purchase_time")
     private LocalDateTime purchaseTime;
+    @Column(name = "completed", nullable = false)
+    private boolean completed;
+
+    public void completeEnrollment() {
+        this.completed = true;
+    }
 
     public EnrollmentDTO TOdto(){
         EnrollmentDTO enrollmentDTO = new EnrollmentDTO();

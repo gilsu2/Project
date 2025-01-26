@@ -9,10 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -73,4 +70,22 @@ public class EnrollmentController {
         String username = (String) session.getAttribute("username");
         return new ResponseEntity<>(enrollmentService.enrollmentFindLoginUsername(username), HttpStatus.OK);
     }
+
+    // 유저- 로그인한 회원의 수강완료를 저장하는 기능
+    @PostMapping("/enrollment/complete/{subjectId}")
+    public ResponseEntity<String> completeSubject(
+            @PathVariable Long subjectId,
+            HttpServletRequest request) {
+        String username = (String) request.getSession().getAttribute("username");
+        if (username == null) {
+            return new ResponseEntity<>("로그인한 사용자만 수강 완료를 처리할 수 있습니다.", HttpStatus.UNAUTHORIZED);
+        }
+        try {
+            enrollmentService.completeSubject(username, subjectId);
+            return new ResponseEntity<>("해당 과목을 수강 완료 했습니다.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }
+
