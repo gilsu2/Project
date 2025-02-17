@@ -47,6 +47,7 @@ public class CartService {
                 .toList();
     }
 
+    // 유저 - 로그인 중인 사용자의 이름으로 장바구니 추가
     public CartDTO addSubjectToCart(String username, Long subjectId) {
         User user = userRepository.findById(username).orElseThrow(() -> new ResourceNotFoundException("해당 유저가 존재하지 않습니다."));
         Subject subject = subjectRepository.findById(subjectId).orElseThrow(() -> new ResourceNotFoundException("해당 과목이 존재하지 않습니다."));

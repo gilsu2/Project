@@ -20,7 +20,7 @@ import java.util.Locale;
 @Table(name="사용자")
 public class User {
     @Id
-    @Column(name="user_name")
+    @Column(name="user_name",nullable = false, unique = true)
     private String userName;
     @Column(name="password", nullable = false)
     private String password;

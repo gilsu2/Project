@@ -24,7 +24,7 @@ public class EnrollmentController {
 
     // 관리자 -> 로그인 한 사람이 관리자일 경우 모든 수강신청 내역 조회
     @GetMapping("/enrollment/all")
-    private ResponseEntity<List<EnrollmentDTO>> getAllEnrollment(HttpServletRequest request){
+    private ResponseEntity<List<EnrollmentDTO>> getAllEnrollment(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 수강 신청 조회가 가능합니다.");
@@ -89,9 +89,10 @@ public class EnrollmentController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
     // 유저- 로그인한 회원의 과목의 수강완료 여부를 조회하는 기능(관리자나 강사 일 경우 모든 회원의 정보를 조회)
     @GetMapping("/enrollment/subject/completed")
-    public ResponseEntity<List<SubjectEnrollmentDTO>> enrollmentCompleted (HttpServletRequest request){
+    public ResponseEntity<List<SubjectEnrollmentDTO>> enrollmentCompleted(HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
@@ -109,6 +110,7 @@ public class EnrollmentController {
         return new ResponseEntity<>(enrollmentDTOs, HttpStatus.OK);
     }
 }
+
 
 
 
