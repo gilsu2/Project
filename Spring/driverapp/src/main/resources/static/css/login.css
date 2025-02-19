@@ -17,13 +17,16 @@ section form h1{
 }
 section form .box {
     width: 500px;
-    border: 1px solid #000;
+    border: 3px solid #000;
+    background-color: #d1cdcd;
     border-radius: 10px;
+    font: bold;
     position:absolute;
-    left: 340px;   
+    left: 340px;
     padding:50px ;
     padding-bottom: 30px;
 }
+
 section form .box button{
     width: 130px;
     color:#fff;
