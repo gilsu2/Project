@@ -39,6 +39,9 @@ public class ViewController {
 
     @GetMapping("/driverapp/usermypage.html")
     public String usermypage(){return "forward:/usermypage.html";}
+
+    @GetMapping("/driverapp/password.html")
+    public String password(){return "forward:/password.html";}
 }
 
 
