@@ -21,5 +21,11 @@ public class ViewController {
 
     @GetMapping("/driverapp/twoSmall.html")
     public String twoSmall(){return "forward:/twoSmall.html";}
+
+    @GetMapping("/driverapp/login.html")
+    public String login(){return "forward:/login.html";}
+
+    @GetMapping("/driverapp/QNA.html")
+    public String QNA(){return "forward:/QNA.html";}
 }
 
