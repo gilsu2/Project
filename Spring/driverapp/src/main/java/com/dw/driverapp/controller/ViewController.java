@@ -42,6 +42,24 @@ public class ViewController {
 
     @GetMapping("/driverapp/password.html")
     public String password(){return "forward:/password.html";}
+
+    @GetMapping("/driverapp/introduction.html")
+    public String introduction(){return "forward:/introduction.html";}
+
+    @GetMapping("/driverapp/oneNormalExplain.html")
+    public String oneNormalExplain(){return "forward:/oneNormalExplain.html";}
+
+    @GetMapping("/driverapp/twoNormalExplain.html")
+    public String twoNormalExplain(){return "forward:/twoNormalExplain.html";}
+
+    @GetMapping("/driverapp/QNAadd.html")
+    public String QNAadd(){return "forward:/QNAadd.html";}
+
+    @GetMapping("/driverapp/register.html")
+    public String register(){return "forward:/register.html";}
+
+    @GetMapping("/driverapp/oneBigExplain.html")
+    public String oneBigExplain(){return "forward:/oneBigExplain.html";}
 }
 
 
