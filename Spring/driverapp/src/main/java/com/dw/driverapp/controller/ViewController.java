@@ -36,5 +36,9 @@ public class ViewController {
 
     @GetMapping("/driverapp/noticeRegister.html")
     public String noticeRegister(){return "forward:/noticeRegister.html";}
+
+    @GetMapping("/driverapp/usermypage.html")
+    public String usermypage(){return "forward:/usermypage.html";}
 }
+
 
