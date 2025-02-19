@@ -1,0 +1,9 @@
+section form h1{
+    padding: 30px;
+    text-align: center;
+}
+section form .box {
+    width: 500px;
+    border: 1px solid #000;
+    
+}
