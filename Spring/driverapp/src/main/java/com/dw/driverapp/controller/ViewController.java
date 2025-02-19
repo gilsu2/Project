@@ -27,5 +27,14 @@ public class ViewController {
 
     @GetMapping("/driverapp/QNA.html")
     public String QNA(){return "forward:/QNA.html";}
+
+    @GetMapping("/driverapp/notice.html")
+    public String notice(){return "forward:/notice.html";}
+
+    @GetMapping("/driverapp/noticeCheck.html")
+    public String noticeCheck(){return "forward:/noticeCheck.html";}
+
+    @GetMapping("/driverapp/noticeRegister.html")
+    public String noticeRegister(){return "forward:/noticeRegister.html";}
 }
 

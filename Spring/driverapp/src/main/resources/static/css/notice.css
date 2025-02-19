@@ -1,0 +1,122 @@
+@charset 'utf-8';
+
+
+/* notice.html section */
+
+section {
+    width: 100%;
+    padding: 300px 0px;
+}
+
+section .inner1 {
+    width: 1180px;
+    height: 900px;
+    margin: 0px auto;
+    position: relative;
+
+}
+
+section .inner1 h1 {
+    padding-bottom: 10px;
+    position: absolute;
+    border-bottom: 1px solid #000000;
+}
+
+section .inner1 .add {
+    position: absolute;
+    right: 10px;
+
+}
+
+.search {
+    display: flex;
+    padding: 20px 0;
+    margin-top: 30px;
+}
+
+.register-btn {
+    padding: 6px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #333;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.register-btn:hover {
+    background-color: #555;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-left: 850px;
+    /* 왼쪽 여백을 자동으로 설정하여 오른쪽 정렬 */
+}
+
+.search-input {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    /* 버튼과 간격 */
+    width: 200px;
+    /* 입력 필드 크기 지정 */
+}
+
+.search-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-btn:hover {
+    background-color: #555;
+}
+
+section .inner1 .util {
+    width: 100%;
+    padding: 70px 100px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #000000;
+}
+
+section .inner1 .util li {
+    font: bold 17px/1 "arial";
+    color: #000000;
+}
+
+.notice-list li {
+    width: 100%;
+    padding: 40px 100px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #000000;
+
+}
+
+.notice-list .number {
+    font: bold 14px/1 "arial";
+}
+
+.notice-list .author {
+    font: bold 14px/1 "arial";
+    color: #000000;
+}
+
+.notice-list a {
+    font: bold 16px/1 "arial";
+    color: #000000;
+}
