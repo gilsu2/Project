@@ -1,3 +1,16 @@
+@charset 'utf-8';
+
+section{
+    width: 100%;
+    padding: 300px 0px;
+    
+}
+section form{
+    width: 1180px;
+    height: 50vh;
+    margin: 0px auto;
+    position: relative;
+}
 section form h1{
     padding: 30px;
     text-align: center;
@@ -5,5 +18,36 @@ section form h1{
 section form .box {
     width: 500px;
     border: 1px solid #000;
-    
+    border-radius: 10px;
+    position:absolute;
+    left: 340px;   
+    padding:50px ;
+    padding-bottom: 30px;
+}
+section form .box button{
+    width: 130px;
+    color:#fff;
+    background-color: #777;
+    float: right;
+    border-radius: 5px;
+    transition: all 0.5s;
+}
+section form .box button:hover{
+    opacity: 0.8;
+}
+section form p {
+    width: 180px;
+    display: block;
+    text-align: center;
+    border-bottom: 2px solid #000;
+    position: absolute;
+    right: 500px;
+    bottom: 40px;
+}
+section form p a {
+    font: 20px bold ;
+    color: #000;
+}
+section form p a:hover {
+    color: #777;
 }
