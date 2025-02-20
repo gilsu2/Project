@@ -29,6 +29,12 @@ header .inner {
     margin: 0 auto;
     position: relative;
 }
+header .inner img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    margin-top:25px ;
+}
 
 header .inner h1 {
     position: absolute;
