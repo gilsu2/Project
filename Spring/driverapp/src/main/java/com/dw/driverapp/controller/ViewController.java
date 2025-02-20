@@ -60,6 +60,15 @@ public class ViewController {
 
     @GetMapping("/driverapp/oneBigExplain.html")
     public String oneBigExplain(){return "forward:/oneBigExplain.html";}
+
+    @GetMapping("/driverapp/adminpage.html")
+    public String adminpage(){return "forward:/adminpage.html";}
+
+    @GetMapping("/driverapp/twoSmallExplain.html")
+    public String twoSmallExplain(){return "forward:/twoSmallExplain.html";}
+
+    @GetMapping("/driverapp/cart.html")
+    public String cart(){return "forward:/cart.html";}
 }
 
 

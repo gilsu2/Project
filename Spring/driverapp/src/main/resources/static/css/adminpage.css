@@ -1,0 +1,101 @@
+@charset 'utf-8';
+
+section {
+    width: 100%;
+    padding: 300px 0px;
+}
+
+section .inner {
+    width: 1180px;
+    margin: 0px auto;
+    padding-bottom: 40px;
+
+}
+
+section .inner .box1 {
+    padding-bottom: 50px;
+
+}
+
+section .inner .box1 h1 {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+section .inner .box1 table {
+    width: 980px;
+    height: 400px;
+    margin: 0px auto;
+    border-collapse: collapse;
+    border: 2px solid #000;
+    background-color: rgb(218, 218, 218);
+
+}
+
+section .inner .box1 table th {
+    background-color: rgb(175, 175, 170);
+}
+
+section .inner .box1 table td {
+    text-align: center;
+    font: bold 14px/1 "arial";
+}
+
+section .inner .box2 {
+    padding-bottom: 50px;
+
+}
+section .inner .box2 h1{
+    text-align: center;
+    padding-bottom: 20px;
+}
+section .inner .box2 table {
+    width: 600px;
+    height: 400px;
+    margin: 0px auto;
+    border-collapse: collapse;
+    border: 2px solid #000;
+    background-color: rgb(218, 218, 218);
+
+}
+section .inner .box2 table th {
+    margin: 0 auto;
+    background-color: rgb(175, 175, 170);
+}
+
+section .inner .box2 table td {
+    text-align: center;
+    font: bold 14px/1 "arial";
+}
+
+section .inner .box3 {
+    padding-bottom: 50px;
+    
+
+}
+section .inner .box3 h1{
+    text-align: center;
+    padding-bottom: 10px;
+}
+section .inner .box3 table {
+    width: 600px;
+    height: 400px;
+    margin: 0px auto;
+    border-collapse: collapse;
+    border: 2px solid #000;
+    background-color: rgb(218, 218, 218);
+    
+}
+section .inner .box3 table th {
+    margin: 0 auto;
+    background-color: rgb(175, 175, 170);
+}
+
+section .inner .box3 table td {
+    text-align: center;
+    font: bold 14px/1 "arial";
+}
+section .inner .box3 .label {
+text-align: center;
+    padding-bottom:10px;
+}

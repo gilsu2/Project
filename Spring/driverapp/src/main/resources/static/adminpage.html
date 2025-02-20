@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin page</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/adminpage.css">
+</head>
+
+<body>
+<header>
+    <div class="inner">
+        <h1><a href="index.html">DW 자동차 운전면허 학원</a></h1>
+        <ul class="util">
+            <li><a href="login.html">로그인</a></li>
+            <li><a href="register.html">회원가입</a></li>
+            <li><a href="cart.html">장바구니</a></li>
+        </ul>
+        <ul class="menu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="usermypage.html">MYPAGE</a></li>
+            <li><a href="QNA.html">QNA</a></li>
+            <li><a href="notice.html">NOTICE</a></li>
+            <li><a href="introduction.html">INTRODUCTION</a></li>
+        </ul>
+    </div>
+</header>
+
+<section>
+    <div class="inner">
+        <div class="box1">
+            <h1>회원관리</h1>
+            <table border="1">
+                <tr>
+                    <th>NO.</th>
+                    <th>USER NAME</th>
+                    <th>이름</th>
+                    <th>Email</th>
+                    <th>생년월일</th>
+                    <th>POINT</th>
+                    <th>수강 강의</th>
+                    <th>수강신청일</th>
+                    <th>강의 진행 확인</th>
+                    <th>권한</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>pengsoo</td>
+                    <td>백병열</td>
+                    <td>pengsoo@email.com</td>
+                    <td>1999-09-09</td>
+                    <td>0000</td>
+                    <td>1종 자동.수동면허</td>
+                    <td>2025-02-20</td>
+                    <td></td>
+                    <td>user</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>totoro</td>
+                    <td>강준우</td>
+                    <td>totoro@email.com</td>
+                    <td>1999-05-24</td>
+                    <td>0000</td>
+                    <td>2종 보통면허</td>
+                    <td>2025-02-20</td>
+                    <td></td>
+                    <td>user</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>fourbie</td>
+                    <td>정길수</td>
+                    <td>fourbie@email.com</td>
+                    <td>1999-06-06</td>
+                    <td>0000</td>
+                    <td>1종 대형면허</td>
+                    <td>2025-02-20</td>
+                    <td></td>
+                    <td>user</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>pororo</td>
+                    <td>김성우</td>
+                    <td>pororo@email.com</td>
+                    <td>1999-06-09</td>
+                    <td>0000</td>
+                    <td>1종 대형면허</td>
+                    <td>2025-02-20</td>
+                    <td></td>
+                    <td>user</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>panda</td>
+                    <td>곽두팔</td>
+                    <td>panda@email.com</td>
+                    <td>1994-11-11</td>
+                    <td>0000</td>
+                    <td></td>
+                    <td>2025-02-20</td>
+                    <td></td>
+                    <td>강사</td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div class="box2">
+            <h1>강의 상세정보</h1>
+            <table border="1">
+                <tr>
+                    <th>분류</th>
+                    <th>가격</th>
+                    <th>강의 인원</th>
+                    <th>합계</th>
+                </tr>
+                <tr>
+                    <td>1종 자동.수동면허</td>
+                    <td>0000</td>
+                    <td>00</td>
+                    <td>0000</td>
+                </tr>
+                <tr>
+                    <td>1종 대형면허</td>
+                    <td>0000</td>
+                    <td>00</td>
+                    <td>0000</td>
+                </tr>
+                <tr>
+                    <td>2종 보통면허</td>
+                    <td>0000</td>
+                    <td>00</td>
+                    <td>0000</td>
+                </tr>
+                <tr>
+                    <td>2종 소형면허</td>
+                    <td>0000</td>
+                    <td>00</td>
+                    <td>0000</td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div class="box3">
+            <h1>구매내역</h1>
+            <div class="label">
+                <label for="startDate"></label>
+                <input type="date" id="startDate">
+                <label for="endDate">~</label>
+                <input type="date" id="endDate">
+                <button onclick="">검색</button>
+                <p id="result"></p>
+            </div>
+            <table border="1">
+                <tr>
+                    <th>NO.</th>
+                    <th>이름</th>
+                    <th>강의 목록</th>
+                    <th>합계</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>정길수</td>
+                    <td>1종 대형면허</td>
+                    <td>2025-02-20</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>김성우</td>
+                    <td>2종 보통면허</td>
+                    <td>2025-02-20</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>강준우</td>
+                    <td>2종 소형면허</td>
+                    <td>2025-02-20</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>백병열</td>
+                    <td>2종 소형</td>
+                    <td>2025-02-20</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="inner">
+        <div class="upper">
+            <h2>DW운전면허학원은 언제나 고객과 함께합니다.</h2>
+            <ul>
+                <li>CUSTOMER CENTER</li>
+                <br>
+                <li>1577-****</li>
+            </ul>
+        </div>
+
+        <div class="under">
+            <h2>DW운전면허학원</h2>
+            <ul>
+                <li>대표자 : 김덕배</li>
+                <li>대표전화 : 010-****-****</li>
+                <li>담당자 : 곽두팔</li>
+                <li>담당자전화 : 010-****-***</li>
+                <li>사업자등록번호 : 231-**-*****</li>
+                <li>학원코드 : ****</li>
+                <li>등록번호 : 0000</li>
+                <li>전문학원지정번호 : ****호</li>
+            </ul>
+        </div>
+    </div>
+
+
+</footer>
+</body>
+
+</html>
