@@ -69,6 +69,12 @@ public class ViewController {
 
     @GetMapping("/driverapp/cart.html")
     public String cart(){return "forward:/cart.html";}
+
+    @GetMapping("/driverapp/replyQ&A.html")
+    public String replyQA(){return "forward:/replyQ&A.html";}
+
+    @GetMapping("/driverapp/replyQ&A1.html")
+    public String replyQA1(){return "forward:/replyQ&A1.html";}
 }
 
 
