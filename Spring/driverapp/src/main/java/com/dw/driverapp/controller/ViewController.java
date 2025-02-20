@@ -75,6 +75,9 @@ public class ViewController {
 
     @GetMapping("/driverapp/replyQ&A1.html")
     public String replyQA1(){return "forward:/replyQ&A1.html";}
+
+    @GetMapping("/driverapp/noticeupdate.html")
+    public String noticeupdate(){return "forward:/noticeupdate.html";}
 }
 
 
