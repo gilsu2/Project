@@ -13,7 +13,8 @@ figure .board {
 figure .board h1 {
     width: 190px;
     line-height: 45px;
-    border-bottom: 1px solid #000;
+    border-bottom: 1.5px solid #1f1f1f;
+    color: #222225;
     text-align: center;
     float: left;
 }
@@ -63,7 +64,7 @@ figure .board .title {
 }
 figure .board .title li{
     font: bold 17px/1 "arial";
-    color: #000;
+    color: #444447;
 }
 
 figure .board .question{
@@ -78,15 +79,15 @@ figure .board .question li {
     text-align: center;
     font: bold 16px/1 "arial";
     font-style: #111;
-    color: #000;
+    color: #444447;
 }
 figure .board .question li a {
     width: 100%;
     padding: 20px 100px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #000;
-    color: #000;
+    border-bottom: 1px solid #1f1f1f;
+    color: #444447;
 }
 figure .board .post {
     position: absolute;

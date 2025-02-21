@@ -16,7 +16,8 @@ figure .submit h1 {
     width: 190px;
     line-height: 45px;
     margin-left: 97px;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #1f1f1f;
+    color: #222225;
     text-align: center;
     float: left;
 }

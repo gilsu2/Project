@@ -16,9 +16,10 @@ figure .submit h1 {
     width: 190px;
     line-height: 45px;
     margin-left: 97px;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #1f1f1f;
     text-align: center;
     float: left;
+    color: #222225;
 }
 figure .title {
     width: 880px;
@@ -27,8 +28,9 @@ figure .title {
     margin-right: 140px;
     justify-content: space-between;
     line-height: 45px;
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid #1f1f1f;
     display: flex;
+    color: #444447;
     
 }
 figure .title li:first-child{
@@ -53,6 +55,7 @@ figure .subject {
     margin-left: 140px;
     margin-right: 140px;
     font-size: 20px;
+    color: #606060;
 }
 
 figure .name {
@@ -60,6 +63,7 @@ figure .name {
     margin-right: 160px;
     text-align: right;
     line-height: 25px;
+    color: #444447;
 }
 figure .name span {
     font: bold 15px/1.5 "arial";
@@ -150,6 +154,7 @@ figure .reply {
     margin-top: 60px;
     padding-left: 140px;
     font: bold 25px/1 "arial";
+    color: #222225;
 }
 
 figure .look {
@@ -163,11 +168,12 @@ figure .look {
     margin-left: 140px;
     margin-right: 140px;
     margin-top: 15px;
+    
 }
 
 figure .look li {
     font: bold 17px/1 "arial";
-    color: #000;
+    color: #444447;
 }
 
 figure .question {
@@ -182,7 +188,7 @@ figure .question li {
     text-align: center;
     font: bold 16px/1 "arial";
     font-style: #111;
-    color: #000;
+    
 }
 
 figure .question li a {
@@ -193,7 +199,7 @@ figure .question li a {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #000;
-    color: #000;
+    color: #444447;
     margin-left: 50px;
     margin-top: 15px;
 }

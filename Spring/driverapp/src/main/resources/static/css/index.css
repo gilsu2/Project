@@ -27,11 +27,11 @@ section .inner .wrap article h2 {
 }
 section .inner .wrap article h2 a {
     font: bold 20px/1 "arial";
-	color: #000;
+	color: #444447;
 
 }
 section .inner .wrap article h2 a:hover{
-	border-bottom: 3px solid #000 ;
+	border-bottom: 3px solid #1f1f1f ;
 }
 
 section .inner .wrap article .pic{
@@ -64,8 +64,8 @@ section .inner .wrap1 article{
     margin: 50px ;
 }
 section .inner .wrap1 article .another h2 a{
-    color: #000;
-    border-bottom:2px solid #000;
+    color: #444447;
+    border-bottom:2px solid #222225;
 }
 section .inner .wrap1 article .another h2 a:hover{
     color: #777;
@@ -75,9 +75,9 @@ section .inner .wrap1 article .another p{
 }
 section .inner .wrap1 article .another p a{
     display: block;
-    color: #000;
+    color: #606060;
     padding : 0px;
-    border-bottom:1px solid #000 ;
+    border-bottom:1px solid #1f1f1f ;
 }
 section .inner .wrap1 article .another p a:hover{
     color: #888;

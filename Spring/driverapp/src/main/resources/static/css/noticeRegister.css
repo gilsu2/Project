@@ -17,9 +17,10 @@ section .inner3 {
 section .inner3 h1 {
     padding-bottom: 10px;
     position: absolute;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid #1f1f1f;
     font-size: 30px;
     top: 30px; /* 상단 여백 조정 */
+    color: #222225;
 }
 
 section .inner3 .content {

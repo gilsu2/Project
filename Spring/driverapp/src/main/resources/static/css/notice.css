@@ -17,9 +17,10 @@ section .inner1 {
 }
 
 section .inner1 h1 {
+    color: #222225;
     padding-bottom: 10px;
     position: absolute;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid #1f1f1f;
 }
 
 section .inner1 .add {
@@ -90,12 +91,12 @@ section .inner1 .util {
     padding: 70px 100px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid #1f1f1f;
 }
 
 section .inner1 .util li {
     font: bold 17px/1 "arial";
-    color: #000000;
+    color: #444447;
 }
 
 .notice-list li {
@@ -103,20 +104,22 @@ section .inner1 .util li {
     padding: 40px 100px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid #1f1f1f;
+    
 
 }
 
 .notice-list .number {
     font: bold 14px/1 "arial";
+    color: #444447;
 }
 
 .notice-list .author {
     font: bold 14px/1 "arial";
-    color: #000000;
+    color: #444447;
 }
 
 .notice-list a {
     font: bold 16px/1 "arial";
-    color: #000000;
+    color: #444447;
 }

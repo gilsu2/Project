@@ -18,6 +18,7 @@ section .inner .box1 {
 }
 
 section .inner .box1 h1 {
+    color: #1f1f1f;
     text-align: center;
     padding-bottom: 20px;
 }
@@ -27,17 +28,19 @@ section .inner .box1 table {
     height: 400px;
     margin: 0px auto;
     border-collapse: collapse;
-    border: 2px solid #000;
+    border: 2px solid #1f1f1f;
     background-color: rgb(218, 218, 218);
 
 }
 
 section .inner .box1 table th {
+    color: #1f1f1f;
     background-color: rgb(175, 175, 170);
 }
 
 section .inner .box1 table td {
     text-align: center;
+    color: #222225;
     font: bold 14px/1 "arial";
 }
 
@@ -46,6 +49,7 @@ section .inner .box2 {
 
 }
 section .inner .box2 h1{
+    color: #1f1f1f;
     text-align: center;
     padding-bottom: 20px;
 }
@@ -54,17 +58,19 @@ section .inner .box2 table {
     height: 400px;
     margin: 0px auto;
     border-collapse: collapse;
-    border: 2px solid #000;
+    border: 2px solid #1f1f1f;
     background-color: rgb(218, 218, 218);
 
 }
 section .inner .box2 table th {
+    color: #1f1f1f;
     margin: 0 auto;
     background-color: rgb(175, 175, 170);
 }
 
 section .inner .box2 table td {
     text-align: center;
+    color: #222225;
     font: bold 14px/1 "arial";
 }
 
@@ -74,6 +80,7 @@ section .inner .box3 {
 
 }
 section .inner .box3 h1{
+    color: #1f1f1f;
     text-align: center;
     padding-bottom: 10px;
 }
@@ -82,16 +89,18 @@ section .inner .box3 table {
     height: 400px;
     margin: 0px auto;
     border-collapse: collapse;
-    border: 2px solid #000;
+    border: 2px solid #1f1f1f;
     background-color: rgb(218, 218, 218);
     
 }
 section .inner .box3 table th {
+    color: #1f1f1f;
     margin: 0 auto;
     background-color: rgb(175, 175, 170);
 }
 
 section .inner .box3 table td {
+    color: #222225;
     text-align: center;
     font: bold 14px/1 "arial";
 }
