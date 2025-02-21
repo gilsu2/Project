@@ -89,6 +89,14 @@ section .inner4 h3 {
     border-left:10px solid #1a75ca ;
     margin-bottom: 20px;
     margin-top: 50px;
+
+}
+section .inner4 h4 {
+    font: bold 20px/1 "arial";
+    color: #222225;
+    border-left:10px solid #1a75ca ;
+    margin-bottom: 20px;
+    margin-top: 50px;
     border-bottom: 3px solid #1f1f1f;
 }
 
