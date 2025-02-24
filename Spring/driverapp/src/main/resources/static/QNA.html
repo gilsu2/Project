@@ -7,6 +7,7 @@
   <title>DW 자동차 운전면허학원</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/QNA.css">
+
 </head>
 
 <body>
@@ -193,31 +194,6 @@
         </div>
       </div>
 
-      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-      <script>
-        $('a').click(function (e) {
-          e.preventDefault();
-          var answer = $(this).next('.answer');
-          var allAnswers = $('.answer');
-
-          allAnswers.not(answer).stop(true, true).animate({
-            maxHeight: '0',
-            opacity: 0
-          }, 500);
-
-          if (answer.css('max-height') === '0px' || answer.css('opacity') === '0') {
-            answer.stop(true, true).animate({
-              maxHeight: answer.prop('scrollHeight') + 'px',
-              opacity: 1
-            }, 500);
-          } else {
-            answer.stop(true, true).animate({
-              maxHeight: '0',
-              opacity: 0
-            }, 500);
-          }
-        });
-      </script>
     </figure>
     <footer>
       <div class="inner">
@@ -245,6 +221,31 @@
       </div>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+
+      $('a').click(function (e) {
+        e.preventDefault();
+        var answer = $(this).next('.answer');
+        var allAnswers = $('.answer');
+
+        allAnswers.not(answer).stop(true, true).animate({
+          maxHeight: '0',
+          opacity: 0
+        }, 500);
+
+        if (answer.css('max-height') === '0px' || answer.css('opacity') === '0') {
+          answer.stop(true, true).animate({
+            maxHeight: answer.prop('scrollHeight') + 'px',
+            opacity: 1
+          }, 500);
+        } else {
+          answer.stop(true, true).animate({
+            maxHeight: '0',
+            opacity: 0
+          }, 500);
+        }
+      });</script>
 </body>
 
 </html>
