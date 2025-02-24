@@ -12,12 +12,13 @@ section .inner {
 section .inner .hi {
     color:#222225;
     width: 150px;
+    padding-left:10px;
 }
 section .inner .img{
     width: 188px;
 }
 section .inner .img img{
-    margin:30px 0px;
+    margin:20px 0px;
     border-radius: 4px;
 }
 section .inner .text h2{

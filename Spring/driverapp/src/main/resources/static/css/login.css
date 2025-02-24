@@ -29,7 +29,7 @@ section form .box {
     padding-bottom: 30px;
 }
 
-section form .box button{
+section form .box #btn{
     width: 130px;
     color:#fff;
     background-color: #777;
@@ -38,7 +38,7 @@ section form .box button{
     transition: all 0.5s;
     ;
 }
-section form .box button:hover{
+section form .box #btn:hover{
     opacity: 0.8;
 }
 section form p {

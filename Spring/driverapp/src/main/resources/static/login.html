@@ -33,9 +33,9 @@
     <form>
         <h1>로그인 정보</h1>
         <div class="box">
-            USER NAME : <input type="text" name="text" placeholder="USER NAME을 입력하세요" required><br><br>
-            &nbsp;PASSWORD : <input type="password" name="password" placeholder="PASSWORD를 입력하세요" required><br><br><br>
-            <button>로그인</button>
+            USER NAME : <input type="text" name="username" placeholder="USER NAME을 입력하세요" ><br><br>
+            &nbsp;PASSWORD : <input type="password" name="password" placeholder="PASSWORD를 입력하세요" ><br><br><br>
+            <input id="btn" type="submit" value="로그인" onclick="submit_go();"/>
         </div>
         <p><a href="register.html">비회원 회원가입</a></p>
     </form>
@@ -69,6 +69,25 @@
 
 
 </footer>
+
+<script>
+    function submit_go(){
+        let input_id= document.querySelector("input[name='username']");
+        let input_pwd = document.querySelector("input[name='password']");
+
+        if(!input_id.value){
+            alert('아이디를 입력해주세요.')
+            input_id.focus();
+            return;
+        }
+        if(!input_pwd.value){
+            alert('패스워드를 입력해주세요.')
+            input_pwd.focus();
+            return;
+        }
+        document.login.box.submit();
+    }
+</script>
 
 
 </body>
