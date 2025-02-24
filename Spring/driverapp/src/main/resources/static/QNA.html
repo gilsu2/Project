@@ -1,142 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QNA</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/Q&A.css">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DW 자동차 운전면허학원</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/QNA.css">
 </head>
+
 <body>
-<header>
-    <img src="/img/logo1.gif" alt="logo">
-    <div class="inner">
+
+    <header>
+      <img src="./img/logo1.gif" alt="logo">
+      <div class="inner">
         <h1><a href="index.html">DW 자동차 운전면허 학원</a></h1>
         <ul class="util">
-            <li><a href="login.html">로그인</a></li>
-            <li><a href="register.html">회원가입</a></li>
-            <li><a href="cart.html">장바구니</a></li>
+          <li><a href="login.html">로그인</a></li>
+          <li><a href="register.html">회원가입</a></li>
+          <li><a href="cart.html">장바구니</a></li>
         </ul>
         <ul class="menu">
-            <li><a href="index.html">HOME</a></li>
-            <li><a href="usermypage.html">MYPAGE</a></li>
-            <li><a href="QNA.html">Q&A</a></li>
-            <li><a href="notice.html">NOTICE</a></li>
-            <li><a href="introduction.html">INTRODUCTION</a></li>
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="usermypage.html">MYPAGE</a></li>
+          <li><a href="QNA.html">Q&A</a></li>
+          <li><a href="notice.html">NOTICE</a></li>
+          <li><a href="introduction.html">INTRODUCTION</a></li>
         </ul>
-    </div>
-</header>
-<figure>
-    <div class="board">
+      </div>
+    </header>
+
+    <figure>
+      <div class="board">
         <h1>Q&A게시판</h1>
         <ul class="search">
-            <form action="/member/search" method="get">
-                제목 : <input type="text" name="text">
-                <button type="submit">검색</button>
-            </form>
+          <form action="/member/search" method="get">
+            제목 : <input type="text" name="text">
+            <button type="submit">검색</button>
+          </form>
         </ul>
 
         <ul class="title">
-            <li>번호</li>
-            <li>제목</li>
-            <li>작성자</li>
+          <li>번호</li>
+          <li>제목</li>
+          <li>작성자</li>
         </ul>
+
         <ul class="question">
-            <li>
-                <a href="#">
-                    <span>01.</span>
-                    <span>1종 보통 운전면허 따려고 하는데 취득기간이 얼마나 걸릴까요??</span>
-                    <span>정길수</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span>02.</span>
-                    <span>겨울에 학원 다녀도 될까요? 사고 나지는 않을까요?</span>
-                    <span>김성우</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span>03.</span>
-                    <span>학원에서 드리프트도 알려주나요? 제가 여러가지 스킬을 배우고 싶어서 그런데 가능한가요?</span>
-                    <span>백병열</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span>04.</span>
-                    <span>올해 군대 가야하는데 2종보통을 취득하는게 좋을까요? 아니면 1종 수동을 따는게 좋을까요?</span>
-                    <span>강준우</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span>05.</span>
-                    <span>학원비는 어떻게 되나요?</span>
-                    <span>이재훈</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span>06.</span>
-                    <span>학원이 왜 망했나요? 이유 알려주실 수 있나요?</span>
-                    <span>짱구</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span>07.</span>
-                    <span>F1 차량도 있나요? 운전해보고 싶은데..</span>
-                    <span>에디</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span>08.</span>
-                    <span>중장비도 교육 해주나요??</span>
-                    <span>기안</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span>09.</span>
-                    <span>교육차량에 에어컨 또는 히터 나오나요?</span>
-                    <span>곽두칠</span>
-                </a>
-            </li>
+          <li>
+            <a href="#">
+              <span>01.</span>
+              <span>운전면허 취득 소요기간</span>
+              <span>정길수</span>
+            </a>
+            <div class="answer">
+              <ul>
+                <li class="co1">운전면허 취득 소요기간</li>
+                <li class="co2">1종 보통 운전면허 따려고 하는데 취득기간이 얼마나 걸릴까요??</li>
+                <button type="co3">수정</button>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="#">
+              <span>02.</span>
+              <span>학원은 언제다니는게 좋은가요?</span>
+              <span>김성우</span>
+            </a>
+            <div class="answer">
+              <ul>
+                <li class="co1">학원은 언제다니는게 좋은가요?</li>
+                <li class="co2">겨울에 학원 다녀도 될까요? 사고 나지는 않을까요?</li>
+                <button type="co3">수정</button>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="#">
+              <span>03.</span>
+              <span>이런 운전 스킬도 배울수 있나요?</span>
+              <span>백병열</span>
+            </a>
+            <div class="answer">
+              <ul>
+                <li class="co1">이런 운전 스킬도 배울수 있나요?</li>
+                <li class="co2">학원에서 드리프트도 알려주나요? 제가 여러가지 스킬을 배우고 싶어서 그런데 가능한가요?</li>
+                <button type="co3">수정</button>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="#">
+              <span>04.</span>
+              <span>이제 운전 면허취득하려는데 어떤가요?</span>
+              <span>강준우</span>
+            </a>
+            <div class="answer">
+              <ul>
+                <li class="co1">이제 운전 면허취득하려는데 어떤가요?</li>
+                <li class="co2">올해 군대 가야하는데 2종보통을 취득하는게 좋을까요? 아니면 1종 수동을 따는게 좋을까요?</li>
+                <button type="co3">수정</button>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="#">
+              <span>05.</span>
+              <span>학원비는 어떻게 되나요?</span>
+              <span>이재훈</span>
+            </a>
+            <div class="answer">
+              <ul>
+                <li class="co1">학원비는 어떻게 되나요?</li>
+                <li class="co2">많이 비싼가요? 일반 학원비 생각하면 될까요? 취득하신분 있으면 알려주새요 학원관계자분도 괜찮습니다.</li>
+                <button type="co3">수정</button>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="#">
+              <span>06.</span>
+              <span>공지사항보고 궁금해서 참을 수 없어서 물어봅니다.</span>
+              <span>짱구</span>
+            </a>
+            <div class="answer">
+              <ul>
+                <li class="co1">공지사항보고 궁금해서 참을 수 없어서 물어봅니다.</li>
+                <li class="co2">학원이 왜 망했나요? 이유 알려주실 수 있나요?</li>
+                <button type="co3">수정</button>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="#">
+              <span>07.</span>
+              <span>학원에는 무슨 차량이 있나요?</span>
+              <span>에디</span>
+            </a>
+            <div class="answer">
+              <ul>
+                <li class="co1">학원에는 무슨 차량이 있나요?</li>
+                <li class="co2">F1 차량도 있나요? 운전해보고 싶은데..</li>
+                <button type="co3">수정</button>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="#">
+              <span>08.</span>
+              <span>중장비도 교육 해주나요??</span>
+              <span>기안</span>
+            </a>
+            <div class="answer">
+              <ul>
+                <li class="co1">중장비도 교육 해주나요??</li>
+                <li class="co2">굴착기 운전하고 싶은데 가능한가요??</li>
+                <button type="co3">수정</button>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a href="#">
+              <span>09.</span>
+              <span>교육차량에 에어컨 또는 히터 나오나요?</span>
+              <span>곽두칠</span>
+            </a>
+            <div class="answer">
+              <ul>
+                <li class="co1">교육차량에 에어컨 또는 히터 나오나요?</li>
+                <li class="co2">제가 더위랑 추위에 약해서 운전 할 때 꼭 필요합니다.</li>
+                <button type="co3">수정</button>
+              </ul>
+            </div>
+          </li>
         </ul>
+        <a class="post">등록</a>
+        <div class="number">
+          <button type="pass">&lt&lt</button>
+          <button type="pass">&lt</button>
+          <button class="num">1</button>
+          <button class="num">2</button>
+          <button class="num">3</button>
+          <button class="num">4</button>
+          <button class="num">5</button>
+          <button class="num">6</button>
+          <button class="num">7</button>
+          <button class="num">8</button>
+          <button class="num">9</button>
+          <button class="num">10</button>
+          <button type="pass">&gt</button>
+          <button type="pass">&gt&gt</button>
+        </div>
+      </div>
 
-        <a class="post" href="QNAadd.html">등록</a>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+      <script>
+        $('a').click(function (e) {
+          e.preventDefault();
+          var answer = $(this).next('.answer');
+          var allAnswers = $('.answer');
 
-    </div>
-</figure>
-<footer>
-    <div class="inner">
+          allAnswers.not(answer).stop(true, true).animate({
+            maxHeight: '0',
+            opacity: 0
+          }, 500);
+
+          if (answer.css('max-height') === '0px' || answer.css('opacity') === '0') {
+            answer.stop(true, true).animate({
+              maxHeight: answer.prop('scrollHeight') + 'px',
+              opacity: 1
+            }, 500);
+          } else {
+            answer.stop(true, true).animate({
+              maxHeight: '0',
+              opacity: 0
+            }, 500);
+          }
+        });
+      </script>
+    </figure>
+    <footer>
+      <div class="inner">
         <div class="upper">
-            <h2>DW운전면허학원은 언제나 고객과 함께합니다.</h2>
-            <ul>
-                <li>CUSTOMER CENTER</li>
-                <br>
-                <li>1577-****</li>
-            </ul>
+          <h2>DW운전면허학원은 언제나 고객과 함께합니다.</h2>
+          <ul>
+            <li>CUSTOMER CENTER</li><br>
+            <li>1577-****</li>
+          </ul>
         </div>
 
         <div class="under">
-            <h2>DW운전면허학원</h2>
-            <ul>
-                <li>대표자 : 김덕배</li>
-                <li>대표전화 : 010-****-****</li>
-                <li>담당자 : 곽두팔</li>
-                <li>담당자전화 : 010-****-***</li>
-                <li>사업자등록번호 : 231-**-*****</li>
-                <li>학원코드 : ****</li>
-                <li>등록번호 : 0000</li>
-                <li>전문학원지정번호 : ****호</li>
-            </ul>
+          <h2>DW운전면허학원</h2>
+          <ul>
+            <li>대표자 : 김덕배</li>
+            <li>대표전화 : 010-****-****</li>
+            <li>담당자 : 곽두팔</li>
+            <li>담당자전화 : 010-****-***</li>
+            <li>사업자등록번호 : 231-**-*****</li>
+            <li>학원코드 : **** </li>
+            <li>등록번호 : 0000 </li>
+            <li>전문학원지정번호 : ****호</li>
+          </ul>
         </div>
-    </div>
-</footer>
+      </div>
+    </footer>
+
 </body>
+
 </html>
