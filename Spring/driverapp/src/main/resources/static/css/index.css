@@ -11,6 +11,74 @@ section .inner {
     margin: 0px auto;
     
 }
+
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 700px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+
+.popup-content {
+    background-color:#212121;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    color: #000;
+}
+
+.video-overlay-text {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgb(252, 252, 184);
+    font-size: 25px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+}
+
+
+
+
+
+video {
+    width: 100%;
+    height: auto;
+}
+
+
+.popup-footer {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.popup-close-btn {
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #212121;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.popup-close-btn:hover {
+    background-color: #777;
+}
+
 section .inner .wrap{
     width: 100%;
     display: flex;

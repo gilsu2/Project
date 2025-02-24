@@ -60,6 +60,25 @@
             </article>
         </div>
 
+
+        <div id="videoPopup" class="popup">
+            <div class="popup-content">
+                <div class="video-overlay-text">
+                    DW 자동차 운전면허 학원 기능 시험장
+                </div>
+
+                <span id="closeVideoBtn" class="close-btn" >&times;</span>
+                <video  muted autoplay>
+                    <source src="/mp4/강남운전면허시험장 2종보통 장내기능 100점 (독학).mp4" type="video/mp4" >
+                    이 브라우저는 비디오 태그를 지원하지 않습니다.
+                </video>
+                <div class="popup-footer">
+                    <button id="closeBtn" class="popup-close-btn">닫기</button>
+                </div>
+            </div>
+        </div>
+
+
         <div class="wrap1">
             <article>
                 <div class="another">
@@ -82,6 +101,8 @@
     </div>
 
     </div>
+
+
 </section>
 
 <footer>
@@ -113,6 +134,29 @@
 
 </footer>
 
+<script>
+
+window.addEventListener("load", function() {
+
+    const videoPopup = document.getElementById("videoPopup");
+    const closeVideoBtn = document.getElementById("closeVideoBtn");
+    const closeBtn = document.getElementById("closeBtn");
+
+
+    videoPopup.style.display = "flex";
+
+
+    closeVideoBtn.addEventListener("click", function() {
+        videoPopup.style.display = "none";
+    });
+
+
+    closeBtn.addEventListener("click", function() {
+        videoPopup.style.display = "none";
+    });
+});
+
+</script>
 </body>
 
 </html>
