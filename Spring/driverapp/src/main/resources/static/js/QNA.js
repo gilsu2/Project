@@ -1,5 +1,5 @@
 
-        $('a').click(function (e) {
+        $('figure a').click(function (e) {
           e.preventDefault();
           var answer = $(this).next('.answer');
           var allAnswers = $('.answer');

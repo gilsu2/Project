@@ -26,8 +26,10 @@ section form .box{
    position: relative;
    background-color: #d1cdcd;
    color: #444447;
+   text-align: center;
 }
-#input-box{
+
+.input-box{
     float: right;
     margin-right: 25%;
 }

@@ -23,6 +23,7 @@ public class UserDTO {
     private String email;
     private String realName;
     private LocalDate birthdate;
+    private String gender;
     private String role;
     private int point;
     private LocalDate lastLoginDate;

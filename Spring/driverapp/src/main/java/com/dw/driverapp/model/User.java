@@ -30,6 +30,8 @@ public class User {
     private String realName;
     @Column(name="birthdate",nullable = false)
     private LocalDate birthdate;
+    @Column(name="gender")
+    private String gender;
     @ManyToOne
     @JoinColumn(name = "user_authority")
     private Authority authority;
@@ -48,6 +50,7 @@ public class User {
                 this.email,
                 this.realName,
                 this.birthdate,
+                this.gender,
                 authority.getAuthorityName(),
                 this.point,
                 this.lastLoginDate

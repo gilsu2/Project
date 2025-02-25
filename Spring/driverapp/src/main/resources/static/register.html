@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/register.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -30,34 +32,19 @@
 
 <section>
     <h1>회원가입</h1>
-    <form>
+    <form id="signup-form">
         <div class="box">
-            아이디: <input id="input-box" type="text" name="text" value=""><br><br>
-            패스워드:<input id="input-box" type="password" name="password" value=""><br><br>
-            이메일: <input id="input-box" type="email" name="email" value=""><br><br>
-            이름: <input id="input-box" type="text" name="name"><br><br>
-            성별: &nbsp;&nbsp;
-            남: <input type="radio" name="radio" value="radio">&nbsp;&nbsp;
-            여: <input type="radio" name="radio" value="radio"><br><br>
+            아이디: <input class="input-box" type="text" name="username" placeholder="아이디 입력해주세요."><br><br>
+            패스워드:<input class="input-box" type="password" name="password" placeholder="패스워드 입력해주세요."><br><br>
+            이메일: <input class="input-box" type="email" name="email" placeholder="이메일 입력해주세요."><br><br>
+            이름: <input class="input-box" type="text" name="realname" placeholder="이름입력해주세요."><br><br>
+            성별:
+            남: <input type="radio" name="gender" value="남">
+            여: <input type="radio" name="gender" value="여"><br><br>
 
-            <tr>
-                <th>생년월일</th>
-                <th colspan="3">
-                    <input type="date" name="birth"><br><br>
-            </tr>
-            <tr>
-                <td>주소</td>
-                <td colspan="3">
-                    <input id="input-box" type="text" name="address1">
-                    <button>검색</button>
-                    <br>
-                    상세주소:<input id="input-box" type="text" name="address2">
-                </td>
-            </tr>
-            <br><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button>
-            회원가입완료
-        </button>&nbsp;&nbsp;
+            생년월일:
+            <input type="date" name="birth"><br><br>
+            <button type="submit" onclick="register(event)">회원가입완료</button>
         </div>
     </form>
 </section>
@@ -88,6 +75,77 @@
         </div>
     </div>
 </footer>
+
+<script>
+    function register(event) {
+        event.preventDefault(); // 폼 제출 방지
+        console.log("버튼클릭");
+
+        let input_id = document.querySelector("input[name='username']");
+        let input_pwd = document.querySelector("input[name='password']");
+        let input_email = document.querySelector("input[name='email']");
+        let input_realname = document.querySelector("input[name='realname']");
+        let input_gender = document.querySelector("input[name='gender']:checked")?.value;
+        let input_birth = document.querySelector("input[name='birth']").value;
+
+        if (!input_id.value) {
+            alert('아이디를 입력해주세요.');
+            input_id.focus();
+            return;
+        }
+        if (!input_pwd.value) {
+            alert('패스워드를 입력해주세요.');
+            input_pwd.focus();
+            return;
+        }
+        if (!input_email.value) {
+            alert('E-mail 입력해주세요.');
+            input_email.focus();
+            return;
+        }
+        if (!input_realname.value) {
+            alert('성명을 입력해주세요.');
+            input_realname.focus();
+            return;
+        }
+        if (!input_gender) {
+            alert('성별을 선택해주세요.');
+            return;
+        }
+        if (!input_birth) {
+            alert('생년월일을 입력해주세요.');
+            return;
+        }
+
+        console.log(input_id.value + " " + input_pwd.value + " " + input_email.value + " " + input_realname.value + " " + input_gender + " " + input_birth);
+
+        const data = {
+            "userName": input_id.value,
+            "password": input_pwd.value,
+            "email": input_email.value,
+            "realName": input_realname.value,
+            "birthdate": input_birth,
+            "gender": input_gender
+        };
+
+        $.ajax({
+            url: '/api/user/register',
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                console.log("회원가입 성공:", response);
+                sessionStorage.setItem("user", JSON.stringify(data));
+                alert("회원가입이 완료되었습니다.");
+                window.location.href = '/login.html';
+            },
+            error: function (xhr, status, error) {
+                console.error("회원가입 실패:", error);
+                alert("회원가입 중 오류가 발생했습니다. 다시 시도해 주세요.");
+            }
+        });
+    }
+</script>
 
 </body>
 </html>

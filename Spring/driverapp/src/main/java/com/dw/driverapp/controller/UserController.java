@@ -40,7 +40,7 @@ public class UserController {
     }
 
     // 관리자 - 모든 회원정보 조회
-    @GetMapping("admin/user/all")
+    @GetMapping("/admin/user/all")
     public ResponseEntity<List<User>> getAllUser(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {

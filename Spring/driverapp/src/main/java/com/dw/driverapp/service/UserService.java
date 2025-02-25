@@ -48,6 +48,7 @@ public class UserService {
                 userDTO.getEmail(),
                 userDTO.getRealName(),
                 userDTO.getBirthdate(),
+                userDTO.getGender(),
                 authorityRepository.findById("User")
                         .orElseThrow(() -> new ResourceNotFoundException("NO ROLE")),
                 LocalDate.now(),
