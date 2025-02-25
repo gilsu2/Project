@@ -95,11 +95,11 @@
                 noticeList.empty();
 
 
-                data.forEach(function(notice) {
+                data.forEach(function(notice,index) {
                     let listItem = `
                         <li>
-                            <span class="number">${notice.id}</span>
-                            <p><a href="#">${notice.title}</a></p>
+                            <span class="number">${index+1}</span>
+                            <p><a href="noticeCheck.html?id=${notice.id}">${notice.title}</a></p>
                             <span class="author">관리자</span>
                         </li>
                     `;

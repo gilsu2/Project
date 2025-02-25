@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +52,7 @@ public class NoticeService {
         Notice notice1 = new Notice();
         notice1.setTitle(notice.getTitle());
         notice1.setContent(notice.getContent());
-        notice1.setCreatedDate(LocalDateTime.now());
+        notice1.setCreatedDate(LocalDate.now());
         return noticeRepository.save(notice1);
     }
     //관리자- 로그인 중 공지사항 삭제
@@ -74,7 +75,7 @@ public class NoticeService {
 
         notice1.setTitle(notice.getTitle());
         notice1.setContent(notice.getContent());
-        notice1.setCreatedDate(LocalDateTime.now());
+        notice1.setCreatedDate(LocalDate.now());
         return noticeRepository.save(notice1);
     }
 }
