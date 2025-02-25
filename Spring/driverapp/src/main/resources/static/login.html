@@ -7,6 +7,7 @@
     <title>로그인</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/login.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -33,9 +34,9 @@
     <form>
         <h1>로그인 정보</h1>
         <div class="box">
-            USER NAME : <input type="text" name="username" placeholder="USER NAME을 입력하세요" ><br><br>
-            &nbsp;PASSWORD : <input type="password" name="password" placeholder="PASSWORD를 입력하세요" ><br><br><br>
-            <input id="btn" type="submit" value="로그인" onclick="submit_go();"/>
+            USER NAME : <input type="text" name="username" placeholder="USER NAME을 입력하세요"><br><br>
+            &nbsp;PASSWORD : <input type="password" name="password" placeholder="PASSWORD를 입력하세요"><br><br><br>
+            <input id="btn" type="button" value="로그인" onclick="submit_go();" />
         </div>
         <p><a href="register.html">비회원 회원가입</a></p>
     </form>
@@ -71,21 +72,42 @@
 </footer>
 
 <script>
-    function submit_go(){
-        let input_id= document.querySelector("input[name='username']");
+    function submit_go() {
+        console.log("버튼클릭");
+        let input_id = document.querySelector("input[name='username']");
         let input_pwd = document.querySelector("input[name='password']");
 
-        if(!input_id.value){
+        if (!input_id.value) {
             alert('아이디를 입력해주세요.')
             input_id.focus();
             return;
         }
-        if(!input_pwd.value){
+        if (!input_pwd.value) {
             alert('패스워드를 입력해주세요.')
             input_pwd.focus();
             return;
         }
-        document.login.box.submit();
+        console.log(input_id.value + " " + input_pwd.value);
+        const data = {
+            "userName": input_id.value,
+            "password": input_pwd.value,
+        }
+        $.ajax({
+            url: '/api/user/login',  // 데이터를 요청할 URL
+            type: 'POST',                   // HTTP 메서드 (GET, POST 등)
+            data: JSON.stringify(data), // 서버에 전달할 데이터 (옵션)
+            contentType: 'application/json; charset=utf-8', // JSON 형식 명시
+            success: function (response) {
+                // 요청이 성공했을 때 실행할 코드
+                console.log(response);
+                sessionStorage.setItem("user", JSON.stringify(data));
+                window.location.href = '/index.html';
+            },
+            error: function (xhr, status, error) {
+                // 요청이 실패했을 때 실행할 코드
+                console.error(error);
+            }
+        });
     }
 </script>
 
