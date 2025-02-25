@@ -10,9 +10,10 @@ section {
 
 section .inner1 {
     width: 1180px;
-    height: 900px;
     margin: 0px auto;
     position: relative;
+    padding-bottom:100px;
+
 
 }
 
@@ -57,7 +58,7 @@ section .inner1 .add {
     display: flex;
     align-items: center;
     margin-left: 850px;
-    /* 왼쪽 여백을 자동으로 설정하여 오른쪽 정렬 */
+
 }
 
 .search-input {
@@ -66,9 +67,8 @@ section .inner1 .add {
     border-radius: 6px;
     border: 1px solid #ccc;
     margin-right: 10px;
-    /* 버튼과 간격 */
     width: 200px;
-    /* 입력 필드 크기 지정 */
+
 }
 
 .search-btn {
@@ -105,7 +105,7 @@ section .inner1 .util li {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #1f1f1f;
-    
+
 
 }
 

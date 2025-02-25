@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/twoSmallExplain.css">
+    <script src="/js/logout.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>2종 소형</title>
 </head>
 <body>
@@ -13,7 +15,8 @@
     <div class="inner">
         <h1><a href="index.html">DW 자동차 운전면허 학원</a></h1>
         <ul class="util">
-            <li><a href="login.html">로그인</a></li>
+            <li><a href="login.html" id="loginLink">로그인</a></li>
+            <li><a href="#" id="logoutLink" style="display: none;" onclick="logout();">로그아웃</a></li>
             <li><a href="register.html">회원가입</a></li>
             <li><a href="cart.html">장바구니</a></li>
         </ul>

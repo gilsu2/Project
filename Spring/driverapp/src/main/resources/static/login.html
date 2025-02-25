@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/login.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/logout.js"></script>
+
 </head>
 
 <body>
@@ -16,7 +18,8 @@
     <div class="inner">
         <h1><a href="index.html">DW 자동차 운전면허 학원</a></h1>
         <ul class="util">
-            <li><a href="login.html">로그인</a></li>
+            <li><a href="login.html" id="loginLink">로그인</a></li>
+            <li><a href="#" id="logoutLink" style="display: none;" onclick="logout();">로그아웃</a></li>
             <li><a href="register.html">회원가입</a></li>
             <li><a href="cart.html">장바구니</a></li>
         </ul>
@@ -101,10 +104,12 @@
                 // 요청이 성공했을 때 실행할 코드
                 console.log(response);
                 sessionStorage.setItem("user", JSON.stringify(data));
+                alert('로그인이 완료 되었습니다.')
                 window.location.href = '/index.html';
             },
             error: function (xhr, status, error) {
                 // 요청이 실패했을 때 실행할 코드
+                alert('입력하신 정보가 올바르지 않습니다.')
                 console.error(error);
             }
         });

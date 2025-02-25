@@ -5,17 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/notice.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/notice.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/logout.js"></script>
+
 </head>
 
 <body>
 <header>
-    <img src="/img/logo1.gif" alt="logo">
+    <img src="./img/logo1.gif" alt="logo">
     <div class="inner">
         <h1><a href="index.html">DW 자동차 운전면허 학원</a></h1>
         <ul class="util">
-            <li><a href="login.html">로그인</a></li>
+            <li><a href="login.html" id="loginLink">로그인</a></li>
+            <li><a href="#" id="logoutLink" style="display: none;" onclick="logout();">로그아웃</a></li>
             <li><a href="register.html">회원가입</a></li>
             <li><a href="cart.html">장바구니</a></li>
         </ul>
@@ -28,52 +32,30 @@
         </ul>
     </div>
 </header>
+
 <section>
     <div class="inner1">
         <h1>공지사항</h1>
         <ul class="search">
-            <button class="register-btn" type="button"><a href="noticeRegister.html"style="color:#fff">등록</a></button>
             <form action="#" method="post">
                 <div class="search-container">
-                    <input class="search-input" type="text" name="text" placeholder="검색어를 입력하세요" required>
-                    <button class="search-btn" type="submit">검색</button>
+                    <input class="search-input" type="text" name="search_word" placeholder="검색어를 입력하세요" required>
+                    <button class="search-btn" type="submit" onclick="search()">검색</button>
                 </div>
             </form>
+            <button class="register-btn" type="button"><a href="noticeRegister.html" style="color:#fff">공지사항 등록</a></button>
         </ul>
         <ul class="util">
             <li>번호</li>
             <li>제목</li>
             <li>작성자</li>
         </ul>
-        <ul class="notice-list">
-            <li>
-                <span class="number">01</span>
-                <p><a href="#">안녕하세요 학원 망했습니다.</a></p>
-                <span class="author">관리자</span>
-            </li>
-            <li>
-                <span class="number">02</span>
-                <p><a href="#">안녕하세요 식사 맛있게 하세요.</a></p>
-                <span class="author">관리자</span>
-            </li>
-            <li>
-                <span class="number">03</span>
-                <p><a href="#">안녕하세요 금일은 휴강입니다.</a></p>
-                <span class="author">관리자</span>
-            </li>
-            <li>
-                <span class="number">04</span>
-                <p><a href="#">안녕하세요 금일은 휴강입니다.</a></p>
-                <span class="author">관리자</span>
-            </li>
-            <li>
-                <span class="number">05</span>
-                <p><a href="#">안녕하세요 금일은 휴강입니다.</a></p>
-                <span class="author">관리자</span>
-            </li>
-        </ul>
+        <ul class="notice-list" id="notice-list"></ul>
+
+
     </div>
 </section>
+
 <footer>
     <div class="inner">
         <div class="upper">
@@ -99,9 +81,41 @@
             </ul>
         </div>
     </div>
-
-
 </footer>
-</body>
 
+<script>
+
+    function fetchNotices() {
+        $.ajax({
+            url: 'http://localhost:8081/api/notice/all',
+            type: 'GET',
+            success: function(data) {
+
+                let noticeList = $('#notice-list');
+                noticeList.empty();
+
+
+                data.forEach(function(notice) {
+                    let listItem = `
+                        <li>
+                            <span class="number">${notice.id}</span>
+                            <p><a href="#">${notice.title}</a></p>
+                            <span class="author">관리자</span>
+                        </li>
+                    `;
+                    noticeList.append(listItem);
+                });
+            },
+            error: function(error) {
+                console.error("공지사항을 불러오는 데 실패했습니다:", error);
+                alert("공지사항을 불러오는 데 실패했습니다.");
+            }
+        });
+    }
+    $(document).ready(function() {
+        fetchNotices();
+    });
+</script>
+
+</body>
 </html>
