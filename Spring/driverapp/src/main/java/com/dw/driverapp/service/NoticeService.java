@@ -79,3 +79,4 @@ public class NoticeService {
         return noticeRepository.save(notice1);
     }
 }
+

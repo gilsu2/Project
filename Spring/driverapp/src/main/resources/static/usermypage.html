@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/usermypage.css">
     <script src="/js/logout.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
@@ -37,13 +38,18 @@
         <h2>내 정보</h2>
         <div class="info">
             <ul>
-                <li><strong>ID:</strong> pororo<span class="point">15,000P</span></li>
-                <li><strong>password:</strong> ******
+                <li><strong>ID:</strong> <span id="username"></span><span class="point" id="points"></span></li>
+                <li><strong>비밀번호:</strong> ******
                     <button class="btn"><a href="password.html" style="color:#333">비밀번호 변경</a></button>
                 </li>
-                <li><strong>이름:</strong> 강준우</li>
-                <li><strong>성별:</strong>남</li>
-                <li><strong>E-mail:</strong> kjw1234@naver.com</li>
+                <li><strong>이름:</strong> <span id="realName"></span></li>
+                <li><strong>성별:</strong><span id="gender"></span></li>
+                <li><strong>E-mail:</strong> <span id="email"></span></li>
+
+                <li><strong>생년월일:</strong> <span id="birthdate"></span></li>
+                <li><strong>가입일:</strong> <span id="createdAt"></span></li>
+                <li><strong>마지막 로그인:</strong> <span id="lastLoginDate"></span></li>
+
             </ul>
         </div>
     </div>
@@ -85,6 +91,33 @@
         </div>
     </div>
 </footer>
+<script>
+    $(document).ready(function() {
 
+    $.ajax({
+        url: '/api/user/me' ,
+        type: 'GET',
+
+        success: function(response) {
+
+            $('#username').text(response.userName);
+            $('#points').text(response.point + "P");
+            $('#realName').text(response.realName);
+            $('#gender').text(response.gender);
+            $('#email').text(response.email);
+
+            $('#birthdate').text(response.birthdate);
+            $('#createdAt').text(response.createdAt);
+            $('#lastLoginDate').text(response.lastLoginDate);
+
+
+        },
+        error: function(error) {
+            alert('사용자 정보를 가져오는 데 실패했습니다.');
+        }
+    });
+});
+
+</script>
 </body>
 </html>

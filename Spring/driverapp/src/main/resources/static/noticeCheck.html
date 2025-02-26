@@ -43,7 +43,7 @@
         </ul>
         <ul class="btn">
             <button class="delete-btn" type="button" id="delete-btn">삭제</button>
-            <button class="update-btn" type="button"><a href="noticeupdate.html" style="color:#fff">수정</a></button>
+            <button class="update-btn" type="button" id="update-link" style="color:#fff">수정</button>
         </ul>
     </div>
 </section>
@@ -77,6 +77,7 @@
 
 <script>
 
+
     function getNoticeIdFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('id');
@@ -85,7 +86,7 @@
 
     function fetchNoticeDetails(noticeId) {
         $.ajax({
-            url: `http://localhost:8081/api/notice/${noticeId}`,
+            url: `/api/notice/${noticeId}`,
             type: 'GET',
             success: function(data) {
                 $('#notice-content').text(data.content);
@@ -104,12 +105,42 @@
         });
     }
 
+
+    function deleteNotice(noticeId) {
+        $.ajax({
+            url: `/api/admin/notice/delete/${noticeId}`,
+            type: 'DELETE',
+            success: function(response) {
+                alert('공지사항이 삭제되었습니다.');
+                window.location.href = '/notice.html';
+            },
+            error: function(error) {
+                alert('공지사항 삭제에 실패했습니다.');
+                console.error(error);
+            }
+        });
+    }
+
     $(document).ready(function() {
         const noticeId = getNoticeIdFromUrl();
         if (noticeId) {
             fetchNoticeDetails(noticeId);
+
+
+            $('#update-link').on('click', function() {
+                window.location.href = `/noticeupdate.html?id=${noticeId}`;
+            });
+
+
+            $('#delete-btn').on('click', function() {
+                const confirmDelete = confirm("정말로 이 공지사항을 삭제하시겠습니까?");
+                if (confirmDelete) {
+                    deleteNotice(noticeId);  // 삭제 요청
+                }
+            });
         }
     });
 </script>
+
 </body>
 </html>
