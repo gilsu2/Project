@@ -71,7 +71,7 @@ public class CommentController {
     // 유저- 로그인한 사용자의 답글을 삭제
     @DeleteMapping("/comment/delete/{id}")
     public ResponseEntity<String> deleteComment(@PathVariable Long id,
-                                                    HttpServletRequest request) {
+                                                HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 삭제가 가능합니다.");

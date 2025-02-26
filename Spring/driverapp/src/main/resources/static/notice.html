@@ -40,10 +40,11 @@
             <form action="#" method="post">
                 <div class="search-container">
                     <input class="search-input" type="text" name="search_word" placeholder="검색어를 입력하세요" required>
-                    <button class="search-btn" type="submit" onclick="search()">검색</button>
+                    <button class="search-btn" type="button" onclick="search(event)">검색</button>
                 </div>
             </form>
-            <button class="register-btn" type="button"><a href="noticeRegister.html" style="color:#fff">공지사항 등록</a></button>
+            <button class="register-btn" type="button"><a href="noticeRegister.html" style="color:#fff">공지사항 등록</a>
+            </button>
         </ul>
         <ul class="util">
             <li>번호</li>
@@ -51,8 +52,6 @@
             <li>작성자</li>
         </ul>
         <ul class="notice-list" id="notice-list"></ul>
-
-
     </div>
 </section>
 
@@ -85,9 +84,22 @@
 
 <script>
 
+    $(document).ready(function() {
+    fetchNotices(); //기존 공지사항 보여줌
+
+    // 'Enter' 키도 누르면 검색가능
+    $('.search-input').on('keydown', function(event) {
+        if (event.key === 'Enter') {  // 'Enter' 키가 눌렸을 때
+            event.preventDefault();
+            search(event);
+        }
+    });
+});
+
+
     function fetchNotices() {
         $.ajax({
-            url: 'http://localhost:8081/api/notice/all',
+            url: '/api/notice/all',
             type: 'GET',
             success: function(data) {
 
@@ -115,6 +127,54 @@
     $(document).ready(function() {
         fetchNotices();
     });
+
+
+    function search(event) {
+    event.preventDefault();
+
+    let searchWord = $('.search-input').val(); // j쿼리를 쓸때 value가 아닌 val
+
+    // 검색어 없을 때
+    if (searchWord.trim() === "") {
+        alert("검색어를 입력하세요.");
+        return;
+    }
+
+
+    $.ajax({
+        url: `/api/notice/title/search/${encodeURIComponent(searchWord)}`,
+        type: 'GET',
+        success: function(data) {
+            let noticeList = $('#notice-list');
+            noticeList.empty(); // 기존에 있던 정보를 비움
+
+            if (data.length === 0) {
+                noticeList.append("<li>검색된 공지사항이 없습니다.</li>");
+            } else {
+                // 검색된 공지사항 출력
+                data.forEach(function(notice, index) {
+                    let listItem = `
+                        <li>
+                            <span class="number">${index + 1}</span>
+                            <p><a href="noticeCheck.html?id=${notice.id}">${notice.title}</a></p>
+                            <span class="author">관리자</span>
+                        </li>
+                    `;
+                    noticeList.append(listItem);
+                });
+            }
+        },
+        error: function(error) {
+            console.error("공지사항을 불러오는 데 실패했습니다:", error);
+            alert("해당 게시물이 존재하지 않습니다.");
+        }
+    });
+}
+
+// 페이지 로드 시 전체 공지사항을 가져옴
+$(document).ready(function() {
+    fetchNotices(); // 페이지가 로드될 때 기존 공지사항들을 불러옴
+});
 </script>
 
 </body>

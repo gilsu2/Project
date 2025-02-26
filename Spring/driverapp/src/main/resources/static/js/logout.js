@@ -20,10 +20,7 @@
         type: 'POST',
         success: function(response) {
             console.log('로그아웃 성공:', response);
-
             sessionStorage.removeItem("user");
-
-
             document.querySelector("#loginLink").style.display = "inline-block";
             document.querySelector("#logoutLink").style.display = "none";
         },
