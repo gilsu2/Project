@@ -114,8 +114,15 @@
             }
         });
     }
-</script>
 
+    // Add event listener for the Enter key
+    document.querySelector("form").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevents the default form submission behavior
+            submit_go(); // Calls the login function
+        }
+    });
+</script>
 
 </body>
 
