@@ -16,6 +16,7 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -101,7 +102,7 @@ public class CartService {
             Enrollment enrollment = new Enrollment();
             enrollment.setUser(cart.getUser());
             enrollment.setSubject(cart.getSubject());
-            enrollment.setPurchaseTime(LocalDateTime.now());
+            enrollment.setPurchaseTime(LocalDate.now());
             enrollmentRepository.save(enrollment);
             cartRepository.delete(cart);
         }

@@ -5,6 +5,7 @@ import com.dw.driverapp.dto.SubjectEnrollmentDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -21,11 +22,14 @@ public class Enrollment {
     @ManyToOne
     @JoinColumn(name="user_name")
     private User user;
-     @ManyToOne
+    @ManyToOne
     @JoinColumn(name="subject_id")
     private Subject subject;
+    @ManyToOne
+    @JoinColumn(name="subject_price")
+    private Subject price;
     @Column(name="purchase_time")
-    private LocalDateTime purchaseTime;
+    private LocalDate purchaseTime;
     @Column(name = "completed", nullable = false)
     private boolean completed;
 
@@ -38,6 +42,7 @@ public class Enrollment {
         enrollmentDTO.setUsername(this.user.getUserName());
         enrollmentDTO.setSubjectName(this.subject.getTitle());
         enrollmentDTO.setPrice(this.subject.getPrice());
+        enrollmentDTO.setPurchaseTime(this.getPurchaseTime());
         return enrollmentDTO;
     }
     public SubjectEnrollmentDTO toDto(){
@@ -45,6 +50,8 @@ public class Enrollment {
         subjectEnrollmentDTO.setId(this.subject.getId());
         subjectEnrollmentDTO.setUsername(this.user.getUserName());
         subjectEnrollmentDTO.setTitle(this.subject.getTitle());
+        subjectEnrollmentDTO.setPrice(this.subject.getPrice());
+        subjectEnrollmentDTO.setPurchaseTime(this.getPurchaseTime());
         subjectEnrollmentDTO.setCompletionStatus(this.completed ? "완료" : "미완료");
         return subjectEnrollmentDTO;
     }

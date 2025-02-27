@@ -55,14 +55,12 @@
     </div>
     <div class="box">
         <h2>나의 강의 관리</h2>
-        <div class="lesson">
-            <span> 1종 보통</span>
-            <button class="lesson-btn">1종보통</button>
-        </div>
-        <div class="lesson">
-            <span> 2종 소형</span>
-            <button class="lesson-btn">2종소형</button>
-        </div>
+        <ul class="lesson" id="subject-list">
+
+        </ul>
+    </div>
+    <div>
+        <button id="user_out" onclick="delete_user()">회원탈퇴</button>
     </div>
 </section>
 <footer>
@@ -93,31 +91,84 @@
 </footer>
 <script>
     $(document).ready(function() {
+      // 사용자 정보 가져오기
+      $.ajax({
+          url: '/api/user/me',
+          type: 'GET',
+          success: function(response) {
+              $('#username').text(response.userName);
+              $('#points').text(response.point + "P");
+              $('#realName').text(response.realName);
+              $('#gender').text(response.gender);
+              $('#email').text(response.email);
+              $('#birthdate').text(response.birthdate);
+              $('#createdAt').text(response.createdAt);
+              $('#lastLoginDate').text(response.lastLoginDate);
+          },
+          error: function(error) {
+              alert('사용자 정보를 가져오는 데 실패했습니다.');
+              console.error(error);  
+          }
+      });
 
-    $.ajax({
-        url: '/api/user/me' ,
-        type: 'GET',
+      // 로그인한 사용자의 수강 완료된 과목 목록 가져오기
+      $.ajax({
+          url: '/api/enrollment/subject/completed',
+          type: 'GET',
+          success: function(data) {
+              let subjectList = $('#subject-list');
+              subjectList.empty();
 
-        success: function(response) {
+              // 받아온 데이터를 기반으로 과목 정보를 추가
+              data.forEach(function(enrollment) {
+                  let listItem = `
+                      <li>
+                          <span><a href="#">과목명: ${enrollment.title}</a></span>
+                          <span>구매 날짜: [${enrollment.purchaseTime}]</span>
+                          <span>Price: ${enrollment.price}</span>
+                          <span>수강상태: ${enrollment.completionStatus}</span>
+                      </li>
+                  `;
+                  subjectList.append(listItem);
+              });
+          },
+          error: function(xhr, status, error) {
+              console.error("수강 과목 정보 오류:", error);
+          }
+      });
+  });
 
-            $('#username').text(response.userName);
-            $('#points').text(response.point + "P");
-            $('#realName').text(response.realName);
-            $('#gender').text(response.gender);
-            $('#email').text(response.email);
+  // 회원 탈퇴 기능
+  function delete_user() {
+      console.log("버튼 클릭");
 
-            $('#birthdate').text(response.birthdate);
-            $('#createdAt').text(response.createdAt);
-            $('#lastLoginDate').text(response.lastLoginDate);
+      const user = JSON.parse(sessionStorage.getItem("user"));
 
-
-        },
-        error: function(error) {
-            alert('사용자 정보를 가져오는 데 실패했습니다.');
-        }
-    });
-});
-
+      if (user) {
+          $.ajax({
+              url: '/api/user/delete',
+              type: 'DELETE',
+              contentType: 'application/json; charset=utf-8',
+              data: JSON.stringify({
+                  userName: user.userName
+              }),
+              success: function(response) {
+                  // 요청 성공 시 처리
+                  console.log(response);
+                  sessionStorage.removeItem("user");
+                  alert('회원 탈퇴가 완료되었습니다.');
+                  window.location.href = '/index.html';
+              },
+              error: function(xhr, status, error) {
+                  // 요청 실패 시 처리
+                  alert('회원 탈퇴에 실패하였습니다.');
+                  console.error(error);
+              }
+          });
+      } else {
+          alert('로그인된 사용자 정보가 없습니다.');
+      }
+  }
 </script>
 </body>
 </html>

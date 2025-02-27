@@ -53,7 +53,7 @@ section .btn {
     border: none;
     cursor: pointer;
 }
-section .lesson {
+section .lesson li {
     background-color: #dfe2e8;
     padding: 10px;
     border-radius: 6px;
@@ -62,21 +62,41 @@ section .lesson {
     font-size: 14px;
     display: flex;
     align-items: center;
+    display:flex;
+    justify-content: space-between;
+    position: relative;
 }
 
-section .lesson span {
-    font-weight: bold;
-    margin-right: 10px;
-}
-
-section .lesson-btn {
-    background-color: transparent;
-    border: none;
-    font-size: 14px;
+section .lesson li span:first-child a {
     color: #555;
-    cursor: pointer;
 }
 
-section .lesson-btn:hover {
-    text-decoration: underline;
+section .lesson li span:nth-child(2){
+position:absolute;
+left:366.7px;
+
+}
+section .lesson li span:nth-child(3){
+position:absolute;
+left:736.48px;
+}
+
+section .lesson li span:last-child{
+position:absolute;
+left:1032.68px;
+}
+
+
+section  #user_out {
+padding:8px;
+margin-top:20px;
+color:#fff;
+background-color: #777;
+float:right;
+border: 1.5px solid #222225;
+border-radius:5px;
+}
+
+section  #user_out:hover {
+background-color: #888;
 }
