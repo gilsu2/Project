@@ -146,7 +146,7 @@
         type: 'GET',
         success: function(data) {
             let noticeList = $('#notice-list');
-            noticeList.empty(); // 기존에 있던 정보를 비움
+            noticeList.empty();
 
             if (data.length === 0) {
                 noticeList.append("<li>검색된 공지사항이 없습니다.</li>");
@@ -173,7 +173,7 @@
 
 // 페이지 로드 시 전체 공지사항을 가져옴
 $(document).ready(function() {
-    fetchNotices(); // 페이지가 로드될 때 기존 공지사항들을 불러옴
+    fetchNotices();
 });
 </script>
 

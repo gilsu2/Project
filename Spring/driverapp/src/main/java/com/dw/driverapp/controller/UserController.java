@@ -1,5 +1,6 @@
 package com.dw.driverapp.controller;
 
+import com.dw.driverapp.dto.LoginDTO;
 import com.dw.driverapp.dto.UserDTO;
 import com.dw.driverapp.dto.UserPointDTO;
 import com.dw.driverapp.exception.ResourceNotFoundException;
@@ -55,7 +56,7 @@ public class UserController {
 
     // 유저- 로그인
     @PostMapping("/user/login")
-    public ResponseEntity<String> login(@RequestBody UserDTO userDTO, HttpServletRequest request) {
+    public ResponseEntity<LoginDTO> login(@RequestBody UserDTO userDTO, HttpServletRequest request) {
         String username = userDTO.getUserName();
         String password = userDTO.getPassword();
 
@@ -74,7 +75,7 @@ public class UserController {
                 userRepository.save(user);
                 message = "로그인 완료! 1000 포인트가 지급되었습니다.";
             }
-            return new ResponseEntity<>(message, HttpStatus.OK);
+            return new ResponseEntity<>(new LoginDTO(username,user.getAuthority().getAuthorityName(),message), HttpStatus.OK);
         } else {
             throw new UnauthorizedUserException("입력하신 정보가 올바르지 않습니다.");
         }
