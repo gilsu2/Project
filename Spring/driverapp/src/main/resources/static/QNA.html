@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="/css/QNA.css">
   <script src="/js/logout.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+  <script src="/js/QNA.js"></script>
+  <script src="/js/update.js"></script>
 </head>
 
 <body>
@@ -37,145 +38,22 @@
         <h1>Q&A게시판</h1>
         <ul class="search">
           <form action="/member/search" method="get">
-            제목 : <input type="text" name="text">
+            <input type="text" name="text">
             <button type="submit">검색</button>
           </form>
         </ul>
 
         <ul class="title">
-          <li>번호</li>
-          <li>제목</li>
-          <li>작성자</li>
+          <li class="next">번호</li>
+          <li class="title-text">제목</li>
+          <li class="author">작성자</li>
         </ul>
 
-        <ul class="question">
-          <li>
-            <a href="#">
-              <span>01.</span>
-              <span>운전면허 취득 소요기간</span>
-              <span>뽀로로</span>
-            </a>
-            <div class="answer">
-              <ul>
-                <li class="co1" onclick="location.href='replyQ&A.html';">운전면허 취득 소요기간</li>
-                <li class="co2" onclick="location.href='replyQ&A.html';">1종 보통 운전면허 따려고 하는데 취득기간이 얼마나 걸릴까요??</li>
-                <button type="co3" onclick="location.href='correctionQ&A.html';">수정</button>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a href="#">
-              <span>02.</span>
-              <span>학원은 언제다니는게 좋은가요?</span>
-              <span>포비</span>
-            </a>
-            <div class="answer">
-              <ul>
-                <li class="co1" onclick="location.href='replyQ&A.html';">학원은 언제다니는게 좋은가요?</li>
-                <li class="co2" onclick="location.href='replyQ&A.html';">겨울에 학원 다녀도 될까요? 사고 나지는 않을까요?</li>
-                <button type="co3" onclick="location.href='correctionQ&A.html';">수정</button>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a href="#">
-              <span>03.</span>
-              <span>이런 운전 스킬도 배울수 있나요?</span>
-              <span>루피</span>
-            </a>
-            <div class="answer">
-              <ul>
-                <li class="co1" onclick="location.href='replyQ&A.html';">이런 운전 스킬도 배울수 있나요?</li>
-                <li class="co2" onclick="location.href='replyQ&A.html';">학원에서 드리프트도 알려주나요? 제가 여러가지 스킬을 배우고 싶어서 그런데 가능한가요?</li>
-                <button type="co3" onclick="location.href='correctionQ&A.html';">수정</button>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a href="#">
-              <span>04.</span>
-              <span>이제 운전 면허취득하려는데 어떤가요?</span>
-              <span>크롱</span>
-            </a>
-            <div class="answer">
-              <ul>
-                <li class="co1" onclick="location.href='replyQ&A.html';">이제 운전 면허취득하려는데 어떤가요?</li>
-                <li class="co2" onclick="location.href='replyQ&A.html';">올해 군대 가야하는데 2종보통을 취득하는게 좋을까요? 아니면 1종 수동을 따는게 좋을까요?</li>
-                <button type="co3" onclick="location.href='correctionQ&A.html';">수정</button>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a href="#">
-              <span>05.</span>
-              <span>학원비는 어떻게 되나요?</span>
-              <span>이재훈</span>
-            </a>
-            <div class="answer">
-              <ul>
-                <li class="co1" onclick="location.href='replyQ&A.html';">학원비는 어떻게 되나요?</li>
-                <li class="co2" onclick="location.href='replyQ&A.html';">많이 비싼가요? 일반 학원비 생각하면 될까요? 취득하신분 있으면 알려주새요 학원관계자분도 괜찮습니다.</li>
-                <button type="co3" onclick="location.href='correctionQ&A.html';">수정</button>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a href="#">
-              <span>06.</span>
-              <span>공지사항보고 궁금해서 참을 수 없어서 물어봅니다.</span>
-              <span>짱구</span>
-            </a>
-            <div class="answer">
-              <ul>
-                <li class="co1" onclick="location.href='replyQ&A.html';">공지사항보고 궁금해서 참을 수 없어서 물어봅니다.</li>
-                <li class="co2" onclick="location.href='replyQ&A.html';">학원이 왜 망했나요? 이유 알려주실 수 있나요?</li>
-                <button type="co3" onclick="location.href='correctionQ&A.html';">수정</button>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a href="#">
-              <span>07.</span>
-              <span>학원에는 무슨 차량이 있나요?</span>
-              <span>에디</span>
-            </a>
-            <div class="answer">
-              <ul>
-                <li class="co1" onclick="location.href='replyQ&A.html';">학원에는 무슨 차량이 있나요?</li>
-                <li class="co2" onclick="location.href='replyQ&A.html';">F1 차량도 있나요? 운전해보고 싶은데..</li>
-                <button type="co3" onclick="location.href='correctionQ&A.html';">수정</button>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a href="#">
-              <span>08.</span>
-              <span>중장비도 교육 해주나요??</span>
-              <span>기안</span>
-            </a>
-            <div class="answer">
-              <ul>
-                <li class="co1" onclick="location.href='replyQ&A.html';">중장비도 교육 해주나요??</li>
-                <li class="co2" onclick="location.href='replyQ&A.html';">굴착기 운전하고 싶은데 가능한가요??</li>
-                <button type="co3" onclick="location.href='correctionQ&A.html';">수정</button>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a href="#">
-              <span>09.</span>
-              <span>교육차량에 에어컨 또는 히터 나오나요?</span>
-              <span>곽두칠</span>
-            </a>
-            <div class="answer">
-              <ul>
-                <li class="co1" onclick="location.href='replyQ&A.html';">교육차량에 에어컨 또는 히터 나오나요?</li>
-                <li class="co2" onclick="location.href='replyQ&A.html';">제가 더위랑 추위에 약해서 운전 할 때 꼭 필요합니다.</li>
-                <button type="co3" onclick="location.href='correctionQ&A.html';">수정</button>
-              </ul>
-            </div>
-          </li>
-        </ul>
+        <ul class="question" id="question"></ul>
+
+
+
+
         <div class="post">
         <button type="save" onclick="location.href='QNAadd.html'">등록</button>
         </div>
@@ -198,8 +76,8 @@
         </div>
       </div>
 
-      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-      <script src="js/QNA.js"></script>
+
+
       
     </figure>
     <footer>

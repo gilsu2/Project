@@ -1,27 +1,28 @@
 /* figure */
 figure {
-    width: 1180px;
-    margin: 0px auto;
-    padding-top: 290px;
-    padding-bottom: 200px;
+     width: 100%;
+     max-width: 1180px;
+     padding:300px 0px;
+     margin-left: auto;
+     margin-right: auto;
 }
 figure .board {
-    width: 1180px;
-    line-height: 45px;
+    width: 100%;
     position: relative;
 }
+
 figure .board h1 {
     width: 190px;
-    line-height: 45px;
     border-bottom: 2px solid #000;
     text-align: center;
     float: left;
+    margin-left: 25px
 }
 
 figure .board .search {
     position: absolute;
     right: 10px;
-    padding: 1px 50px;
+    padding-right: 25px;
     
 }
 figure .board .search form{
@@ -54,36 +55,52 @@ figure .board .search button:hover{
 
 figure .board .title {
     width: 1000px;
-    padding: 20px 100px;
-    padding-top: 30px;
+    align-items: center;
+    padding: 35px 30px 25px 30px;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #000;
-    margin-left: 90px;
-    margin-right: 90px;
-
-}
-figure .board .title li{
-    font: bold 17px/1 "arial";
     color: #000;
+    font: bold 16px/1 "arial";
+    font-style: #111;
+    margin: 0 auto;
 }
 
-figure .board .question{
-    width: 1000px;
-    margin-left: 90px;
-    margin-right: 90px;
+figure .board .title .next {
+    display: inline-block;
+    text-align: center;
+    width: 15%;
 }
 
-figure .board .question li {
+figure .board .title .title-text {
+    display: inline-block;
+    text-align: center;
+    width: 70%;
+}
+
+figure .board .title .author {
+    display: inline-block;
+    text-align: center;
+    width: 15%;
+}
+
+
+figure .board .question {
     width: 1000px;
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    text-align: center;
+    border-bottom: 1px solid #000;
     flex-direction: column;
+    color: #000;
+    font: bold 16px/1 "arial";
+    font-style: #111;
+    margin: 0 auto;
 }
+
 figure .board .question li a {
-    width: 100%;
-    padding: 20px 100px;
+    width: 1000px;
+    padding: 20px 35px;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #000;
@@ -91,16 +108,33 @@ figure .board .question li a {
     font: bold 16px/1 "arial";
     font-style: #111;
 }
+
+figure .board .question .next {
+    display: inline-block;
+    text-align: center;
+    width: 15%;
+}
+
+figure .board .question .title-text {
+    display: inline-block;
+    text-align: center;
+    width: 70%;
+}
+
+figure .board .question .author {
+    display: inline-block;
+    text-align: center;
+    width: 15%;
+}
+
 figure .board .question li .answer {
     border: 1px solid #ccc;
     background-color: #f9f9f9;
-
     width: 100%;
     max-height: 0;
     opacity: 0;
     overflow: hidden;
     transition: width 0.5s ease, height 0.5s ease, opacity 0.3s ease;
-
     position: relative;
 }
 figure .board .question li .answer ul{
@@ -123,42 +157,40 @@ figure .board .question li .answer .co2 {
     cursor: pointer;
 }
 
-figure .board .question li .answer ul button{
+figure .board .question li .answer ul button {
     padding: 6px;
     width: 50px;
     text-align: center;
-    margin-left: 750px;
-
+    margin-left: 860px;
     border: none;
     background-color: #333;
     color: #fff;
-
     border-radius: 4px;
     cursor: pointer;
     z-index: 1;
 }
 
-figure .board .question li .answer button:hover{
+figure .board .question li .answer button:hover {
     background-color: #999;
 }
 
-
 figure .post button {
-    position: absolute;
-    right:30px;
+    position: relative;;
     margin-top: 40px;
+    margin-right: 25px;
+    float: right;
 
     width: 60px;
     height: 40px;
     border: none;
     text-align: center;
-    
-    margin-right: 30px;
+
     background-color: #333;
     color: #fff;
 
     border-radius: 10px 10px 10px 10px;
     cursor: pointer;
+
 
 }
 figure .post button:hover{
