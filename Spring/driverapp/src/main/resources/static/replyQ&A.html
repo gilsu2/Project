@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/logout.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/admin.js"></script>
 </head>
 <body>
 <header>
@@ -22,109 +23,151 @@
         </ul>
         <ul class="menu">
             <li><a href="index.html">HOME</a></li>
-            <li><a href="usermypage.html">MYPAGE</a></li>
+            <li><a href='#' onclick="move()" >MYPAGE</a></li>
             <li><a href="QNA.html">Q&A</a></li>
             <li><a href="notice.html">NOTICE</a></li>
             <li><a href="introduction.html">INTRODUCTION</a></li>
         </ul>
     </div>
 </header>
-    <figure>
-        <div class="submit">
-            <h1>Q&A게시판</h1>
-        </div>
+<figure>
+    <div class="question-details">
+        <h1>Q&A 상세 보기</h1>
+
+        <!-- 질문 제목과 날짜 -->
         <ul class="title">
-            <li>드리프트 가능한가요?</li>
-            <li>2025.01.25</li>
+            <li id="question-title"></li>
+            <li id="question-date"></li>
         </ul>
+
+        <!-- 질문 내용 -->
         <div class="subject">
-        <p>저는 운전 스킬을 많이 늘리고 싶습니다. 모든 종류의 차량을 가지고 해보고 싶습니다. <br>
-           이제 막 생일이 지나서 겁대가리가 없거든요.</p>
+            <p id="question-content"></p>
         </div>
+
+        <!-- 작성자 정보 -->
         <div class="name">
             <span>작성자 :</span>
-            <p>&nbsp;드라이버</p>
+            <p id="question-author"></p>
         </div>
 
-        <div class="gather">
-            <button type="edit" onclick="location.href='correctionQ&A.html';">수정</button>
-            <button type="delete">삭제</button>
-        </div>
         <div class="save">
+            <!-- 답글 등록 -->
             <form action="#" method="post">
-                <label for="content">답글 등록</label>
+                <label for="content">답글 내용</label>
                 <textarea name="content" id="content" placeholder="내용을 입력하세요." rows="5" required></textarea>
-                <button type="submit">저장</button>
+
+                <button type="button" onclick="submit_go();">저장</button>
             </form>
+
+            <!-- 답글 목록 -->
+            <div class="reply">
+                <span>답글</span>
+            </div>
+
+            <ul class="look">
+                <li class="number">번호</li>
+                <li class="comment">내용</li>
+                <li class="username">작성자</li>
+            </ul>
+            <ul id="reply-list">
+                <!-- 답글이 동적으로 채워집니다. -->
+            </ul>
         </div>
-        <div class="reply">
-            <span>답글</span>
+</figure>
+<footer>
+    <div class="inner">
+        <div class="upper">
+            <h2>DW운전면허학원은 언제나 고객과 함께합니다.</h2>
+            <ul>
+                <li>CUSTOMER CENTER</li><br>
+                <li>1577-****</li>
+            </ul>
         </div>
 
-        <ul class="look">
-            <li class="number">번호</li>
-            <li class="content">내용</li>
-            <li class="author">작성자</li>
-          </ul>
-          <ul class="question">
-            <li>
-                <a href="#">
-                    <span class="number">01.</span>
-                    <span class="content">학원에서 드리프트를 왜 가르쳐줌?</span>
-                    <span class="author">정길수</span>
-                    <button type="submit"><a href="replyQ&A1.html"> &nbsp;&nbsp;수정</a></button>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="number">02.</span>
-                    <span class="content">드리프트 배우는거 재밌겠다!</span>
-                    <span class="author">김성우</span>
-                    <button type="submit"><a href="replyQ&A1.html"> &nbsp;&nbsp;수정</a></button>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="number">03.</span>
-                    <span class="content">나는 이미 할 줄 알지롱~</span>
-                    <span class="author">백병열</span>
-                    <button type="submit"><a href="replyQ&A1.html"> &nbsp;&nbsp;수정</a></button>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="number">04.</span>
-                    <span class="content">저도 배우고 싶습니다!!</span>
-                    <span class="author">강준우</span>
-                    <button type="submit"><a href="replyQ&A1.html"> &nbsp;&nbsp;수정</a></button>
-                </a>
-            </li>
-        </ul>
-    </figure>
-    <footer>
-      <div class="inner">
-        <div class="upper">
-          <h2>DW운전면허학원은 언제나 고객과 함께합니다.</h2>
-          <ul>
-            <li>CUSTOMER CENTER</li><br>
-            <li>1577-****</li>
-          </ul>
-        </div>
-  
         <div class="under">
-          <h2>DW운전면허학원</h2>
-          <ul>
-            <li>대표자 : 김덕배</li>
-            <li>대표전화 : 010-****-****</li>
-            <li>담당자 : 곽두팔</li>
-            <li>담당자전화 : 010-****-***</li>
-            <li>사업자등록번호 : 231-**-*****</li>
-            <li>학원코드 : **** </li>
-            <li>등록번호 : 0000 </li>
-            <li>전문학원지정번호 : ****호</li>
-          </ul>
+            <h2>DW운전면허학원</h2>
+            <ul>
+                <li>대표자 : 김덕배</li>
+                <li>대표전화 : 010-****-****</li>
+                <li>담당자 : 곽두팔</li>
+                <li>담당자전화 : 010-****-***</li>
+                <li>사업자등록번호 : 231-**-*****</li>
+                <li>학원코드 : **** </li>
+                <li>등록번호 : 0000 </li>
+                <li>전문학원지정번호 : ****호</li>
+            </ul>
         </div>
-      </div>
-    </footer>
+    </div>
+</footer>
+<script>
+    // URL에서 id 파라미터 가져오기
+     const urlParams = new URLSearchParams(window.location.search);
+     const questionId = urlParams.get('id');
+
+     // 게시물 상세 정보 가져오기
+     function fetchQuestionDetails() {
+         $.ajax({
+             url: `/api/board/${questionId}`,
+             type: 'GET',
+             success: function(data) {
+                 $('#question-title').text(data.title);
+                 $('#question-date').text(data.date);
+                 $('#question-content').text(data.content);
+                 $('#question-author').text(data.author);
+             },
+             error: function(error) {
+                 console.error("게시물 세부 정보를 불러오는 데 실패했습니다.", error);
+                 alert("게시물을 불러오는 데 실패했습니다.");
+             }
+         });
+     }
+
+     // 답글 목록을 불러오는 함수
+     function loadReplies() {
+         $.ajax({
+             url: `/api/comment/board/${questionId}`,  // 게시물 ID로 답글 목록 요청
+             type: 'GET',
+             success: function(response) {
+                 console.log("답글 목록:", response);  // 응답 데이터 콘솔 출력
+                 let repliesList = $('#reply-list');  // 답글을 표시할 ul 요소
+                 repliesList.empty();  // 기존 답글 목록 초기화
+
+                 // 응답이 배열로 전달되면 각 답글을 li 항목으로 추가
+                 if (Array.isArray(response) && response.length > 0) {
+                     response.forEach(function(reply, index) {
+                         let replyItem = `
+                             <li>
+                                 <span class="number">${index + 1}</span>
+                                 <span class="content">${reply.comment || '내용 없음'}</span>
+                                 <span class="username">${reply.user || '작성자 '}</span>
+                             </li>
+                         `;
+                         repliesList.append(replyItem);  // 답글 항목을 추가
+                     });
+                 } else {
+                     // 답글이 없으면 '답글이 없습니다.' 표시
+                     repliesList.append('<li>답글이 없습니다.</li>');
+                 }
+             },
+             error: function(error) {
+                 console.error("답글 목록을 불러오는 데 실패했습니다.", error);
+             }
+         });
+     }
+
+
+
+     // 페이지 로드 시 게시물과 답글 목록 불러오기
+     $(document).ready(function() {
+         if (questionId) {
+             fetchQuestionDetails(); // 게시물 정보 불러오기
+             loadReplies(); // 답글 목록 불러오기
+         }
+     });
+
+</script>
+
+
 </body>
 </html>
