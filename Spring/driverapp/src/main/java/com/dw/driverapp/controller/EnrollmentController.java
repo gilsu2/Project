@@ -5,6 +5,7 @@ import com.dw.driverapp.dto.SubjectDTO;
 import com.dw.driverapp.dto.SubjectEnrollmentDTO;
 import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.exception.UnauthorizedUserException;
+import com.dw.driverapp.model.User;
 import com.dw.driverapp.service.EnrollmentService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -109,9 +111,24 @@ public class EnrollmentController {
         }
         return new ResponseEntity<>(enrollmentDTOs, HttpStatus.OK);
     }
+
+    //관리자- 지정된 날짜 사이의 수강신청 조회
+    @GetMapping("/enrollment/subject/{date1}/{date2}")
+    public ResponseEntity<List<SubjectEnrollmentDTO>> enrollmentBetweenFind(
+            @PathVariable String date1, @PathVariable String date2, HttpServletRequest request) {
+
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new UnauthorizedUserException("로그인 한 사용자만 가능합니다.");
+        }
+
+        LocalDate startDate = LocalDate.parse(date1);
+        LocalDate endDate = LocalDate.parse(date2);
+
+        return new ResponseEntity<>(enrollmentService.enrollmentBetweenFind(startDate, endDate), HttpStatus.OK);
+    }
+
 }
-
-
 
 
 

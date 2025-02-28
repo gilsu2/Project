@@ -86,7 +86,6 @@ section .inner .box3 h1{
 }
 section .inner .box3 table {
     width: 600px;
-    height: 400px;
     margin: 0px auto;
     border-collapse: collapse;
     border: 2px solid #1f1f1f;
@@ -96,12 +95,14 @@ section .inner .box3 table {
 section .inner .box3 table th {
     color: #1f1f1f;
     margin: 0 auto;
+    padding:15px;
     background-color: rgb(175, 175, 170);
 }
 
 section .inner .box3 table td {
     color: #222225;
     text-align: center;
+    padding:12px;
     font: bold 14px/1 "arial";
 }
 section .inner .box3 .label {

@@ -112,7 +112,7 @@
           }
       });
 
-      // 로그인한 사용자의 수강 완료된 과목 목록 가져오기
+
       $.ajax({
           url: '/api/enrollment/subject/completed',
           type: 'GET',
@@ -120,7 +120,7 @@
               let subjectList = $('#subject-list');
               subjectList.empty();
 
-              // 받아온 데이터를 기반으로 과목 정보를 추가
+
               data.forEach(function(enrollment) {
                   let listItem = `
                       <li>

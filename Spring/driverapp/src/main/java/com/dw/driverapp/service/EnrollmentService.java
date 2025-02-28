@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.awt.*;
 import java.nio.file.AccessDeniedException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -119,6 +121,19 @@ public class EnrollmentService {
             throw new ResourceNotFoundException("해당 유저는 수강신청을 하지 않았습니다.");
         }
         return enrollments.stream()
+                .map(Enrollment::toDto)
+                .collect(Collectors.toList());
+    }
+
+    //관리자- 지정된 날짜 사이의 수강신청 조회
+    public List<SubjectEnrollmentDTO> enrollmentBetweenFind(LocalDate date1, LocalDate date2) {
+        Optional<List<Enrollment>> enrollments = enrollmentRepository.purchaseTimebetweendate(date1, date2);
+        if (enrollments.isEmpty()) {
+            throw new ResourceNotFoundException("해당 날짜 사이에 수강신청 내역이 없습니다.");
+        }
+
+        // 결과가 있으면 각 Enrollment 엔티티를 SubjectEnrollmentDTO로 변환하여 반환합니다.
+        return enrollments.get().stream()
                 .map(Enrollment::toDto)
                 .collect(Collectors.toList());
     }
