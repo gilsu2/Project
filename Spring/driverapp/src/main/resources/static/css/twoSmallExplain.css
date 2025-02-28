@@ -26,6 +26,12 @@ section .inner4 h1 {
     /* 상단 여백 조정 */
 }
 
+section .inner4 p7{
+float:right;
+font: bold 20px/1 "arial";
+color: #222225;
+}
+
 section .inner4 p {
     font: bold 16px/1 "arial";
     color: #444447;
@@ -36,6 +42,13 @@ section .inner4 p1 {
     color: #444447;
     
 }
+
+section .inner4 p5 {
+    font: bold 16px/1 "arial";
+    color: #444447;
+    margin-bottom: 6px;
+}
+
 
 section .inner4 img {
     width: 100%;
@@ -100,12 +113,24 @@ section .inner4 h4 {
     border-bottom: 3px solid #1f1f1f;
 }
 
+
+
 section .inner4 ul li {
     font: bold 15px/1 "arial";
     color: #444447;
     list-style: circle;
     margin-bottom: 20px;
 }
+
+
+section .inner4  p4 {
+font-size:20px;
+position:absolute;
+right:45px;
+padding:20px 0px ;
+
+}
+
 
 section .inner4 button{
     padding: 10px 25px;

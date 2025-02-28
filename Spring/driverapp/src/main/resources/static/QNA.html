@@ -5,107 +5,107 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DW 자동차 운전면허학원</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/QNA.css">
-  <script src="/js/logout.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/QNA.css">
+  <script src="js/logout.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="/js/QNA.js"></script>
-  <script src="/js/update.js"></script>
+  <script src="js/QNA.js"></script>
   <script src="/js/admin.js"></script>
+
 </head>
 
 <body>
-    <header>
-      <img src="/img/logo1.GIF" alt="logo">
-      <div class="inner">
-        <h1><a href="index.html">DW 자동차 운전면허 학원</a></h1>
-        <ul class="util">
-          <li><a href="login.html" id="loginLink">로그인</a></li>
-          <li><a href="#" id="logoutLink" style="display: none;" onclick="logout();">로그아웃</a></li>
-          <li><a href="register.html">회원가입</a></li>
-          <li><a href="cart.html">장바구니</a></li>
-        </ul>
-        <ul class="menu">
-          <li><a href="index.html">HOME</a></li>
-          <li><a href='#' onclick="move()" >MYPAGE</a></li>
-          <li><a href="QNA.html">Q&A</a></li>
-          <li><a href="notice.html">NOTICE</a></li>
-          <li><a href="introduction.html">INTRODUCTION</a></li>
-        </ul>
-      </div>
-    </header>
-    <figure>
-      <div class="board">
-        <h1>Q&A게시판</h1>
-        <ul class="search">
-          <form action="/member/search" method="get">
-            <input type="text" name="text">
-            <button type="submit">검색</button>
-          </form>
-        </ul>
+<header>
+  <img src="/img/logo1.GIF" alt="logo">
+  <div class="inner">
+    <h1><a href="index.html">DW 자동차 운전면허 학원</a></h1>
+    <ul class="util">
+      <li><a href="login.html" id="loginLink">로그인</a></li>
+      <li><a href="#" id="logoutLink" style="display: none;" onclick="logout();">로그아웃</a></li>
+      <li><a href="register.html">회원가입</a></li>
+      <li><a href="cart.html">장바구니</a></li>
+    </ul>
+    <ul class="menu">
+      <li><a href="index.html">HOME</a></li>
+      <li><a href='#' onclick="move()" >MYPAGE</a></li>
+      <li><a href="QNA.html">Q&A</a></li>
+      <li><a href="notice.html">NOTICE</a></li>
+      <li><a href="introduction.html">INTRODUCTION</a></li>
+    </ul>
+  </div>
+</header>
+<figure>
+  <div class="board">
+    <h1>Q&A게시판</h1>
+    <ul class="search">
+      <form action="/member/search" method="get">
+        <input type="text" name="text">
+        <button type="submit">검색</button>
+      </form>
+    </ul>
 
-        <ul class="title">
-          <li class="next">번호</li>
-          <li class="title-text">제목</li>
-          <li class="author">작성자</li>
-        </ul>
+    <ul class="title">
+      <li class="next">번호</li>
+      <li class="title-text">제목</li>
+      <li class="author">작성자</li>
+    </ul>
 
-        <ul class="question" id="question"></ul>
-
-
-
-
-        <div class="post">
-        <button type="save" onclick="location.href='QNAadd.html'">등록</button>
-        </div>
-
-        <div class="number">
-          <button type="pass">&lt&lt</button>
-          <button type="pass">&lt</button>
-          <button class="num">1</button>
-          <button class="num">2</button>
-          <button class="num">3</button>
-          <button class="num">4</button>
-          <button class="num">5</button>
-          <button class="num">6</button>
-          <button class="num">7</button>
-          <button class="num">8</button>
-          <button class="num">9</button>
-          <button class="num">10</button>
-          <button type="pass">&gt</button>
-          <button type="pass">&gt&gt</button>
-        </div>
-      </div>
+    <ul class="question" id="question"></ul>
 
 
 
-      
-    </figure>
-    <footer>
-      <div class="inner">
-        <div class="upper">
-          <h2>DW운전면허학원은 언제나 고객과 함께합니다.</h2>
-          <ul>
-            <li>CUSTOMER CENTER</li><br>
-            <li>1577-****</li>
-          </ul>
-        </div>
 
-        <div class="under">
-          <h2>DW운전면허학원</h2>
-          <ul>
-            <li>대표자 : 김덕배</li>
-            <li>대표전화 : 010-****-****</li>
-            <li>담당자 : 곽두팔</li>
-            <li>담당자전화 : 010-****-***</li>
-            <li>사업자등록번호 : 231-**-*****</li>
-            <li>학원코드 : **** </li>
-            <li>등록번호 : 0000 </li>
-            <li>전문학원지정번호 : ****호</li>
-          </ul>
-        </div>
-      </div>
-    </footer>
+    <div class="post">
+      <button type="save" onclick="location.href='QNAadd.html'">등록</button>
+    </div>
+
+    <div class="number">
+      <button type="pass">&lt&lt</button>
+      <button type="pass">&lt</button>
+      <button class="num">1</button>
+      <button class="num">2</button>
+      <button class="num">3</button>
+      <button class="num">4</button>
+      <button class="num">5</button>
+      <button class="num">6</button>
+      <button class="num">7</button>
+      <button class="num">8</button>
+      <button class="num">9</button>
+      <button class="num">10</button>
+      <button type="pass">&gt</button>
+      <button type="pass">&gt&gt</button>
+    </div>
+  </div>
+
+
+
+
+</figure>
+<footer>
+  <div class="inner">
+    <div class="upper">
+      <h2>DW운전면허학원은 언제나 고객과 함께합니다.</h2>
+      <ul>
+        <li>CUSTOMER CENTER</li><br>
+        <li>1577-****</li>
+      </ul>
+    </div>
+
+    <div class="under">
+      <h2>DW운전면허학원</h2>
+      <ul>
+        <li>대표자 : 김덕배</li>
+        <li>대표전화 : 010-****-****</li>
+        <li>담당자 : 곽두팔</li>
+        <li>담당자전화 : 010-****-***</li>
+        <li>사업자등록번호 : 231-**-*****</li>
+        <li>학원코드 : **** </li>
+        <li>등록번호 : 0000 </li>
+        <li>전문학원지정번호 : ****호</li>
+      </ul>
+    </div>
+  </div>
+</footer>
 
 </body>
 

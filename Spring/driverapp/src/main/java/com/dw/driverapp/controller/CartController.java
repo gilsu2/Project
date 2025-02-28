@@ -75,4 +75,14 @@ public class CartController {
         cartService.cartEnrollment(loggedInUsername, id);
         return new ResponseEntity<>("장바구니 구매가 완료되었습니다.", HttpStatus.OK);
     }
+    @GetMapping("/cart/login")
+    public  ResponseEntity<List<CartDTO>> cartFindLoginUsername(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("username") == null) {
+            throw new ResourceNotFoundException("로그인한 사용자만 조회가 가능합니다.");
+        }
+        String username = (String) session.getAttribute("username");
+        return new ResponseEntity<>(cartService.cartFindLoginUsername(username), HttpStatus.OK);
+    }
+
 }

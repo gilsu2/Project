@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QNA</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/QNAadd.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/QNAadd.css">
     <script src="/js/logout.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/QNAadd.js"></script>
     <script src="/js/admin.js"></script>
 </head>
 <body>
 <header>
-    <img src="/img/logo1.gif" alt="logo">
+    <img src="img/logo1.gif" alt="logo">
     <div class="inner">
         <h1><a href="index.html">DW 자동차 운전면허 학원</a></h1>
         <ul class="util">
@@ -42,7 +43,7 @@
         <textarea name="content" id="content" placeholder="내용을 입력하세요." rows="15" required></textarea>
         <!-- rows=8 ->8줄을 쓸 수 있게 보여줌, required-> 내용 입력을 안 하면 경고문이 뜸
          textarea -> 여러줄에 겹쳐 텍스트를 입력하게 해줌-->
-        <button type="submit">저장</button>
+        <button type="button" onclick="submit_go();">저장</button>
     </form>
 </figure>
 <footer>

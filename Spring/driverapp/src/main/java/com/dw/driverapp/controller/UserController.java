@@ -48,8 +48,8 @@ public class UserController {
             throw new UnauthorizedUserException("로그인한 사용자만 회원을 조회할 수 있습니다.");
         }
         String role = (String) session.getAttribute("role");
-        if (!"ADMIN".equals(role)) {
-            throw new UnauthorizedUserException("관리자만 모든 회원을 조회할 수 있습니다.");
+        if (!"ADMIN".equals(role) && !"INSTRUCTOR".equals(role)) {
+            throw new UnauthorizedUserException("관리자 또는 강사만 모든 회원을 조회할 수 있습니다.");
         }
         return new ResponseEntity<>(userService.getAllUser(), HttpStatus.OK);
     }

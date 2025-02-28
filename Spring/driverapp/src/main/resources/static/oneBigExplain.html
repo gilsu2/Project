@@ -33,9 +33,10 @@
 </header>
 <section>
     <div class="inner4">
-        <h1>1종 대형 먼허</h1>
-        <p>승용차, 승합차, 화물차, 건설기계(덤프트럭,아스팔트살포기,콘트리트믹서트럭,콘크리트펌프,도로보수 트럭)</p>
-        <p1>특수자동차(대형견인차,소형견인차 및 구난차등 제외), 원동기장치자전거</p1>
+        <h1 id="title"></h1>
+        <p7 id="price"></p7><br><br><br>
+        <p1 id="type"></p1><br><br><br>
+        <p5 id="ep"></p5>
         <img src="/img/cropped_bus_image_1180x450.png">
 
         <p2>기본주행 채점항목</p2>
@@ -123,8 +124,8 @@
             <li>경사로에서 정지하지 않고 통과하거나, 지각주차에서 차고에 진입해서 확인선을 접촉하지않거나, 가속코스에서 기어변속을 하지 않는 등 각 시험코스를 어느 하나라도 시도하지 않거나 제대로
                 이행하지 않은 경우
             </li>
-            <li>경사로 정지구간 이행 후 30초를 초과하여 통과하지 못한 경우 또는 경사로 정지구간에서 후방으로 1미터 이상 밀린 경우</li>
-
+            <li>경사로 정지구간 이행 후 30초를 초과하여 통과하지 못한 경우 또는 경사로 정지구간에서 후방으로 1미터 이상 밀린 경우</li><br><br>
+            <p4 id="ins"></p4>
         </ul>
 
         <button class="register-btn" type="button">수강신청</button>
@@ -158,8 +159,27 @@
             </ul>
         </div>
     </div>
-
-
 </footer>
+<script>
+    $(document).ready(function() {
+     // 사용자 정보 가져오기
+     $.ajax({
+         url: '/api/subject/1',
+         type: 'GET',
+         success: function(response) {
+             $('#title').text(response.title);
+             $('#price').text(response.price + "P");
+            $('#type').text("[ " + response.typeList.join(', ') + " ]");
+             $('#ep').text("*"+response.explanation);
+             $('#ins').text("강사: "+response.instructorName);
+         },
+         error: function(error) {
+             alert('사용자 정보를 가져오는 데 실패했습니다.');
+             console.error(error);
+         }
+     });
+
+
+</script>
 </body>
 </html>

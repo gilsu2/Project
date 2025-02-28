@@ -107,6 +107,18 @@ public class CartService {
             cartRepository.delete(cart);
         }
     }
+
+    public List<CartDTO> cartFindLoginUsername(String username) {
+        User user = userRepository.findByUserName(username)
+                .orElseThrow(()-> new ResourceNotFoundException("존재하지 않는 유저입니다."));
+        List<Cart> carts = cartRepository.findByUser_UserName(username);
+        if (carts.isEmpty()) {
+            throw new RuntimeException("장바구니가 비어있습니다.");
+        }
+        return  carts.stream()
+                .map(Cart::ToDto)
+                .collect(Collectors.toList());
+    }
 }
 
 

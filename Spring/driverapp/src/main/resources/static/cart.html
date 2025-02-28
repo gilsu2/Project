@@ -6,9 +6,8 @@
     <title>장바구니</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/cart.css">
-    <script src="cartscript.js"></script>
+
     <script src="/js/logout.js"></script>
-    <script src="/js/admin.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
@@ -24,7 +23,7 @@
         </ul>
         <ul class="menu">
             <li><a href="index.html">HOME</a></li>
-            <li><a href='#' onclick="move()" >MYPAGE</a></li>
+            <li><a href="usermypage.html">MYPAGE</a></li>
             <li><a href="QNA.html">Q&A</a></li>
             <li><a href="notice.html">NOTICE</a></li>
             <li><a href="introduction.html">INTRODUCTION</a></li>
@@ -35,7 +34,7 @@
 <section>
     <div class="inner">
         <div class="cart">
-            <h2> 장바구니</h2>
+            <h2>장바구니</h2>
             <div class="cart-controls">
                 <input type="checkbox" id="select-all">
                 <label for="select-all">전체 선택</label>
@@ -43,39 +42,13 @@
             </div>
 
             <div class="cart-items">
-                <div class="cart-item" data-price="100000">
-                    <input type="checkbox" class="item-checkbox">
-                    <div class="item-info">
-                        <h3>1종 보통</h3>
-                        <p>₩100,000</p>
-                    </div>
-                    <button class="remove">삭제</button>
-                </div>
-
-                <div class="cart-item" data-price="800000">
-                    <input type="checkbox" class="item-checkbox">
-                    <div class="item-info">
-                        <h3>1종 보통</h3>
-                        <p>₩800,000</p>
-                    </div>
-                    <button class="remove">삭제</button>
-                </div>
-
-                <div class="cart-item" data-price="150000">
-                    <input type="checkbox" class="item-checkbox">
-                    <div class="item-info">
-                        <h3>1종 대형</h3>
-                        <p>₩150,000</p>
-                    </div>
-                    <button class="remove">삭제</button>
-                </div>
+                <!-- 장바구니 항목이 여기 동적으로 추가됩니다. -->
             </div>
         </div>
         <div class="cart-summary">
             <p>총 금액: <span id="total-price">₩0</span></p>
             <button id="purchase">구매하기</button>
         </div>
-    </div>
     </div>
 </section>
 
@@ -105,5 +78,138 @@
         </div>
     </div>
 </footer>
+<script>
+    $(document).ready(function() {
+        // 페이지 로드 시 장바구니 항목을 불러오기
+        fetchCartItems();
+
+        // 전체 선택 체크박스 상태 변경 시
+        $('#select-all').on('change', function() {
+            const isChecked = $(this).prop('checked');
+            // 모든 체크박스를 전체 선택 여부에 맞게 설정
+            $('.item-checkbox').prop('checked', isChecked);
+        });
+
+        // 선택 삭제 버튼 클릭 시
+        $('#delete-selected').on('click', function() {
+            const selectedItems = $('.item-checkbox:checked').map(function() {
+                return $(this).closest('.cart-item').data('id'); // 선택된 항목들의 ID를 가져옵니다.
+            }).get();
+
+            if (selectedItems.length === 0) {
+                alert('삭제할 항목을 선택해 주세요.');
+                return;
+            }
+
+            // 선택된 항목들의 삭제 요청을 서버로 보냄
+            $.ajax({
+                url: '/api/user/delete/subjects', // 서버에서 삭제 요청을 처리할 API
+                method: 'POST',
+                data: JSON.stringify(selectedItems),
+                contentType: 'application/json',
+                success: function(response) {
+                    alert('선택된 항목이 삭제되었습니다.');
+                    fetchCartItems(); // 삭제 후 장바구니 목록 다시 불러오기
+                },
+                error: function(xhr, status, error) {
+                    console.error('삭제 처리에 실패했습니다:', error);
+                    alert('삭제 처리에 실패했습니다.');
+                }
+            });
+        });
+
+        // 구매하기 버튼 클릭 이벤트
+        $('#purchase').on('click', function() {
+            const selectedItems = $('.item-checkbox:checked').map(function() {
+                return $(this).closest('.cart-item').data('id'); // 선택된 항목들의 ID를 가져옵니다.
+            }).get();
+
+            console.log('선택된 항목 IDs:', selectedItems);
+
+            if (selectedItems.length === 0) {
+                alert('구매할 항목을 선택해 주세요.');
+                return;
+            }
+
+            // 서버로 선택된 항목들의 ID를 전송
+            $.ajax({
+                url: '/cart/enrollment', // 장바구니 구매 처리 API 엔드포인트
+                method: 'POST',
+                data: JSON.stringify(selectedItems),
+                contentType: 'application/json',
+                success: function(response) {
+                    alert(response);
+                    fetchCartItems(); // 장바구니 목록 다시 불러오기
+                },
+                error: function(xhr, status, error) {
+                    console.error('구매 처리에 실패했습니다:', error);
+                    alert('구매 처리에 실패했습니다.');
+                }
+            });
+        });
+    });
+
+    // 장바구니 항목을 가져오는 함수
+    function fetchCartItems() {
+        $.ajax({
+            url: '/api/cart/login', // 장바구니 데이터를 가져올 API 엔드포인트
+            method: 'GET', // HTTP GET 메서드
+            success: function(response) {
+                updateCartUI(response); // 응답 데이터를 UI에 반영
+            },
+            error: function(xhr, status, error) {
+                console.error('장바구니 목록을 가져오는 데 실패했습니다:', error);
+                alert('장바구니 목록을 불러오는 데 실패했습니다.');
+            }
+        });
+    }
+
+    // 장바구니 데이터를 받아서 UI에 반영하는 함수
+    function updateCartUI(cartItems) {
+        const cartContainer = $('.cart-items');
+        cartContainer.empty(); // 기존 장바구니 항목을 지웁니다.
+
+        // 응답으로 받은 장바구니 항목들을 반복하면서 UI에 추가합니다.
+        cartItems.forEach(item => {
+            const cartItemHtml = `
+                <div class="cart-item" data-id="${item.id}" data-price="${item.price}">
+                    <input type="checkbox" class="item-checkbox">
+                    <div class="item-info">
+                        <h3>${item.subjectName}</h3>
+                        <p>₩${item.price.toLocaleString()}</p>
+                    </div>
+                    <button class="remove" onclick="removeFromCart(${item.id})">삭제</button>
+                </div>
+            `;
+            cartContainer.append(cartItemHtml); // 각 항목을 카트에 추가
+        });
+
+        // 총 금액 업데이트
+        updateTotalPrice(cartItems);
+    }
+
+    // 장바구니에서 항목을 삭제하는 함수
+    function removeFromCart(itemId) {
+        $.ajax({
+            url: `/api/user/delete/subject/${itemId}`, // 삭제할 항목의 API 엔드포인트
+            method: 'DELETE',
+            success: function(response) {
+                alert('항목이 삭제되었습니다.');
+                fetchCartItems(); // 삭제 후 장바구니 목록 다시 불러오기
+            },
+            error: function(xhr, status, error) {
+                console.error('항목 삭제에 실패했습니다:', xhr.responseText); // 서버에서의 응답 내용을 콘솔에 출력
+                alert('항목 삭제에 실패했습니다.');
+            }
+        });
+    }
+
+    // 총 금액을 계산하고 UI에 반영하는 함수
+    function updateTotalPrice(cartItems) {
+        const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
+        $('#total-price').text(`₩${totalPrice.toLocaleString()}`); // 총 금액을 표시
+    }
+</script>
+
 </body>
 </html>

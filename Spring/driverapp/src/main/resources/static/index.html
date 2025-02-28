@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/index.css">
     <script src="/js/logout.js"></script>
-    <script src="/js/admin.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/admin.js"></script>
 </head>
 
 <body>
@@ -44,15 +44,15 @@
 
             <article>
                 <div class="pic">
-                    <a href="oneBigExplain.html"><img src="/img/bus0.jpg" alt="2종 보통 면허"></a>
-                    <h2><a href="oneBigExplain.html">1종 대형 면허</a></h2>
+                    <a href="twoNormalExplain.html"><img src="/img/image.png" alt="1종 대형 면허"></a>
+                    <h2><a href="twoNormalExplain.html">2종 보통 면허</a></h2>
                 </div>
             </article>
 
             <article>
                 <div class="pic">
-                    <a href="twoNormalExplain.html"><img src="/img/image.png" alt="1종 대형 면허"></a>
-                    <h2><a href="twoNormalExplain.html">2종 보통 면허</a></h2>
+                    <a href="oneBigExplain.html"><img src="/img/bus0.jpg" alt="2종 보통 면허"></a>
+                    <h2><a href="oneBigExplain.html">1종 대형 면허</a></h2>
                 </div>
             </article>
 
@@ -87,18 +87,14 @@
             <article>
                 <div class="another">
                     <h2><a href="notice.html">공지사항</a></h2>
-                    <p><a href="#">공지사항 휴강 안내</a></p>
-                    <p><a href="#">공지사항 휴강 안내</a></p>
-                    <p><a href="#">공지사항 휴강 안내</a></p>
+                    <ul class="notice-list" id="notice-list"></ul>
                 </div>
             </article>
 
             <article>
                 <div class="another">
                     <h2><a href="QNA.html">QNA 게시판</a></h2>
-                    <p><a href="#">할 말이 있습니다.</a></p>
-                    <p><a href="#">폭로 합니다.</a></p>
-                    <p><a href="#">할 말이 없네</a></p>
+                    <ul class="qna-list" id="qna-list"></ul>
                 </div>
             </article>
         </div>
@@ -159,6 +155,105 @@ window.addEventListener("load", function() {
         videoPopup.style.display = "none";
     });
 });
+
+
+ function fetchNotices() {
+    $.ajax({
+        url: '/api/notice/all',
+        type: 'GET',
+        success: function(data) {
+
+            let noticeList = $('#notice-list');
+            noticeList.empty();
+
+
+            const maxNotices = 3;
+
+            data.slice(0, maxNotices).forEach(function(notice) {
+                let listItem = `
+                    <li>
+                        <p><a href="noticeCheck.html?id=${notice.id}">${notice.title}</a></p>
+                    </li>
+                `;
+                noticeList.append(listItem);
+            });
+
+
+        },
+        error: function(error) {
+            console.error("공지사항을 불러오는 데 실패했습니다:", error);
+            alert("공지사항을 불러오는 데 실패했습니다.");
+        }
+    });
+}
+
+$(document).ready(function() {
+    fetchNotices();
+});
+
+
+    // 공지사항 목록을 가져오는 함수
+    function fetchNotices() {
+        $.ajax({
+            url: '/api/notice/all',  // 공지사항 목록 API 엔드포인트
+            type: 'GET',
+            success: function(data) {
+                let noticeList = $('#notice-list');
+                noticeList.empty();
+
+                const maxNotices = 3;  // 최대 3개의 공지사항 항목만 표시
+
+                // 공지사항 항목들을 목록에 추가
+                data.slice(0, maxNotices).forEach(function(notice) {
+                    let listItem = `
+                        <li>
+                            <p><a href="noticeCheck.html?id=${notice.id}">${notice.title}</a></p>
+                        </li>
+                    `;
+                    noticeList.append(listItem);
+                });
+            },
+            error: function(error) {
+                console.error("공지사항을 불러오는 데 실패했습니다:", error);
+                alert("공지사항을 불러오는 데 실패했습니다.");
+            }
+        });
+    }
+
+    // QNA 목록을 가져오는 함수
+    function fetchQNA() {
+        $.ajax({
+            url: '/api/board/all',  // QNA 목록 API 엔드포인트
+            type: 'GET',
+            success: function(data) {
+                let qnaList = $('#qna-list');
+                qnaList.empty();
+
+                const maxQnas = 3;  // 최대 3개의 QNA 항목만 표시
+
+                // QNA 항목들을 목록에 추가
+                data.slice(0, maxQnas).forEach(function(qna) {
+                    let listItem = `
+                        <li>
+                            <p><a href="/replyQ&A.html?id=${qna.id}">${qna.title}</a></p>
+                        </li>
+                    `;
+                    qnaList.append(listItem);
+                });
+            },
+            error: function(error) {
+                console.error("QNA를 불러오는 데 실패했습니다:", error);
+                alert("QNA를 불러오는 데 실패했습니다.");
+            }
+        });
+    }
+
+    // 페이지 로딩 시 공지사항과 QNA 목록을 불러옴
+    $(document).ready(function() {
+        fetchNotices();
+        fetchQNA();
+    });
+
 
 </script>
 </body>

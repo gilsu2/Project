@@ -56,7 +56,6 @@
             <form action="#" method="post">
                 <label for="content">답글 내용</label>
                 <textarea name="content" id="content" placeholder="내용을 입력하세요." rows="5" required></textarea>
-
                 <button type="button" onclick="submit_go();">저장</button>
             </form>
 
@@ -74,6 +73,7 @@
                 <!-- 답글이 동적으로 채워집니다. -->
             </ul>
         </div>
+    </div>
 </figure>
 <footer>
     <div class="inner">
@@ -165,6 +165,44 @@
              loadReplies(); // 답글 목록 불러오기
          }
      });
+// 답글 등록 함수
+function submit_go() {
+    console.log("답글 버튼 클릭");
+
+    // 답글 내용을 가져오기
+    let input_content = document.querySelector("textarea[name='content']");
+
+    if (!input_content.value) {
+        alert('내용을 입력해주세요.');
+        input_content.focus();
+        return;
+    }
+
+    console.log("답글 내용: " + input_content.value);
+
+    // 답글을 서버에 전송하는 AJAX 요청
+    const data = {
+        "comment": input_content.value,  // 답글 내용
+        "boardId": questionId  // 게시물 ID
+    };
+
+    $.ajax({
+        url: '/api/comment/add',  // 답글 저장을 위한 URL (서버 API 경로를 확인해주세요)
+        type: 'POST',
+        data: JSON.stringify(data),  // 데이터를 JSON 형식으로 보냄
+        contentType: 'application/json; charset=utf-8',
+        success: function(response) {
+            console.log("답글 등록 성공:", response);
+            alert('답글이 등록되었습니다.');
+            loadReplies();  // 등록 후, 답글 목록 다시 불러오기
+            input_content.value = '';  // 답글 내용 초기화
+        },
+        error: function(xhr, status, error) {
+            console.error("답글 등록 중 오류 발생", error);
+            alert('답글 등록 중 오류가 발생했습니다.');
+        }
+    });
+}
 
 </script>
 
