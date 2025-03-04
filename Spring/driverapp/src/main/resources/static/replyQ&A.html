@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DW 자동차 운전면허학원</title>
-    <link rel="stylesheet" href="/css/reply.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="/js/logout.js"></script>
+    <link rel="stylesheet" href="css/reply.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/logout.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="/js/admin.js"></script>
+    <script src="js/particularQNA.js"></script>
 </head>
 <body>
 <header>
-    <img src="/img/logo1.gif" alt="logo">
+    <img src="img/logo1.gif" alt="logo">
     <div class="inner">
         <h1><a href="index.html">DW 자동차 운전면허 학원</a></h1>
         <ul class="util">
@@ -23,7 +23,7 @@
         </ul>
         <ul class="menu">
             <li><a href="index.html">HOME</a></li>
-            <li><a href='#' onclick="move()" >MYPAGE</a></li>
+            <li><a href="usermypage.html">MYPAGE</a></li>
             <li><a href="QNA.html">Q&A</a></li>
             <li><a href="notice.html">NOTICE</a></li>
             <li><a href="introduction.html">INTRODUCTION</a></li>
@@ -51,6 +51,11 @@
             <p id="question-author"></p>
         </div>
 
+        <div class="gather">
+            <button type="button" id="deleteBtn">삭제</button>
+        </div>
+
+
         <div class="save">
             <!-- 답글 등록 -->
             <form action="#" method="post">
@@ -67,11 +72,13 @@
             <ul class="look">
                 <li class="number">번호</li>
                 <li class="comment">내용</li>
-                <li class="username">작성자</li>
+                <li class="author">작성자</li>
             </ul>
-            <ul id="reply-list">
-                <!-- 답글이 동적으로 채워집니다. -->
-            </ul>
+            <div class="list">
+                <ul id="reply-list">
+                    <!-- 답글이 동적으로 채워집니다. -->
+                </ul>
+            </div>
         </div>
     </div>
 </figure>
@@ -100,112 +107,6 @@
         </div>
     </div>
 </footer>
-<script>
-    // URL에서 id 파라미터 가져오기
-     const urlParams = new URLSearchParams(window.location.search);
-     const questionId = urlParams.get('id');
-
-     // 게시물 상세 정보 가져오기
-     function fetchQuestionDetails() {
-         $.ajax({
-             url: `/api/board/${questionId}`,
-             type: 'GET',
-             success: function(data) {
-                 $('#question-title').text(data.title);
-                 $('#question-date').text(data.date);
-                 $('#question-content').text(data.content);
-                 $('#question-author').text(data.author);
-             },
-             error: function(error) {
-                 console.error("게시물 세부 정보를 불러오는 데 실패했습니다.", error);
-                 alert("게시물을 불러오는 데 실패했습니다.");
-             }
-         });
-     }
-
-     // 답글 목록을 불러오는 함수
-     function loadReplies() {
-         $.ajax({
-             url: `/api/comment/board/${questionId}`,  // 게시물 ID로 답글 목록 요청
-             type: 'GET',
-             success: function(response) {
-                 console.log("답글 목록:", response);  // 응답 데이터 콘솔 출력
-                 let repliesList = $('#reply-list');  // 답글을 표시할 ul 요소
-                 repliesList.empty();  // 기존 답글 목록 초기화
-
-                 // 응답이 배열로 전달되면 각 답글을 li 항목으로 추가
-                 if (Array.isArray(response) && response.length > 0) {
-                     response.forEach(function(reply, index) {
-                         let replyItem = `
-                             <li>
-                                 <span class="number">${index + 1}</span>
-                                 <span class="content">${reply.comment || '내용 없음'}</span>
-                                 <span class="username">${reply.user || '작성자 '}</span>
-                             </li>
-                         `;
-                         repliesList.append(replyItem);  // 답글 항목을 추가
-                     });
-                 } else {
-                     // 답글이 없으면 '답글이 없습니다.' 표시
-                     repliesList.append('<li>답글이 없습니다.</li>');
-                 }
-             },
-             error: function(error) {
-                 console.error("답글 목록을 불러오는 데 실패했습니다.", error);
-             }
-         });
-     }
-
-
-
-     // 페이지 로드 시 게시물과 답글 목록 불러오기
-     $(document).ready(function() {
-         if (questionId) {
-             fetchQuestionDetails(); // 게시물 정보 불러오기
-             loadReplies(); // 답글 목록 불러오기
-         }
-     });
-// 답글 등록 함수
-function submit_go() {
-    console.log("답글 버튼 클릭");
-
-    // 답글 내용을 가져오기
-    let input_content = document.querySelector("textarea[name='content']");
-
-    if (!input_content.value) {
-        alert('내용을 입력해주세요.');
-        input_content.focus();
-        return;
-    }
-
-    console.log("답글 내용: " + input_content.value);
-
-    // 답글을 서버에 전송하는 AJAX 요청
-    const data = {
-        "comment": input_content.value,  // 답글 내용
-        "boardId": questionId  // 게시물 ID
-    };
-
-    $.ajax({
-        url: '/api/comment/add',  // 답글 저장을 위한 URL (서버 API 경로를 확인해주세요)
-        type: 'POST',
-        data: JSON.stringify(data),  // 데이터를 JSON 형식으로 보냄
-        contentType: 'application/json; charset=utf-8',
-        success: function(response) {
-            console.log("답글 등록 성공:", response);
-            alert('답글이 등록되었습니다.');
-            loadReplies();  // 등록 후, 답글 목록 다시 불러오기
-            input_content.value = '';  // 답글 내용 초기화
-        },
-        error: function(xhr, status, error) {
-            console.error("답글 등록 중 오류 발생", error);
-            alert('답글 등록 중 오류가 발생했습니다.');
-        }
-    });
-}
-
-</script>
-
 
 </body>
 </html>
