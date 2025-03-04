@@ -1,12 +1,13 @@
 package com.dw.driverapp.model;
 
 import com.dw.driverapp.dto.EnrollmentDTO;
+import com.dw.driverapp.dto.EnrollmentDetailDTO;
 import com.dw.driverapp.dto.SubjectEnrollmentDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -55,5 +56,8 @@ public class Enrollment {
         subjectEnrollmentDTO.setCompletionStatus(this.completed ? "완료" : "미완료");
         return subjectEnrollmentDTO;
     }
+
+
 }
+
 

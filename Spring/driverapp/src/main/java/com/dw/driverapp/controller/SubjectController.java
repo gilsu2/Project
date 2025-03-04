@@ -1,6 +1,7 @@
 package com.dw.driverapp.controller;
 
 import com.dw.driverapp.dto.SubjectDTO;
+import com.dw.driverapp.dto.EnrollmentDetailDTO;
 import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.exception.UnauthorizedUserException;
 import com.dw.driverapp.model.Subject;
@@ -114,4 +115,5 @@ public class SubjectController {
             throw new UnauthorizedUserException("강사만 강의를 수정할 수 있습니다.");
         }
     }
+
 }

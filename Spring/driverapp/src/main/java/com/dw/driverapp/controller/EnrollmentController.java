@@ -1,6 +1,7 @@
 package com.dw.driverapp.controller;
 
 import com.dw.driverapp.dto.EnrollmentDTO;
+import com.dw.driverapp.dto.EnrollmentDetailDTO;
 import com.dw.driverapp.dto.SubjectDTO;
 import com.dw.driverapp.dto.SubjectEnrollmentDTO;
 import com.dw.driverapp.exception.ResourceNotFoundException;
@@ -126,6 +127,13 @@ public class EnrollmentController {
         LocalDate endDate = LocalDate.parse(date2);
 
         return new ResponseEntity<>(enrollmentService.enrollmentBetweenFind(startDate, endDate), HttpStatus.OK);
+    }
+
+
+    //관리자- 강의 세부 정보를 가져오는 기능.
+    @GetMapping("/enrollment/detail")
+    public ResponseEntity<List<EnrollmentDetailDTO>> EnrollmentDetail(){
+        return new ResponseEntity<>(enrollmentService.EnrollmentDetail(),HttpStatus.OK);
     }
 
 }

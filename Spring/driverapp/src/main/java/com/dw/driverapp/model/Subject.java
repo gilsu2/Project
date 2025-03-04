@@ -1,7 +1,6 @@
 package com.dw.driverapp.model;
 
 import com.dw.driverapp.dto.SubjectDTO;
-import com.dw.driverapp.dto.SubjectEnrollmentDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,7 +27,7 @@ public class Subject {
             joinColumns = @JoinColumn(name = "subject_id"),
             inverseJoinColumns = @JoinColumn(name = "type_id"))
     private List<Type> typeList = new ArrayList<>();
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private double price;
     @ManyToOne
     @JoinColumn(name = "instructor_name")
@@ -49,5 +48,4 @@ public class Subject {
         subjectDTO.setInstructorName(this.user_fk.getRealName());
         return subjectDTO;
     }
-
 }

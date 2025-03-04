@@ -65,30 +65,7 @@
                     <th>강의 인원</th>
                     <th>합계</th>
                 </tr>
-                <tr>
-                    <td>1종 자동.수동면허</td>
-                    <td>0000</td>
-                    <td>00</td>
-                    <td>0000</td>
-                </tr>
-                <tr>
-                    <td>1종 대형면허</td>
-                    <td>0000</td>
-                    <td>00</td>
-                    <td>0000</td>
-                </tr>
-                <tr>
-                    <td>2종 보통면허</td>
-                    <td>0000</td>
-                    <td>00</td>
-                    <td>0000</td>
-                </tr>
-                <tr>
-                    <td>2종 소형면허</td>
-                    <td>0000</td>
-                    <td>00</td>
-                    <td>0000</td>
-                </tr>
+               <tbody id="detail-list"></tbody>
             </table>
         </div>
 
@@ -227,11 +204,11 @@ function search() {
     }
 
     $.ajax({
-        url: `/api/enrollment/subject/${startDate}/${endDate}`, // 서버의 날짜 범위 조회 API URL
+        url: `/api/enrollment/subject/${startDate}/${endDate}`,
         type: 'GET',
         success: function(data) {
             let buylist = $('#buy-list');
-            buylist.empty();  // 기존 목록 비우기
+            buylist.empty();
 
             data.forEach(function(enrollment, index) {
                 let listItem = `
@@ -256,11 +233,44 @@ function search() {
 
 $(document).ready(function() {
     $("#searchButton").click(function() {
-        search();  // search 함수 호출
+        search();
     });
 });
 
+
+
+    $(document).ready(function() {
+       getdetail();
+
+       function getdetail() {
+           $.ajax({
+               url: '/api/enrollment/detail',
+               type: 'GET',
+               success: function(data) {
+                   let detaillist = $('#detail-list');
+                   detaillist.empty();
+                   data.forEach(function(enrollment) {
+                       let listItem = `
+                           <tr>
+                               <td>${enrollment.title}</td>
+                               <td>${enrollment.price}</td>
+                               <td>${enrollment.persons}</td>
+                               <td>${enrollment.priceSum}</td>
+                           </tr>
+                       `;
+                       detaillist.append(listItem);
+                   });
+               },
+               error: function(error) {
+                   console.error("강의 상세 정보를 불러오는 데 실패했습니다:", error);
+                   alert("강의 상세 정보를 불러오는 데 실패했습니다");
+               }
+           });
+       }
+   });
+
 </script>
+
 </body>
 
 </html>

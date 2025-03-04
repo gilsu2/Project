@@ -18,6 +18,10 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment,Long>{
 
     @Query("select e from Enrollment e where e.purchaseTime BETWEEN :date1 AND :date2")
     Optional<List<Enrollment>> purchaseTimebetweendate(LocalDate date1, LocalDate date2);
+    List<Enrollment> findBySubject(Subject subject);
+
+
+
 }
 
 

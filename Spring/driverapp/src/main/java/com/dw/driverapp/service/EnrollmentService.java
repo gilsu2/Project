@@ -1,6 +1,7 @@
 package com.dw.driverapp.service;
 
 import com.dw.driverapp.dto.EnrollmentDTO;
+import com.dw.driverapp.dto.EnrollmentDetailDTO;
 import com.dw.driverapp.dto.SubjectDTO;
 import com.dw.driverapp.dto.SubjectEnrollmentDTO;
 import com.dw.driverapp.exception.ResourceNotFoundException;
@@ -23,6 +24,7 @@ import java.awt.*;
 import java.nio.file.AccessDeniedException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -137,6 +139,32 @@ public class EnrollmentService {
                 .map(Enrollment::toDto)
                 .collect(Collectors.toList());
     }
+
+    public List<EnrollmentDetailDTO> EnrollmentDetail() {
+        List<Subject> subjects = subjectRepository.findAll();
+        List<EnrollmentDetailDTO> enrollmentDetailDTOList = new ArrayList<>();
+
+        for (Subject subject : subjects) {
+            int persons = 0;
+            double price = subject.getPrice();
+            double priceSum = 0;
+            List<Enrollment> enrollments = enrollmentRepository.findBySubject(subject);
+            persons = enrollments.size();
+            priceSum = price * persons;
+            EnrollmentDetailDTO enrollmentDetailDTO = new EnrollmentDetailDTO();
+            enrollmentDetailDTO.setTitle(subject.getTitle());
+            enrollmentDetailDTO.setPrice(price);
+            enrollmentDetailDTO.setPersons(persons);
+            enrollmentDetailDTO.setPriceSum(priceSum);
+
+
+            enrollmentDetailDTOList.add(enrollmentDetailDTO);
+        }
+
+        return enrollmentDetailDTOList;
+    }
+
+
 }
 
 
