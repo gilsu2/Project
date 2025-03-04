@@ -25,7 +25,7 @@ function fetchQuestionDetails() {
 // 답글 목록을 불러오는 함수
 function loadReplies() {
     $.ajax({
-        url: `/api/comment/all`,  // 게시물 전체 조회
+        url: `/api/comment/board/${questionId}`,  // 게시물 전체 조회
         type: 'GET',
         success: function(response) {
             console.log("답글 목록:", response);  // 응답 데이터 콘솔 출력

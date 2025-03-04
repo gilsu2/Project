@@ -37,7 +37,7 @@
 
         <h1 id="title"></h1>
         <p7 id="price"></p7><br><br>
-        <button class="register-btn" type="button">수강신청</button><br><br><br>
+        <button class="register-btn" type="button" onclick="add()">수강신청</button><br><br><br>
         <p1 id="type"></p1><br><br>
         <p5 id="ep"></p5>
         <img src="/img/cropped_bus_image_1180x450.png">
@@ -187,6 +187,25 @@
         });
     }
 });
+
+     function add() {
+     $.ajax({
+             url: '/api/user/add', // 장바구니 항목 구매 API
+             method: 'POST',
+             data: JSON.stringify(selectedItems),
+             contentType: 'application/json',
+             success: function(response) {
+                 alert(response);
+                 fetchCartItems(); // 장바구니 목록 다시 불러오기
+             },
+             error: function(xhr, status, error) {
+                 console.error('포인트가 부족하여 구매할 수 없습니다.', error);
+                 alert('포인트가 부족하여 구매할 수 없습니다.');
+             }
+         });
+    }
+
+
 </script>
 </body>
 </html>

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +68,7 @@ public class BoardService {
         newBoard.setTitle(boardAllDTO.getTitle());
         newBoard.setContent(boardAllDTO.getContent());
         newBoard.setAuthor(author);
-        newBoard.setCreatedDate(LocalDateTime.now());
+        newBoard.setCreatedDate(LocalDate.now());
         newBoard.setModifiedDate(LocalDateTime.now());
         Board savedBoard = boardRepository.save(newBoard);
         return savedBoard.TODTO();
