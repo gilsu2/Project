@@ -35,7 +35,7 @@
     <div class="inner4">
         <h1 id="title"></h1>
         <p7 id="price"></p7><br><br>
-        <button class="register-btn" type="button">수강신청</button><br><br><br>
+        <button class="register-btn" type="button" onclick="add()">수강신청</button><br><br><br>
         <p1 id="type"></p1><br><br>
         <p5 id="ep"></p5>
         <img src="/img/cropped_sedan_image_1180x450.png">
@@ -222,6 +222,33 @@
        });
    }
 });
+
+     function add() {
+        const user = sessionStorage.getItem('user');
+        const userObj = JSON.parse(user);
+
+        if (!userObj || !userObj.username) {
+            alert('로그인 후에 이용할 수 있습니다.');
+            return;
+        }
+
+        // 서버로 AJAX 요청 보내기 (POST 방식)
+        $.ajax({
+            url: '/api/user/add',  // 실제 API 엔드포인트
+            type: 'POST',
+            data: {
+                username: userObj.username,  // 로그인한 사용자 이름
+                subjectId: 2 // 선택한 과목 ID
+            },
+            success: function(response) {
+                alert('장바구니에 과목이 추가되었습니다.');
+            },
+            error: function(error) {
+                alert('장바구니에 과목 추가에 실패했습니다.');
+                console.error(error);
+            }
+        });
+    }
 </script>
 </body>
 </html>
