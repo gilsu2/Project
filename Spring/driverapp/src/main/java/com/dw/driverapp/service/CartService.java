@@ -1,6 +1,7 @@
 package com.dw.driverapp.service;
 
 import com.dw.driverapp.dto.CartDTO;
+import com.dw.driverapp.dto.EnrollmentDTO;
 import com.dw.driverapp.exception.InsufficientFundsException;
 import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.exception.UnauthorizedUserException;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,63 +61,70 @@ public class CartService {
         return savedCart.ToDto();
     }
 
-    // 유저 -> 과목 id로 장바구니 삭제
-    public List<CartDTO> deleteCart(Long subjectId, String username) {
-        Subject subject = subjectRepository.findById(subjectId)
-                .orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 과목입니다."));
+    // 여러 장바구니 항목을 삭제하는 서비스
+    public void deleteCartItems(List<Long> cartIds, String username) {
+        List<Cart> carts = cartRepository.findByUserUserNameAndIdIn(username, cartIds);
 
-        Cart cart = cartRepository.findByUserUserNameAndSubjectId(username, subjectId)
-                .orElseThrow(() -> new ResourceNotFoundException("해당 과목을 장바구니에 추가한 사용자가 아닙니다."));
-
-        if (!cart.getUser().getUserName().equals(username)) {
-            throw new UnauthorizedUserException("사용자가 아니므로 해당 항목을 삭제할 수 없습니다.");
+        if (carts.isEmpty()) {
+            throw new ResourceNotFoundException("선택한 항목이 없습니다.");
         }
 
-        cartRepository.delete(cart);
-        return cartRepository.findByUserUserName(username)
-                .orElseThrow(() -> new ResourceNotFoundException("사용자의 장바구니가 없습니다."))
-                .stream()
-                .map(Cart::ToDto)
-                .collect(Collectors.toList());
-
+        for (Cart cart : carts) {
+            if (!cart.getUser().getUserName().equals(username)) {
+                throw new UnauthorizedUserException("해당 항목을 삭제할 수 없습니다.");
+            }
+            cartRepository.delete(cart);
+        }
     }
 
 
     // 유저- 로그인한 회원의 장바구니에서 과목아이디로 구매(자동으로 유저의 포인트에서 과목의 가격을 계산)
-    public void cartEnrollment(String username, Long id) {
-        List<Cart> cartList = cartRepository.findByUser_UserNameAndSubject_Id(username, id);
+    public void cartEnrollment(String username, List<Long> cartIds) {
+        List<Cart> cartList = cartRepository.findByUser_UserNameAndIdIn(username, cartIds); // 여러 ID로 장바구니 항목 찾기
         if (cartList.isEmpty()) {
-            throw new ResourceNotFoundException("해당 과목이 장바구니에 없습니다.");
+            throw new ResourceNotFoundException("해당 과목들이 장바구니에 없습니다.");
         }
+
         User user = userRepository.findByUserName(username)
                 .orElseThrow(() -> new ResourceNotFoundException("사용자를 찾을 수 없습니다."));
         int userPoint = user.getPoint();
-        Subject subject = cartList.get(0).getSubject();
-        int subjectPrice = (int)subject.getPrice();
 
-        if (userPoint < subjectPrice) {
-            throw new InsufficientFundsException("포인트가 부족하여 결제할 수 없습니다.");
-        }
-        user.setPoint(userPoint - subjectPrice);
-        userRepository.save(user);
+        // 각 항목에 대해 구매 로직 처리
         for (Cart cart : cartList) {
+            Subject subject = cart.getSubject();
+            int subjectPrice = (int) subject.getPrice();
+
+            if (userPoint < subjectPrice) {
+                throw new InsufficientFundsException("포인트가 부족하여 결제할 수 없습니다.");
+            }
+
+            user.setPoint(userPoint - subjectPrice);
+            userRepository.save(user);
+
             Enrollment enrollment = new Enrollment();
             enrollment.setUser(cart.getUser());
             enrollment.setSubject(cart.getSubject());
             enrollment.setPurchaseTime(LocalDate.now());
             enrollmentRepository.save(enrollment);
-            cartRepository.delete(cart);
+            cartRepository.delete(cart);  // 장바구니에서 해당 항목 삭제
         }
     }
 
+
     public List<CartDTO> cartFindLoginUsername(String username) {
         User user = userRepository.findByUserName(username)
-                .orElseThrow(()-> new ResourceNotFoundException("존재하지 않는 유저입니다."));
+                .orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 유저입니다."));
+
+        // 장바구니 항목을 유저 이름으로 조회
         List<Cart> carts = cartRepository.findByUser_UserName(username);
+
+        // 장바구니가 비어 있으면 빈 리스트를 반환하거나 적절한 메시지 반환
         if (carts.isEmpty()) {
-            throw new RuntimeException("장바구니가 비어있습니다.");
+            return new ArrayList<>(); // 빈 장바구니일 때는 빈 리스트 반환
         }
-        return  carts.stream()
+
+        // 장바구니 항목들을 CartDTO로 변환하여 리스트로 반환
+        return carts.stream()
                 .map(Cart::ToDto)
                 .collect(Collectors.toList());
     }

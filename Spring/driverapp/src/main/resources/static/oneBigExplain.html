@@ -32,18 +32,16 @@
     </div>
 </header>
 <section>
+
     <div class="inner4">
-        <h1 id="title">1종 대형 면허</h1>
-        <p7 id="price">가격: 10000.0</p7><br><br><br>
-        <p1 id="type">"화물차",
-            "승합차",
-            "버스",
-            "트럭",
-            "10톤 이상 대형 화물차",
-            "대형 버스 (승객 16인 이상)",
-            "특수 차량 (크레인, 불도저 등)"</p1><br><br><br>
-        <p5 id="ep">1종 대형면허는 10톤 이상 대형 화물차 및 버스 등 대형 차량을 운전할 수 있는 면허입니다.</p5>
+
+        <h1 id="title"></h1>
+        <p7 id="price"></p7><br><br>
+        <button class="register-btn" type="button">수강신청</button><br><br><br>
+        <p1 id="type"></p1><br><br>
+        <p5 id="ep"></p5>
         <img src="/img/cropped_bus_image_1180x450.png">
+
 
         <p2>기본주행 채점항목</p2>
         <table>
@@ -131,10 +129,10 @@
                 이행하지 않은 경우
             </li>
             <li>경사로 정지구간 이행 후 30초를 초과하여 통과하지 못한 경우 또는 경사로 정지구간에서 후방으로 1미터 이상 밀린 경우</li><br><br>
-            <p4 id="ins">강사: ***</p4>
+            <p4 id="ins"></p4>
         </ul>
 
-        <button class="register-btn" type="button">수강신청</button>
+
     </div>
 
 </section>
@@ -167,5 +165,28 @@
     </div>
 </footer>
 
+<script>
+    $(document).ready(function() {
+    getsub();
+
+    function getsub() {
+        $.ajax({
+            url: '/api/subject/3',
+            type: 'GET',
+            success: function(data) {
+                $('#title').text(data.title);
+                $('#price').text("가격: " + data.price + "P");
+                $('#type').text(data.typeList);
+                $('#ep').text(data.explanation);
+                $('#ins').text("강사: " + data.instructorName);
+            },
+            error: function(error) {
+                alert('사용자 정보를 가져오는 데 실패했습니다.');
+                console.error(error);
+            }
+        });
+    }
+});
+</script>
 </body>
 </html>

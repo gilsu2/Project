@@ -23,7 +23,7 @@
 
 function fetchBoards() {
     $.ajax({
-        url: 'http://localhost:8081/api/board/all',
+        url: '/api/board/all',
         type: 'GET',
         success: function(data) {
             console.log(data);

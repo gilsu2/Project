@@ -34,37 +34,9 @@
 </header>
 <section>
     <div class="inner">
-        <div class="wrap">
-            <article>
-                <div class="pic">
-                    <a href="oneNormalExplain.html"><img src="/img/img1.1.GIF" alt="1종 자동.수동 면허"></a>
-                    <h2><a href="oneNormalExplain.html">1종 자동.수동 면허</a></h2>
-                </div>
-            </article>
+        <div class="wrap" id="subject-list">
 
-            <article>
-                <div class="pic">
-                    <a href="twoNormalExplain.html"><img src="/img/image.png" alt="1종 대형 면허"></a>
-                    <h2><a href="twoNormalExplain.html">2종 보통 면허</a></h2>
-                </div>
-            </article>
-
-            <article>
-                <div class="pic">
-                    <a href="oneBigExplain.html"><img src="/img/bus0.jpg" alt="2종 보통 면허"></a>
-                    <h2><a href="oneBigExplain.html">1종 대형 면허</a></h2>
-                </div>
-            </article>
-
-            <article>
-                <div class="pic">
-                    <a href="twoSmallExplain.html"><img src="/img/img2.1.GIF" alt="2종 소형 면허"></a>
-                    <h2><a href="twoSmallExplain.html">2종 소형 면허</a></h2>
-                </div>
-            </article>
         </div>
-
-
         <div id="videoPopup" class="popup">
             <div class="popup-content">
                 <div class="video-overlay-text">
@@ -255,7 +227,39 @@ $(document).ready(function() {
     });
 
 
+
+    $(document).ready(function() {
+       getsubject();
+
+       function getsubject() {
+           $.ajax({
+               url: '/api/img/all',
+               type: 'GET',
+               success: function(data) {
+                   let subjectlist = $('#subject-list');
+                   subjectlist.empty();
+                   data.forEach(function(image) {
+                       let listItem = `
+                        <article>
+                          <div class="pic">
+                            <a href="${image.fileName}.html">
+                            <img src="/img/${image.imageUrl}" alt="${image.title}"></a>
+                            <h2><a href="${image.fileName}.html"><p>${image.title}</p></a></h2>
+                          <div>
+                        </article>
+                       `;
+                       subjectlist.append(listItem);
+                   });
+               },
+               error: function(error) {
+                   console.error("강의 전체 정보를 불러오는 데 실패했습니다.:", error);
+                   alert("강의 전체 정보를 불러오는 데 실패했습니다.");
+               }
+           });
+       }
+   });
 </script>
+
 </body>
 
 </html>

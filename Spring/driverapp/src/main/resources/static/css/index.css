@@ -87,19 +87,24 @@ section .inner .wrap{
 }
 section .inner .wrap article{
     width: 280px;
-    margin-right: 20px;
-}
-section .inner .wrap article h2 {
-	margin-bottom: 10px;
-    text-align: center;
+    margin-right: 25px;
 }
 section .inner .wrap article h2 a {
-    font: bold 20px/1 "arial";
-	color: #444447;
+text-align:center;
+
 
 }
-section .inner .wrap article h2 a:hover{
-	border-bottom: 3px solid #1f1f1f ;
+section .inner .wrap article h2 a p {
+    width:210px;
+    font: bold 20px/1 "arial";
+	color: #222225;
+	margin:0px auto;
+	margin-top:10px;
+
+
+}
+section .inner .wrap article h2 a p:hover{
+	color:#606060;
 }
 
 section .inner .wrap article .pic{

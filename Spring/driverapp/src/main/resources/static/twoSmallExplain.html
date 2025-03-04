@@ -33,12 +33,11 @@
 
 <section>
     <div class="inner4">
-        <h1 id="title">2종 소형 면허</h1><p7 id="price">가격: 000000</p7><br><br><br>
-        <p1 id="type">"경형 자동차 (일반적으로 660cc 이하)",
-            "소형 트레일러",
-            "4륜 이륜차 (125cc 이하)",
-            </p1><br><br><br>
-        <p5 id="ep">2종 소형면허는 4륜 이륜차와 3톤 이하 화물차, 9인 이하 승합차 등을 운전할 수 있는 면허입니다.</p5>
+        <h1 id="title"></h1>
+        <p7 id="price"></p7><br><br>
+        <button class="register-btn" type="button">수강신청</button><br><br><br>
+        <p1 id="type"></p1><br><br>
+        <p5 id="ep"></p5>
         <img src="/img/cropped_motorcycle_image_1180x450.png">
         <p2>면허별 운전가능 범위</p2>
         <table>
@@ -112,10 +111,10 @@
 
         <h2>합격 기준</h2>
         <p3>각 시험항목별 감점기준에 따라 감점한 결과 100점 만점에 90점 이상을 얻은 경우 합격으로한다.</p3><br><br><br>
-        <p4 id="ins">강사: ***</p4>
+        <p4 id="ins"></p4>
 
 
-        <button class="register-btn" type="button">수강신청</button>
+
     </div>
 </section>
 
@@ -147,5 +146,28 @@
 
 
 </footer>
+<script>
+    $(document).ready(function() {
+   getsub();
+
+   function getsub() {
+       $.ajax({
+           url: '/api/subject/4',
+           type: 'GET',
+           success: function(data) {
+               $('#title').text(data.title);
+               $('#price').text("가격: " + data.price + "P");
+               $('#type').text(data.typeList);
+               $('#ep').text(data.explanation);
+               $('#ins').text("강사: " + data.instructorName);
+           },
+           error: function(error) {
+               alert('사용자 정보를 가져오는 데 실패했습니다.');
+               console.error(error);
+           }
+       });
+   }
+});
+</script>
 </body>
 </html>

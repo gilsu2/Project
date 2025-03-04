@@ -5,6 +5,9 @@ section {
     padding: 300px 0px;
 }
 
+
+
+
 section .inner4 {
     width: 1180px;
     margin: 0px auto;
@@ -12,6 +15,24 @@ section .inner4 {
     padding-top: 100px;
     /* h1과 겹치지 않게 충분한 여백을 추가 */
 
+}
+
+section  .inner4  button {
+    padding: 10px 25px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #333;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    position: absolute;
+    right:0px;
+
+}
+
+section .inner4 button:hover {
+    background-color: #555;
 }
 
 section .inner4 h1 {
@@ -29,6 +50,7 @@ section .inner4 p7{
 float:right;
 font: bold 20px/1 "arial";
 color: #222225;
+
 }
 
 section .inner4 p {
@@ -133,29 +155,12 @@ section .inner4 ul li {
     margin-bottom: 20px;
 }
 section .inner4 ul p4 {
-font-size:20px;
+font: bold 20px/1 "arial";
 position:absolute;
 right:45px;
 padding:20px 0px ;
-bottom:0px;
+color:#222225;
 
 }
 
 
-section .inner4 button {
-    padding: 10px 25px;
-    font-size: 15px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #333;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    position: absolute;
-    bottom: 0 auto;
-    right: 20px;
-}
-
-section .inner4 button:hover {
-    background-color: #555;
-}
