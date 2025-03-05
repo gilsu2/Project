@@ -68,11 +68,12 @@ VALUES
 ('경형 자동차 (일반적으로 660cc 이하)');
 
 -- 이미지
-INSERT INTO 이미지 (image_url)
+INSERT INTO 이미지 (image_url,subject_id)
 VALUES
-('car photo_url'),
-('motor cycle photo_url'),
-('bus photo_url');
+('img1.1.GIF',1),
+('image.png',2),
+('bus0.jpg',3),
+('img2.1.GIF',4);
 
 -- 비디오
 INSERT INTO 비디오 (video_url,subject_id)

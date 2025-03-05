@@ -120,7 +120,6 @@
 function checkAdminRole() {
     const user = sessionStorage.getItem("user");
 
-    // "user"가 null 또는 잘못된 경우를 처리할 수 있도록 예외 처리
     if (!user) {
         $(".delete-btn").hide();
         $(".update-btn").hide();
@@ -151,7 +150,7 @@ function checkAdminRole() {
             $('#delete-btn').on('click', function() {
                 const confirmDelete = confirm("정말로 이 공지사항을 삭제하시겠습니까?");
                 if (confirmDelete) {
-                    deleteNotice(noticeId);  // 삭제 요청
+                    deleteNotice(noticeId);
                 }
             });
         }

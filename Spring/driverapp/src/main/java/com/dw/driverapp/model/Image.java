@@ -22,7 +22,7 @@ public class Image {
     private Long id;
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
-    @Column(name= "file-name", nullable = false)
+    @Column(name= "file_name", nullable = false)
     private String fileName;
     @ManyToOne
     @JoinColumn(name = "subject_id")
