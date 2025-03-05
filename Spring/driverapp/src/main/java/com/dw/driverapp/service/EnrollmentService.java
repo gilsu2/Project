@@ -1,9 +1,6 @@
 package com.dw.driverapp.service;
 
-import com.dw.driverapp.dto.EnrollmentDTO;
-import com.dw.driverapp.dto.EnrollmentDetailDTO;
-import com.dw.driverapp.dto.SubjectDTO;
-import com.dw.driverapp.dto.SubjectEnrollmentDTO;
+import com.dw.driverapp.dto.*;
 import com.dw.driverapp.exception.ResourceNotFoundException;
 import com.dw.driverapp.exception.UnauthorizedUserException;
 import com.dw.driverapp.model.Enrollment;
@@ -106,13 +103,13 @@ public class EnrollmentService {
     }
 
     // 유저- 로그인한 회원의 과목의 수강완료 여부를 조회하는 기능
-    public List<SubjectEnrollmentDTO> enrollmentCompleted(String username) {
+    public List<SubjectVideoDTO> enrollmentCompleted(String username) {
         List<Enrollment> enrollments= enrollmentRepository.findByUser_UserName(username);
         if (enrollments.isEmpty()) {
             throw new ResourceNotFoundException("해당 유저는 수강신청을 하지 않았습니다.");
         }
         return enrollments.stream()
-                .map(Enrollment::toDto)
+                .map(Enrollment::TODTO)
                 .collect(Collectors.toList());
     }
 

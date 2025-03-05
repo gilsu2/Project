@@ -76,12 +76,12 @@ VALUES
 ('img2.1.GIF',4,'twoSmallExplain');
 
 -- 비디오
-INSERT INTO 비디오 (video_url,subject_id)
+INSERT INTO 비디오 (video_url,subject_id,img_url)
 VALUES
-('Study video_url(1종보통)',1),
-('Study video_url(2종보통)',2),
-('Study video_url(1종대형)',3),
-('Study video_url(2종소형)',4);
+('/mp4/1종자동수동.mp4',1,'/img/img1.1.GIF'),
+('/mp4/2종 보통.mp4',2,'/img/image.png'),
+('/mp4/1종 대형.mp4',3,'/img/bus0.jpg'),
+('/mp4/2종 소형.mp4',4,'/img/img2.1.GIF');
 
 --수강신청
 INSERT INTO 수강신청 (user_name, subject_id, purchase_time, completed)

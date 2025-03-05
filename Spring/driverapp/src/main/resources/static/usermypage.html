@@ -124,7 +124,7 @@
               data.forEach(function(enrollment) {
                   let listItem = `
                       <li>
-                          <span><a href="#">과목명: ${enrollment.title}</a></span>
+                          <span><a href="/video.html?subjectId=${enrollment.subjectId}">과목명: ${enrollment.title}</a></span>
                           <span>구매 날짜: [${enrollment.purchaseTime}]</span>
                           <span>Price: ${enrollment.price}</span>
                           <span>수강상태: ${enrollment.completionStatus}</span>
@@ -141,35 +141,45 @@
 
   // 회원 탈퇴 기능
   function delete_user() {
-      console.log("버튼 클릭");
+    console.log("버튼 클릭");
 
-      const user = JSON.parse(sessionStorage.getItem("user"));
 
-      if (user) {
-          $.ajax({
-              url: '/api/user/delete',
-              type: 'DELETE',
-              contentType: 'application/json; charset=utf-8',
-              data: JSON.stringify({
-                  userName: user.userName
-              }),
-              success: function(response) {
-                  // 요청 성공 시 처리
-                  console.log(response);
-                  sessionStorage.removeItem("user");
-                  alert('회원 탈퇴가 완료되었습니다.');
-                  window.location.href = '/index.html';
-              },
-              error: function(xhr, status, error) {
-                  // 요청 실패 시 처리
-                  alert('회원 탈퇴에 실패하였습니다.');
-                  console.error(error);
-              }
-          });
-      } else {
-          alert('로그인된 사용자 정보가 없습니다.');
-      }
-  }
+    const user = JSON.parse(sessionStorage.getItem("user"));
+
+    if (user) {
+        // 탈퇴 확인을 위한 confirm 메시지
+        const confirmation = confirm("정말 회원을 탈퇴하시겠습니까?");
+
+        if (confirmation) {
+            // 사용자가 "확인"을 눌렀을 때 실행되는 부분
+            $.ajax({
+                url: '/api/user/delete',
+                type: 'DELETE',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    userName: user.userName
+                }),
+                success: function(response) {
+                    // 요청 성공 시 처리
+                    console.log(response);
+                    sessionStorage.removeItem("user");
+                    alert('회원 탈퇴가 완료되었습니다.');
+                    window.location.href = '/index.html';
+                },
+                error: function(xhr, status, error) {
+
+                    alert('회원 탈퇴에 실패하였습니다.');
+                    console.error(error);
+                }
+            });
+        } else {
+
+            console.log("회원 탈퇴 취소");
+        }
+    } else {
+        alert('로그인된 사용자 정보가 없습니다.');
+    }
+}
 </script>
 </body>
 </html>
