@@ -73,7 +73,7 @@ VALUES
 ('img1.1.GIF',1,'oneNormalExplain'),
 ('image.png',2,'twoNormalExplain'),
 ('bus0.jpg',3,'oneBigExplain'),
-('img2.1.GIF',4,'twoSmallExplain.html');
+('img2.1.GIF',4,'twoSmallExplain');
 
 -- 비디오
 INSERT INTO 비디오 (video_url,subject_id)
