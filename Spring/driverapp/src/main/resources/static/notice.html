@@ -7,7 +7,6 @@
     <title>공지사항</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/notice.css">
-    <script src="/js/admin.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/logout.js"></script>
 
@@ -26,7 +25,7 @@
         </ul>
         <ul class="menu">
             <li><a href="index.html">HOME</a></li>
-            <li><a href='#' onclick="move()" >MYPAGE</a></li>
+            <li><a href="usermypage.html">MYPAGE</a></li>
             <li><a href="QNA.html">Q&A</a></li>
             <li><a href="notice.html">NOTICE</a></li>
             <li><a href="introduction.html">INTRODUCTION</a></li>
@@ -86,96 +85,105 @@
 <script>
 
     $(document).ready(function() {
-    fetchNotices(); //기존 공지사항 보여줌
+         fetchNotices(); // 기존 공지사항 보여줌
 
-    // 'Enter' 키도 누르면 검색가능
-    $('.search-input').on('keydown', function(event) {
-        if (event.key === 'Enter') {  // 'Enter' 키가 눌렸을 때
-            event.preventDefault();
-            search(event);
-        }
-    });
-});
+         // 로그인 상태 확인하여 공지사항 등록 버튼 표시
+         checkAdminRole();
 
-
-    function fetchNotices() {
-        $.ajax({
-            url: '/api/notice/all',
-            type: 'GET',
-            success: function(data) {
-
-                let noticeList = $('#notice-list');
-                noticeList.empty();
+         // 'Enter' 키도 누르면 검색가능
+         $('.search-input').on('keydown', function(event) {
+             if (event.key === 'Enter') {  // 'Enter' 키가 눌렸을 때
+                 event.preventDefault();
+                 search(event);
+             }
+         });
+     });
 
 
-                data.forEach(function(notice,index) {
-                    let listItem = `
-                        <li>
-                            <span class="number">${index+1}</span>
-                            <p><a href="noticeCheck.html?id=${notice.id}">${notice.title}</a></p>
-                            <span class="author">관리자</span>
-                        </li>
-                    `;
-                    noticeList.append(listItem);
-                });
-            },
-            error: function(error) {
-                console.error("공지사항을 불러오는 데 실패했습니다:", error);
-                alert("공지사항을 불러오는 데 실패했습니다.");
-            }
-        });
-    }
-    $(document).ready(function() {
-        fetchNotices();
-    });
+function checkAdminRole() {
+    const user = sessionStorage.getItem("user");
 
 
-    function search(event) {
-    event.preventDefault();
-
-    let searchWord = $('.search-input').val(); // j쿼리를 쓸때 value가 아닌 val
-
-    // 검색어 없을 때
-    if (searchWord.trim() === "") {
-        alert("검색어를 입력하세요.");
+    if (!user) {
+        $(".register-btn").hide();
         return;
     }
 
+    const userObj = JSON.parse(user);
 
-    $.ajax({
-        url: `/api/notice/title/search/${encodeURIComponent(searchWord)}`,
-        type: 'GET',
-        success: function(data) {
-            let noticeList = $('#notice-list');
-            noticeList.empty();
-
-            if (data.length === 0) {
-                noticeList.append("<li>검색된 공지사항이 없습니다.</li>");
-            } else {
-                // 검색된 공지사항 출력
-                data.forEach(function(notice, index) {
-                    let listItem = `
-                        <li>
-                            <span class="number">${index + 1}</span>
-                            <p><a href="noticeCheck.html?id=${notice.id}">${notice.title}</a></p>
-                            <span class="author">관리자</span>
-                        </li>
-                    `;
-                    noticeList.append(listItem);
-                });
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error("공지사항을 불러오는 데 실패했습니다:", error);
-            alert("해당 게시물이 존재하지 않습니다.");
-        }
-    });
+    if (userObj && userObj.authority === "ADMIN") {
+        $(".register-btn").show();
+    } else {
+        $(".register-btn").hide();
+    }
 }
 
-// 페이지 로드 시 전체 공지사항을 가져옴
-$(document).ready(function() {
-    fetchNotices();
-});
+     function fetchNotices() {
+         $.ajax({
+             url: '/api/notice/all',
+             type: 'GET',
+             success: function(data) {
+                 let noticeList = $('#notice-list');
+                 noticeList.empty();
+
+                 data.forEach(function(notice, index) {
+                     let listItem = `
+                         <li>
+                             <span class="number">${index + 1}</span>
+                             <p><a href="noticeCheck.html?id=${notice.id}">${notice.title}</a></p>
+                             <span class="author">관리자</span>
+                         </li>
+                     `;
+                     noticeList.append(listItem);
+                 });
+             },
+             error: function(error) {
+                 console.error("공지사항을 불러오는 데 실패했습니다:", error);
+                 alert("공지사항을 불러오는 데 실패했습니다.");
+             }
+         });
+     }
+
+     function search(event) {
+         event.preventDefault();
+
+         let searchWord = $('.search-input').val(); // j쿼리를 쓸때 value가 아닌 val
+
+         // 검색어 없을 때
+         if (searchWord.trim() === "") {
+             alert("검색어를 입력하세요.");
+             return;
+         }
+
+         $.ajax({
+             url: `/api/notice/title/search/${encodeURIComponent(searchWord)}`,
+             type: 'GET',
+             success: function(data) {
+                 let noticeList = $('#notice-list');
+                 noticeList.empty(); // 기존에 있던 정보를 비움
+
+                 if (data.length === 0) {
+                     noticeList.append("<li>검색된 공지사항이 없습니다.</li>");
+                 } else {
+                     // 검색된 공지사항 출력
+                     data.forEach(function(notice, index) {
+                         let listItem = `
+                             <li>
+                                 <span class="number">${index + 1}</span>
+                                 <p><a href="noticeCheck.html?id=${notice.id}">${notice.title}</a></p>
+                                 <span class="author">관리자</span>
+                             </li>
+                         `;
+                         noticeList.append(listItem);
+                     });
+                 }
+             },
+             error: function (xhr, status, error) {
+                 console.error("공지사항을 불러오는 데 실패했습니다:", error);
+                 alert("해당 게시물이 존재하지 않습니다.");
+             }
+         });
+     }
 </script>
 
 </body>

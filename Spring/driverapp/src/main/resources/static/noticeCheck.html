@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/noticeCheck.css">
     <script src="/js/logout.js"></script>
-    <script src="/js/admin.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
@@ -23,7 +22,7 @@
         </ul>
         <ul class="menu">
             <li><a href="index.html">HOME</a></li>
-            <li><a href='#' onclick="move()" >MYPAGE</a></li>
+            <li><a href="usermypage.html">MYPAGE</a></li>
             <li><a href="QNA.html">Q&A</a></li>
             <li><a href="notice.html">NOTICE</a></li>
             <li><a href="introduction.html">INTRODUCTION</a></li>
@@ -77,13 +76,10 @@
 </footer>
 
 <script>
-
-
     function getNoticeIdFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('id');
     }
-
 
     function fetchNoticeDetails(noticeId) {
         $.ajax({
@@ -106,7 +102,6 @@
         });
     }
 
-
     function deleteNotice(noticeId) {
         $.ajax({
             url: `/api/admin/notice/delete/${noticeId}`,
@@ -122,16 +117,36 @@
         });
     }
 
+function checkAdminRole() {
+    const user = sessionStorage.getItem("user");
+
+    // "user"가 null 또는 잘못된 경우를 처리할 수 있도록 예외 처리
+    if (!user) {
+        $(".delete-btn").hide();
+        $(".update-btn").hide();
+        return;
+    }
+
+    const userObj = JSON.parse(user);
+
+    if (userObj && userObj.authority === "ADMIN") {
+        $(".delete-btn").show();
+        $(".update-btn").show();
+    } else {
+        $(".delete-btn").hide();
+        $(".update-btn").hide();
+    }
+}
+
     $(document).ready(function() {
         const noticeId = getNoticeIdFromUrl();
         if (noticeId) {
             fetchNoticeDetails(noticeId);
-
+            checkAdminRole();  // 관리자 확인 함수 호출
 
             $('#update-link').on('click', function() {
                 window.location.href = `/noticeupdate.html?id=${noticeId}`;
             });
-
 
             $('#delete-btn').on('click', function() {
                 const confirmDelete = confirm("정말로 이 공지사항을 삭제하시겠습니까?");
@@ -142,6 +157,7 @@
         }
     });
 </script>
+
 
 </body>
 </html>
