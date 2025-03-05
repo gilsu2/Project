@@ -90,6 +90,28 @@
           }
       });
 
+
+
+
+    function go() {
+        const subjectId = getVideoIdFromUrl(); // 현재 URL에서 subjectId를 가져옵니다.
+
+        $.ajax({
+            url: `/api/enrollment/complete/${subjectId}`, // POST 요청 URL
+            type: 'POST',
+            success: function(response) {
+                alert(response);
+                window.location.href = 'usermypage.html'; // 완료 후 홈 화면으로 이동
+            },
+            error: function(error) {
+                alert("수강 완료 처리에 실패했습니다.");
+                console.error(error);
+            }
+        });
+    }
+
+
+
 </script>
 
 

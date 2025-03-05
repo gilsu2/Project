@@ -38,8 +38,8 @@ public class EnrollmentService {
 
     // 유저 -> 모든 수강신청 내역 조회
 
-    public List<EnrollmentDTO> getAllEnrollment() {
-        return enrollmentRepository.findAll().stream().map(Enrollment::TOdto).toList();
+    public List<SubjectVideoDTO> getAllEnrollment() {
+        return enrollmentRepository.findAll().stream().map(Enrollment::TODTO).toList();
     }
 
     // 유저 -> 로그인한 본인이 맞을 경우 과목 ID로 수강신청 내역 조회

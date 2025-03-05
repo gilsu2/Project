@@ -24,7 +24,7 @@ public class EnrollmentController {
 
     // 관리자 -> 로그인 한 사람이 관리자일 경우 모든 수강신청 내역 조회
     @GetMapping("/enrollment/all")
-    private ResponseEntity<List<EnrollmentDTO>> getAllEnrollment(HttpServletRequest request) {
+    private ResponseEntity<List<SubjectVideoDTO>> getAllEnrollment(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자만 수강 신청 조회가 가능합니다.");
@@ -33,7 +33,7 @@ public class EnrollmentController {
         if (!"ADMIN".equals(role)) {
             throw new UnauthorizedUserException("관리자만 모든 수강 신청을 조회할 수 있습니다.");
         }
-        List<EnrollmentDTO> enrollmentList = enrollmentService.getAllEnrollment();
+        List<SubjectVideoDTO> enrollmentList = enrollmentService.getAllEnrollment();
         return new ResponseEntity<>(enrollmentList, HttpStatus.OK);
     }
 
@@ -101,9 +101,12 @@ public class EnrollmentController {
         String username = (String) session.getAttribute("username");
         String role = (String) session.getAttribute("role");
         List<SubjectVideoDTO> enrollmentDTOs;
-
-        enrollmentDTOs = enrollmentService.enrollmentCompleted(username);
-
+        if("ADMIN".equals(role)||"INSTRUCTOR".equals(role)){
+            enrollmentDTOs=enrollmentService.getAllEnrollment();
+        }
+        else {
+            enrollmentDTOs = enrollmentService.enrollmentCompleted(username);
+        }
         return new ResponseEntity<>(enrollmentDTOs, HttpStatus.OK);
     }
 

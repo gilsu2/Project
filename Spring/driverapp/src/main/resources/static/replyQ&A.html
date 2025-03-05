@@ -51,8 +51,9 @@
             <p id="question-author"></p>
         </div>
 
+        <!-- 삭제 버튼 -->
         <div class="gather">
-            <button type="button" id="deleteBtn">삭제</button>
+            <button type="button" id="deleteBtn" style="display:none;">삭제</button> <!-- 삭제 버튼 initially hidden -->
         </div>
 
 
@@ -107,6 +108,63 @@
         </div>
     </div>
 </footer>
+<script>
+    $(document).ready(function () {
+      // 게시글 정보를 서버에서 가져옵니다.
+      const questionId = getQuestionId();  // URL에서 게시글 ID 가져오기
+      $.ajax({
+        url: `/api/board/${questionId}`,  // 게시글 상세 정보를 가져오는 API
+        type: 'GET',
+        success: function (data) {
+          // 게시글 정보가 잘 들어오면, HTML 요소에 데이터 삽입
+          $('#question-title').text(data.title);
+          $('#question-date').text(data.date);
+          $('#question-content').text(data.content);
+          $('#question-author').text(data.author);  // 게시글 작성자 설정
+
+          // 삭제 버튼 표시 여부 확인
+          checkDeleteButtonVisibility(data.author);
+        },
+        error: function (error) {
+          console.error("게시글 정보를 불러오는 데 실패했습니다:", error);
+          alert("게시글 정보를 불러오는 데 실패했습니다.");
+        }
+      });
+
+      // 삭제 버튼 표시 여부 확인
+      function checkDeleteButtonVisibility(questionAuthor) {
+        const user = sessionStorage.getItem("user");  // 로그인한 사용자 정보 가져오기
+
+        // 로그인하지 않은 경우 삭제 버튼 숨김
+        if (!user) {
+          $("#deleteBtn").hide();
+          return;
+        }
+
+        const userObj = JSON.parse(user);  // 로그인한 사용자 정보
+        console.log("로그인한 사용자:", userObj.username);  // 디버깅용 출력
+        console.log("게시글 작성자:", questionAuthor);  // 디버깅용 출력
+
+        // 관리자 권한을 가진 경우
+        if (userObj.authority === "ADMIN") {
+          $("#deleteBtn").show();
+        }
+        // 게시글 작성자와 로그인한 사용자가 일치하면 삭제 버튼 표시
+        else if (userObj.username === questionAuthor) {
+          $("#deleteBtn").show();
+        } else {
+          $("#deleteBtn").hide();
+        }
+      }
+
+      // 게시글 ID를 URL에서 가져오는 함수 예시
+      function getQuestionId() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('id');  // URL에서 'id' 파라미터 값 가져오기
+      }
+    });
+</script>
+
 
 </body>
 </html>
