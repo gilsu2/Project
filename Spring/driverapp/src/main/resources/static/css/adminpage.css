@@ -18,6 +18,7 @@ section .inner .box1 {
     padding-bottom: 50px;
 
 
+
 }
 
 section .inner .box1 h1 {
@@ -27,8 +28,7 @@ section .inner .box1 h1 {
 }
 
 section .inner .box1 table {
-    width: 980px;
-    height: 400px;
+    width: 1100px;
     margin: 0px auto;
     border-collapse: collapse;
     border: 2px solid #1f1f1f;
@@ -38,21 +38,19 @@ section .inner .box1 table {
 
 
 section .inner .box1 table th {
-    color: #1f1f1f;
-    background-color: rgb(175, 175, 170);
+     color: #1f1f1f;
+     margin: 0 auto;
+     padding:15px;
+     background-color: rgb(175, 175, 170);
 }
 
 section .inner .box1 table td {
-    text-align: center;
-    color: #222225;
-    font: bold 14px/1 "arial";
+   color: #222225;
+   text-align: center;
+   padding:12px;
+   font: bold 14px/1 "arial";
 }
-/* 스크롤 추가: tbody에 스크롤 */
-section .inner .box1 tbody {
-    display: block;
-    max-height: 300px; /* 높이는 적절히 조정 가능 */
-    overflow-y: auto;  /* 세로 스크롤 활성화 */
-}
+
 
 section .inner .box2 {
     padding-bottom: 50px;
@@ -66,7 +64,6 @@ section .inner .box2 h1{
 }
 section .inner .box2 table {
     width: 600px;
-    height: 400px;
     margin: 0px auto;
     border-collapse: collapse;
     border: 2px solid #1f1f1f;
@@ -75,22 +72,20 @@ section .inner .box2 table {
 
 }
 section .inner .box2 table th {
-    color: #1f1f1f;
-    margin: 0 auto;
-    background-color: rgb(175, 175, 170);
+     color: #1f1f1f;
+     margin: 0 auto;
+     padding:15px;
+     background-color: rgb(175, 175, 170);
 }
 
 section .inner .box2 table td {
-    text-align: center;
-    color: #222225;
-    font: bold 14px/1 "arial";
+   color: #222225;
+   text-align: center;
+   padding:12px;
+   font: bold 14px/1 "arial";
 }
 
-section .inner .box2 tbody {
-    display: block;
-    max-height: 300px; /* 높이는 적절히 조정 가능 */
-    overflow-y: auto;  /* 세로 스크롤 활성화 */
-}
+
 section .inner .box3 {
     padding-bottom: 50px;
 
@@ -124,13 +119,9 @@ section .inner .box3 table td {
     font: bold 14px/1 "arial";
 }
 
-/* 스크롤 추가: tbody에 스크롤 */
-section .inner .box3 tbody {
-    display: block;
-    max-height: 300px; /* 높이는 적절히 조정 가능 */
-    overflow-y: auto;  /* 세로 스크롤 활성화 */
-}
+
 section .inner .box3 .label {
 text-align: center;
     padding-bottom:10px;
 }
+
