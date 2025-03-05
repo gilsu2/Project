@@ -27,20 +27,24 @@
     </ul>
     <ul class="menu">
       <li><a href="index.html">HOME</a></li>
-      <li><a href='#' onclick="move()" >MYPAGE</a></li>
+      <li><a href='#' onclick="move()">MYPAGE</a></li>
       <li><a href="QNA.html">Q&A</a></li>
       <li><a href="notice.html">NOTICE</a></li>
       <li><a href="introduction.html">INTRODUCTION</a></li>
     </ul>
   </div>
 </header>
+
 <figure>
   <div class="board">
     <h1>Q&A게시판</h1>
+
     <ul class="search">
-      <form action="/member/search" method="get">
-        <input type="text" name="text">
-        <button type="submit">검색</button>
+      <form action="#" method="get">
+        <div class="search-container">
+          <input class="search-input" type="text" name="search-word" placeholder="검색어를 입력하세요" required>
+          <button class="search-btn" type="button" onclick="search(event)">검색</button>
+        </div>
       </form>
     </ul>
 
@@ -51,9 +55,6 @@
     </ul>
 
     <ul class="question" id="question"></ul>
-
-
-
 
     <div class="post">
       <button type="save" onclick="location.href='QNAadd.html'">등록</button>
@@ -76,11 +77,8 @@
       <button type="pass">&gt&gt</button>
     </div>
   </div>
-
-
-
-
 </figure>
+
 <footer>
   <div class="inner">
     <div class="upper">
@@ -107,6 +105,91 @@
   </div>
 </footer>
 
+<script>
+  function search(event) {
+    event.preventDefault();  // 폼 제출 기본 동작을 막습니다.
+
+    let searchWord = $('.search-input').val();  // 검색어 입력 값 가져오기
+
+    // 검색어가 없을 경우
+    if (searchWord.trim() === "") {
+      alert("검색어를 입력하세요.");
+      return;
+    }
+
+    // AJAX로 검색 요청 보내기
+    $.ajax({
+      url: `/api/board/title/search/${encodeURIComponent(searchWord)}`,  // 서버 경로에 맞게 수정
+      type: 'GET',
+      success: function(data) {
+        console.log(data);
+        let question = $('#question');
+        question.empty();  // 기존 데이터를 비운 후 새로운 검색 결과를 추가
+
+        // 검색 결과가 없을 경우
+        if (data.length === 0) {
+          question.append("<li>검색된 Q&A가 없습니다.</li>");
+        } else {
+          data.forEach(function(board, index) {
+            let listItem = `
+              <li>
+                <a href="javascript:void(0)">
+                  <span class="next">${index + 1}</span>
+                  <span class="title-text">${board.title}</span>
+                  <span class="author">${board.author}</span>
+                </a>
+                <div class="answer">
+                  <ul>
+                    <li class="co1" onclick="location.href='replyQ&A.html?id=${board.id}';"> ${board.title}</li>
+                    <li class="co2" onclick="location.href='replyQ&A.html?id=${board.id}';">${board.content}</li>
+                    <button type="button" onclick="location.href='correctionQ&A.html?id=${board.id}';">수정</button>
+                  </ul>
+                </div>
+              </li>
+            `;
+            question.append(listItem);
+          });
+
+          // 슬라이딩 이벤트 추가 (기존과 동일)
+          $('figure a').click(function (e) {
+            e.preventDefault();
+            var answer = $(this).next('.answer');
+            var allAnswers = $('.answer');
+
+            allAnswers.not(answer).stop(true, true).animate({
+              maxHeight: '0',
+              opacity: 0
+            }, 500);
+
+            if (answer.css('max-height') === '0px' || answer.css('opacity') === '0') {
+              answer.stop(true, true).animate({
+                maxHeight: answer.prop('scrollHeight') + 'px',  // 내용에 맞게 높이 동적 설정
+                opacity: 1
+              }, 500);
+            } else {
+              answer.stop(true, true).animate({
+                maxHeight: '0',
+                opacity: 0
+              }, 500);
+            }
+          });
+        }
+      },
+      error: function(error) {
+        console.error("Q&A 게시물을 불러오는 데 실패했습니다:", error);
+        alert("Q&A 게시물을 불러오는 데 실패했습니다.");
+      }
+    });
+  }
+
+
+  $('.search-input').on('keypress', function(event) {
+    if (event.key === 'Enter') {
+      search(event);
+    }
+  });
+
+</script>
 </body>
 
 </html>
