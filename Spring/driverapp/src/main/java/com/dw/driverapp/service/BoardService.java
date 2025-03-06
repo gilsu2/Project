@@ -75,18 +75,35 @@ public class BoardService {
     }
 
     // 유저- 로그인 중인 회원의 게시글 삭제
+    public BoardDTO deleteBoard(Long id) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Board not found"));
+
+        // 관리자라면 모든 게시글을 삭제할 수 있음
+        board.setTitle("삭제된 게시글입니다.");
+        board.setContent("해당 게시글은 관리자에 의해 삭제되었습니다.");
+        board.setModifiedDate(LocalDateTime.now());
+        Board updatedBoard = boardRepository.save(board);
+        return updatedBoard.toDTO();
+    }
+
+    // 유저- 로그인 중인 회원의 게시글 삭제 (일반 사용자)
     public BoardDTO deleteBoard(Long id, String username) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Board not found"));
+
+        // 사용자가 작성한 게시글만 삭제할 수 있음
         if (!board.getAuthor().getUserName().equals(username)) {
             throw new UnauthorizedUserException("본인이 작성한 게시글만 삭제할 수 있습니다.");
         }
+
         board.setTitle("삭제된 게시글입니다.");
         board.setContent("해당 게시글은 사용자가 의해 삭제되었습니다.");
         board.setModifiedDate(LocalDateTime.now());
         Board updatedBoard = boardRepository.save(board);
         return updatedBoard.toDTO();
     }
+
 
 
 
@@ -116,13 +133,5 @@ public class BoardService {
         return boardAllDTOList;
     }
 
-    public List<BoardDTO> getPage(int limit, int offset){
-        List<Board> boards = boardRepository.findBoardsByRecentOrder(limit, offset);
-        return boards.stream().map(Board::toDTO).collect(Collectors.toList());
-    }
 
-    public Integer getTotalPages(){
-        List<Board> boards = boardRepository.findAll();
-        return boards.size();
-    }
 }

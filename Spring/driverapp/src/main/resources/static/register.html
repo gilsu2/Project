@@ -140,7 +140,7 @@
             success: function (response) {
                 console.log("회원가입 성공:", response);
                 sessionStorage.setItem("user", JSON.stringify(data));
-                alert("회원가입이 완료되었습니다.");
+                alert("회원가입 성공 100,000P 지급");
                 window.location.href = '/login.html';
             },
             error: function (xhr, status, error) {
