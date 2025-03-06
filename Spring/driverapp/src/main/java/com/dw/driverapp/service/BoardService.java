@@ -75,6 +75,7 @@ public class BoardService {
     }
 
     // 유저- 로그인 중인 회원의 게시글 삭제
+    // 유저- 로그인 중인 회원의 게시글 삭제
     public BoardDTO deleteBoard(Long id) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Board not found"));
@@ -106,7 +107,6 @@ public class BoardService {
 
 
 
-
     // 유저- 로그인 중인 회원의 게시글 수정
     public BoardDTO updateBoard(Long id, BoardDTO boardDTO, String username) {
         Board board = boardRepository.findById(id)
@@ -133,5 +133,13 @@ public class BoardService {
         return boardAllDTOList;
     }
 
+    public List<BoardDTO> getPage(int limit, int offset){
+        List<Board> boards = boardRepository.findBoardsByRecentOrder(limit, offset);
+        return boards.stream().map(Board::toDTO).collect(Collectors.toList());
+    }
 
+    public Integer getTotalPages(){
+        List<Board> boards = boardRepository.findAll();
+        return boards.size();
+    }
 }

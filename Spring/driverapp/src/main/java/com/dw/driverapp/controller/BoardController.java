@@ -94,13 +94,22 @@ public class BoardController {
 
     // 유저- 로그인한 사용자가 올린 게시글만 조회
     @GetMapping("/board/login/all")
-    public ResponseEntity<List<BoardAllDTO>> loginBoardAll (HttpServletRequest request){
+    public ResponseEntity<List<BoardAllDTO>> loginBoardAll(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             throw new UnauthorizedUserException("로그인한 사용자의 글이 아닙니다.");
         }
         String username = (String) session.getAttribute("username");
-        return new ResponseEntity<>(boardService.loginBoardAll(username),HttpStatus.OK);
+        return new ResponseEntity<>(boardService.loginBoardAll(username), HttpStatus.OK);
     }
 
+    @GetMapping("/board/pass/{limit}/{offset}")
+    public ResponseEntity<List<BoardDTO>> getPage(@PathVariable int limit, @PathVariable int offset) {
+        return new ResponseEntity<>(boardService.getPage(limit, offset),HttpStatus.OK);
+    }
+
+    @GetMapping("/board/pass/total")
+    public ResponseEntity<Integer> getTotalPages() {
+        return new ResponseEntity<>(boardService.getTotalPages(),HttpStatus.OK);
+    }
 }
