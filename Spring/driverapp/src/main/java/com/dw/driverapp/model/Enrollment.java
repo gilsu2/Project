@@ -28,7 +28,7 @@ public class Enrollment {
     @JoinColumn(name="subject_id")
     private Subject subject;
     @Column(name="subject_price")
-    private Double subjectPrice;
+    private Double price;
     @Column(name="purchase_time")
     private LocalDate purchaseTime;
     @Column(name = "completed", nullable = false)

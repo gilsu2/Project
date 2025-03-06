@@ -129,21 +129,21 @@ VALUES
 
 INSERT INTO 수강신청 (user_name, subject_id, purchase_time, subject_price, completed)
 VALUES
-('pororo', 1 ,'2025-01-02 10:00:00',10000,0),
-('pororo', 2 ,'2025-01-02 11:00:00',10000,0),
-('pororo',3,'2025-01-03 11:00:00',10000,1),
-('fourbie', 1 ,'2025-01-02 10:00:00',10000,0),
-('fourbie', 2 ,'2025-01-02 11:00:00',10000,0),
-('fourbie',4,'2025-01-03 11:00:00',10000,1),
-('totoro', 1 ,'2025-01-02 10:00:00',10000,0),
-('totoro', 2 ,'2025-01-02 11:00:00',10000,0),
-('totoro',3,'2025-01-03 11:00:00',10000,1),
-('totoro', 4 ,'2025-01-02 10:00:00',10000,0),
-('tom', 1 ,'2025-01-02 11:00:00',10000,0),
-('tom',3,'2025-01-03 11:00:00',10000,1),
-('steve', 2 ,'2025-01-02 10:00:00',10000,0),
-('gerry', 1 ,'2025-01-02 11:00:00',10000,0),
-('tomas',1,'2025-01-03 11:00:00',10000,1);
+('pororo', 1 ,'2025-01-02 ',10000,0),
+('pororo', 2 ,'2025-01-02 ',10000,0),
+('pororo',3,'2025-01-03 ',10000,1),
+('fourbie', 1 ,'2025-01-02 ',10000,0),
+('fourbie', 2 ,'2025-01-02 ',10000,0),
+('fourbie',4,NOW(),10000,1),
+('totoro', 1 ,'2025-01-02 ',10000,0),
+('totoro', 2 ,NOW(),10000,0),
+('totoro',3,'2025-01-03 ',10000,1),
+('totoro', 4 ,'2025-01-02 ',10000,0),
+('tom', 1 ,NOW(),10000,0),
+('tom',3,'2025-01-03 ',10000,1),
+('steve', 2 ,NOW(),10000,0),
+('gerry', 1 ,NOW(),10000,0),
+('tomas',1,NOW(),10000,1);
 
 
 
@@ -201,9 +201,9 @@ VALUES
 --ALTER TABLE 공지사항 AUTO_INCREMENT = 1;
 
 
---ALTER TABLE 장바구니 DROP FOREIGN KEY FK143xiyeukn5pxyutgd5hdekjs;
---ALTER TABLE 장바구니 DROP INDEX UKko5l80niauxjt6seh7wtws999;
---
---ALTER TABLE 장바구니 DROP FOREIGN KEY FK19yn8cr9b97eobdv7fkojxcst;
---ALTER TABLE 장바구니 DROP INDEX UKmcfbxhp457ldnb04irg14pcjj;
+ALTER TABLE 장바구니 DROP FOREIGN KEY FK143xiyeukn5pxyutgd5hdekjs;
+ALTER TABLE 장바구니 DROP INDEX UKko5l80niauxjt6seh7wtws999;
+
+ALTER TABLE 장바구니 DROP FOREIGN KEY FK19yn8cr9b97eobdv7fkojxcst;
+ALTER TABLE 장바구니 DROP INDEX UKmcfbxhp457ldnb04irg14pcjj;
 
