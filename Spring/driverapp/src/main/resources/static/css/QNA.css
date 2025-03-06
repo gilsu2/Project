@@ -204,20 +204,6 @@ figure .board .number{
     font-size: bold 15px/1 "arial";
     text-align: center;
 }
-figure .board .number .num{
-    width: 40px;
-    padding: 6px;
-    font-size: 13px;
-    background-color: #eee;
-    color: #333;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-figure .board .number .num:hover{
-    background-color: #999;
-}
 
 figure .board .number button {
     width: 40px;

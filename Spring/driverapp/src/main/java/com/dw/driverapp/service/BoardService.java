@@ -116,5 +116,13 @@ public class BoardService {
         return boardAllDTOList;
     }
 
+    public List<BoardDTO> getPage(int limit, int offset){
+        List<Board> boards = boardRepository.findBoardsByRecentOrder(limit, offset);
+        return boards.stream().map(Board::toDTO).collect(Collectors.toList());
+    }
 
+    public Integer getTotalPages(){
+        List<Board> boards = boardRepository.findAll();
+        return boards.size();
+    }
 }
