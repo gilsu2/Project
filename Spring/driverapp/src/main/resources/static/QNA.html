@@ -57,25 +57,31 @@
     <ul class="question" id="question"></ul>
 
     <div class="post">
-      <button type="save" onclick="location.href='QNAadd.html'">등록</button>
+          <button type="save" onclick="location.href='QNAadd.html'">
+            등록
+          </button>
     </div>
 
     <div class="number">
-      <button type="pass">&lt&lt</button>
-      <button type="pass">&lt</button>
-      <button class="num">1</button>
-      <button class="num">2</button>
-      <button class="num">3</button>
-      <button class="num">4</button>
-      <button class="num">5</button>
-      <button class="num">6</button>
-      <button class="num">7</button>
-      <button class="num">8</button>
-      <button class="num">9</button>
-      <button class="num">10</button>
-      <button type="pass">&gt</button>
-      <button type="pass">&gt&gt</button>
-    </div>
+          <button id="prevOne" onclick="goToPage(currentPage - 1)">&lt</button>
+          <span id="currentPage">1</span> / <span id="totalPages">0</span>
+          <button id="nextOne" onclick="goToPage(currentPage + 1)">&gt</button>
+        </div>
+        <!--      <button type="pass">&lt&lt</button>-->
+        <!--      <button type="pass">&lt</button>-->
+        <!--      <button class="num">1</button>-->
+        <!--      <button class="num">2</button>-->
+        <!--      <button class="num">3</button>-->
+        <!--      <button class="num">4</button>-->
+        <!--      <button class="num">5</button>-->
+        <!--      <button class="num">6</button>-->
+        <!--      <button class="num">7</button>-->
+        <!--      <button class="num">8</button>-->
+        <!--      <button class="num">9</button>-->
+        <!--      <button class="num">10</button>-->
+        <!--      <button type="pass">&gt</button>-->
+        <!--      <button type="pass">&gt&gt</button>-->
+        <!--    </div>-->
   </div>
 </figure>
 
