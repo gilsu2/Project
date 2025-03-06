@@ -52,7 +52,7 @@ public class UserService {
                 authorityRepository.findById("User")
                         .orElseThrow(() -> new ResourceNotFoundException("NO ROLE")),
                 LocalDate.now(),
-                10000,
+                100000,
                 LocalDate.now()
         );
 

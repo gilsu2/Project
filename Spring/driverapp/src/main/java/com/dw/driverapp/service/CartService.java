@@ -79,34 +79,56 @@ public class CartService {
 
 
     // 유저- 로그인한 회원의 장바구니에서 과목아이디로 구매(자동으로 유저의 포인트에서 과목의 가격을 계산)
+    // 유저- 로그인한 회원의 장바구니에서 과목아이디로 구매(자동으로 유저의 포인트에서 과목의 가격을 계산)
     public void cartEnrollment(String username, List<Long> cartIds) {
-        List<Cart> cartList = cartRepository.findByUser_UserNameAndIdIn(username, cartIds); // 여러 ID로 장바구니 항목 찾기
+        // 해당 사용자와 일치하는 장바구니 항목들을 여러 ID로 찾기
+        List<Cart> cartList = cartRepository.findByUser_UserNameAndIdIn(username, cartIds);
         if (cartList.isEmpty()) {
             throw new ResourceNotFoundException("해당 과목들이 장바구니에 없습니다.");
         }
 
+        // 사용자 정보를 조회
         User user = userRepository.findByUserName(username)
                 .orElseThrow(() -> new ResourceNotFoundException("사용자를 찾을 수 없습니다."));
-        int userPoint = user.getPoint();
+        int userPoint = user.getPoint();  // 사용자의 포인트 (최초 포인트)
 
-        // 각 항목에 대해 구매 로직 처리
+        int totalPointsRequired = 0;  // 총 필요 포인트를 누적
+
+        // 각 항목에 대해 구매 처리
         for (Cart cart : cartList) {
             Subject subject = cart.getSubject();
-            int subjectPrice = (int) subject.getPrice();
+            int subjectPrice = (int) subject.getPrice();  // 과목 가격
 
-            if (userPoint < subjectPrice) {
-                throw new InsufficientFundsException("포인트가 부족하여 결제할 수 없습니다.");
-            }
+            // 총 필요한 포인트를 누적
+            totalPointsRequired += subjectPrice;
+        }
 
+        // 포인트가 부족한 경우 예외 처리
+        if (userPoint < totalPointsRequired) {
+            throw new InsufficientFundsException("포인트가 부족하여 결제할 수 없습니다.");
+        }
+
+        // 각 항목에 대해 포인트 차감 및 구매 처리
+        for (Cart cart : cartList) {
+            Subject subject = cart.getSubject();
+            int subjectPrice = (int) subject.getPrice();  // 과목 가격
+
+            // 포인트 차감
             user.setPoint(userPoint - subjectPrice);
             userRepository.save(user);
 
+            // 구매 내역 저장
             Enrollment enrollment = new Enrollment();
             enrollment.setUser(cart.getUser());
             enrollment.setSubject(cart.getSubject());
             enrollment.setPurchaseTime(LocalDate.now());
             enrollmentRepository.save(enrollment);
-            cartRepository.delete(cart);  // 장바구니에서 해당 항목 삭제
+
+            // 장바구니에서 해당 항목 삭제
+            cartRepository.delete(cart);
+
+            // 다음 항목을 위한 포인트 갱신
+            userPoint -= subjectPrice; // 각 항목마다 차감한 후 남은 포인트 갱신
         }
     }
 
