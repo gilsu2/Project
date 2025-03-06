@@ -123,3 +123,26 @@ section .inner1 .util li {
     font: bold 16px/1 "arial";
     color: #444447;
 }
+
+section .numbers{
+    width: 100%;
+    align-self: center;
+    padding-top: 100px;
+    font-size: bold 15px/1 "arial";
+    text-align: center;
+}
+
+section .numbers button {
+    width: 40px;
+    padding: 6px;
+    font-size: 13px;
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+section .numbers button:hover{
+    background-color: #888;
+}
