@@ -27,9 +27,8 @@ public class Enrollment {
     @ManyToOne
     @JoinColumn(name="subject_id")
     private Subject subject;
-    @ManyToOne
-    @JoinColumn(name="subject_price")
-    private Subject price;
+    @Column(name="subject_price")
+    private Double subjectPrice;
     @Column(name="purchase_time")
     private LocalDate purchaseTime;
     @Column(name = "completed", nullable = false)
