@@ -207,3 +207,9 @@ ALTER TABLE 장바구니 DROP INDEX UKko5l80niauxjt6seh7wtws999;
 ALTER TABLE 장바구니 DROP FOREIGN KEY FK19yn8cr9b97eobdv7fkojxcst;
 ALTER TABLE 장바구니 DROP INDEX UKmcfbxhp457ldnb04irg14pcjj;
 
+
+ALTER TABLE 수강신청
+DROP FOREIGN KEY FKteors55onihkd9eem6h2tdy7j;
+
+ALTER TABLE 수강신청
+ADD CONSTRAINT FKteors55onihkd9eem6h2tdy7j FOREIGN KEY (user_name) REFERENCES 사용자 (user_name) ON DELETE CASCADE;
